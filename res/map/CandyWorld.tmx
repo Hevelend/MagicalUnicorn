@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="79" height="13" tilewidth="70" tileheight="70" nextobjectid="1">
+ <tileset firstgid="1" name="CandyWorld_Sheet" tilewidth="70" tileheight="70">
+  <image source="tuiles/CandyWorld_Sheet.png" width="980" height="490"/>
+ </tileset>
+ <tileset firstgid="99" name="scroll_bg_far" tilewidth="70" tileheight="70">
+  <image source="tuiles/scroll_bg_far.png" width="5581" height="720"/>
+ </tileset>
+ <tileset firstgid="889" name="solid" tilewidth="70" tileheight="70" spacing="1">
+  <image source="tuiles/solid70.png" width="360" height="360"/>
+ </tileset>
+ <layer name="Background_Image" width="79" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3Tg7IYhgJF0ftip7HRxradNLZt27Zt27Zt27Ztu+s33kz2nPUJp35AQEADGtKIxjShKc1oTgta0orWtKEt7WhPBzrSic50oSvd6E4PetKL3vShL/3ozwAGMojBDGEowxjOCEYyitGMYSzjGM8EJjKJyUxhKtOYzgxmMovZzGEu85jPAhayiMUsYSnLWM4KVrKK1axhLetYzwY2sonNbGEr29jODnayi93sYS/72M8BDnKIwxzhKMc4zglOcorTnOEs5zjPBS5yictc4SrXuM4NbnKL29zhLve4zwMe8ojHPOEpz3jOC17yite84S3veM8HPvKJz3zhK9/4zg9+8ovfBPzPCERgghCUYAQnBCEJRWjCEJZwhOcvIhCRSEQmClGJRnRiEJNYxCYOcYlHfP7mHxKQkEQkJglJSUZyUpCSVKQmDWlJR3oykJFMZCYLWclGdnKQk1zkJg95yUd+CvAvBSlEYYpQlGIUpwQlKUVpylCWcpSnAhWpRGWqUJVqVKcGNalFbepQl3rUpwENaURjmtCUZjSnBS1pRWva0JZ2tKcDHelEZ7rQlW50pwc96UVv+tCXfvRnAAMZxGCGMJRhDGcEIxnFaMYwlnGMZwITmcRkpjCVaUxnBjOZxWzmMJd5zGcBC1nEYpawlGUsZwUrWcVq1rCWdaxnAxvZxGa2sJVtbGcHO9nFbvawl33s5wAHOcRhjnCUYxznBCc5xWnOcJZznOcCF7nEZa5wlWtc5wY3ucVt7nCXe9znAQ95xGOe8JRnPOcFL3nFa97wlne85wMf+cRnvvCVb3znBz/5xW8CAvk/gQhMEIISjOCEICShCE0YwhKO8PxFBCISichEISrRiE4MYhKL2MQhLvGIz9/8QwISkojEJCEpyUhOClKSitSkIS3pSE8GMpKJzGQhK9nITg5ykovc5CEv+chPAf6lIIUoTBGKUozilKAkpShNGcpSjvJUoCKVqEwVqlKN6tSgJrWoTR3qUo/6NKAhjWhME5rSjOa0oCWtaE0b2tKO9nSgI53oTBe60o3u9KAnvehNH/rSj/4MYCCDGMwQhjKM4YxgJKMYzRjGMo7xTGAik5jMFKYyjenMYCazmM0c5jKP+SxgIYtYzBKWsozlrGAlq1jNGtayjvVsYCOb2MwWtrKN7exgJ7vYzR72so/9HOAghzjMEY5yjOOc4CSnOM0ZznKO81zgIpe4zBWuco3r3OAmt7jNHe5yj/s84CGPeMwTnvKM57zgJa94zRve8o73fOAjn/jMF77yje/84Ce/+E1AYP8nEIEJQlCCEZwQhCQUoQlDWMIRnr+IQEQiEZkoRCUa0YlBTGIRmzjEJR7x+Zt/SEBCEpGYJCQlGclJQUpSkZo0pCUd6clARjKRmSxkJRvZyUFOcpGbPOQlH/kpwL8UpBCFKUJRilGcEpSkFKUpQ1nKUZ4KVKQSlalCVapRnRrUpBa1qUNd6lGfBjSkEY1pQlOa0ZwWtKQVrWlDW9rRng50pBOd6RI44E9/+tP/Wf8BOhMJoAwQAAA=
+  </data>
+ </layer>
+ <layer name="Background" width="79" height="13" opacity="0.8">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkYBvYAnHjk+urliaAKPAbTbdwDtpgYgNuysgdiVTDuccIj7MAzt8AOFnSMR6sKAOJgM83mBOACHnA8Uj4JRMApGAS0AAJet6DcMEAAA
+  </data>
+ </layer>
+ <layer name="Plateau" width="79" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjYBSMglEwCkYBrQDLQDtgCANBBuLDjweIJYFYCoc8B9QsbFiEMmcOSiAIxZQCULiJIZmHjocjoIbf2Bjwh9twDztceW0U48b40sooHsW0wgDN37KFDBAAAA==
+  </data>
+ </layer>
+ <layer name="solid" width="79" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3QQQoAIAgFUcFTB9HZo5UbiRZGmPNgtpFfBAAA3NL09Q/yWtud7jfU8nS197x+E3VXtd2WiNt2m1XYjohyNAGUdd6JDBAAAA==
+  </data>
+ </layer>
+</map>
