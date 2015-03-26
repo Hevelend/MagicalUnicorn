@@ -10,6 +10,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import ca.magical.unicorn.camera.Camera;
+import ca.magical.unicorn.characters.FatBunny;
 import ca.magical.unicorn.characters.Unicorn;
 import ca.magical.unicorn.maps.CandyWorld;
 
@@ -17,7 +18,7 @@ public class WindowGame extends BasicGameState {
 	public static final int ID = 1;
 	private GameContainer container;
 	CandyWorld map;
-	Unicorn character;
+	FatBunny character;
 	Camera cam;
 
 	@Override
@@ -71,10 +72,11 @@ public class WindowGame extends BasicGameState {
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
     	this.container = container;
     	this.map = new CandyWorld(); // On charge la map candyworld
-    	this.character = new Unicorn(140,575);
+    	this.character = new FatBunny(145,642); 
+    	// this.character = new Unicorn(140,575); // debug position départ licorne
     	this.cam = new Camera(character.getX(), character.getY());
     	
-    	character.initUnicorn();
+    	character.initFatBunny();
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
