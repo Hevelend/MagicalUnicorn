@@ -9,7 +9,7 @@ import org.newdawn.slick.tiled.TiledMap;
 
 public class CandyWorld {
 	private TiledMap map;
-	ArrayList<ColliderCoord> coordList = new ArrayList<>();
+//	ArrayList<ColliderCoord> coordList = new ArrayList<>();
 	
 	public CandyWorld(){
 		try {
@@ -18,24 +18,25 @@ public class CandyWorld {
 			e.printStackTrace();
 		}
 		
-		for(int i = 0; i < this.getMapTiledHeight(); i ++){
-			for(int j = 0; j < this.getMapTiledWidth(); j ++){
-				Image tile = this.getMapTileImage((int) j / this.getMapWidth(), (int) i / this.getMapHeight(), this.map.getLayerIndex("solid"));
-		        boolean collision = tile != null;
-		        if (collision) {
-		        	ColliderCoord coord = new ColliderCoord();
-		            Color color = tile.getColor((int) j % this.getMapWidth(), (int) i % this.getMapHeight());
-		            if(color.getAlpha() > 0) {
-		            	coord = new ColliderCoord(j, i, true);
-		            	System.out.println("\n PLOOOOOOOOOOOOOOOOOOOP");
-		            } else {
-		            	coord = new ColliderCoord(j, i, false);
-		            	System.out.println("\n PLIIIIIIIIIIIIIIIIIIIP");
-		            }
-		            coordList.add(coord);
-		        }
-			}
-		}
+//		for(int i = 0; i <= this.map.getHeight(); i ++){
+//			for(int j = 0; j <= this.map.getWidth(); j ++){
+//				Image tile = this.map.getTileImage((int) j / this.map.getTileWidth(), (int) i / this.map.getTileHeight(), this.map.getLayerIndex("plateau"));
+//				boolean collision = tile != null;
+//		        if (collision) {
+//		        	System.out.println("\n BWAAAAAAAAAAAAAAAAAAA");
+//		        	ColliderCoord coord = new ColliderCoord();
+//		            Color color = tile.getColor((int) j % this.map.getTileWidth(), (int) i % this.map.getTileHeight());
+//		            if(color.getBlue() > 0 && color.getRed() > 0 && color.getGreen() > 0) {
+//		            	coord = new ColliderCoord(j, i, true);
+//		            	System.out.println("\n PLOOOOOOOOOOOOOOOOOOOP");
+//		            } else {
+//		            	coord = new ColliderCoord(j, i, false);
+//		            	System.out.println("\n PLIIIIIIIIIIIIIIIIIIIP");
+//		            }
+//		            coordList.add(coord);
+//		        }
+//			}
+//		}
 	}
 
 	public TiledMap getMap() {
@@ -72,20 +73,20 @@ public class CandyWorld {
 		this.map.render(0, 0, 2);
 	}
 	
-	public boolean isCollision(int x, int y){
-		boolean ifCollision = false;
-		
-		System.out.println("\n");
-		System.out.println("------------------------------------------------------------");
-		System.out.println("\n");
-		for (ColliderCoord coord : coordList) {
-			System.out.println("Coord : " + coord.getX() + " / " + coord.getY() + " -> " + coord.isCollider());
-			System.out.println("\n");
-			if(coord.getX() == x && coord.getY() == y){
-				ifCollision = coord.isCollider();
-			}
-		}
-		
-		return ifCollision;
-	}
+//	public boolean isCollision(int x, int y){
+//		boolean ifCollision = false;
+//		
+//		System.out.println("\n");
+//		System.out.println("------------------------------------------------------------");
+//		System.out.println("\n");
+//		for (ColliderCoord coord : coordList) {
+//			System.out.println("Coord : " + coord.getX() + " / " + coord.getY() + " -> " + coord.isCollider());
+//			System.out.println("\n");
+//			if(coord.getX() == x && coord.getY() == y){
+//				ifCollision = coord.isCollider();
+//			}
+//		}
+//		
+//		return ifCollision;
+//	}
 }
