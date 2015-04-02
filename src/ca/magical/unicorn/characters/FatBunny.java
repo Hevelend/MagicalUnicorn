@@ -16,6 +16,7 @@ public class FatBunny {
 	private boolean moveAfterJump = false; // True = la licorne courrais avant le saut
 	private int jumpingTimer = 0, decrementTimer = 40; // Temporisation du saut
 	private Animation[] animations = new Animation[8]; // Taille de l'animation
+	private int Health = 2; // Vie du joueur
 	
 	
 	public FatBunny(float _x, float _y) {
@@ -161,6 +162,14 @@ public class FatBunny {
     
     public void setOldDirection (int oldDirection){
     	this.oldDirection= oldDirection;
+    }
+    
+    public int getHealth(){
+    	return this.Health;
+    }
+    
+    public void setHealth(int _Health){
+    	Health = _Health;
     }
 
 }

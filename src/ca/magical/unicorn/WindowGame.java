@@ -18,6 +18,7 @@ public class WindowGame extends BasicGameState {
 	public static final int ID = 1;
 	private GameContainer container;
 	CandyWorld map;
+	// Unicorn character;
 	FatBunny character;
 	Camera cam;
 
@@ -77,6 +78,7 @@ public class WindowGame extends BasicGameState {
     	this.cam = new Camera(character.getX(), character.getY());
     	
     	character.initFatBunny();
+    	// character.initUnicorn();
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
@@ -105,7 +107,7 @@ public class WindowGame extends BasicGameState {
 		float futurY = character.getFuturY(delta);
 		
     	if (character.isMoving()) {
-			boolean collision = isCollision(futurX, futurY);
+			boolean collision = map.isCollision((int) futurX,(int) futurY);
 			if (collision) {
 				character.setMoving(false);;
 			} else {
@@ -115,16 +117,18 @@ public class WindowGame extends BasicGameState {
 		}
     }
     
-    private boolean isCollision(float x, float y) {
-        int tileW = map.getMapTiledWidth();
-        int tileH = map.getMapTiledHeight();
-        int logicLayer = map.getLayerIndex();
-        Image tile = this.map.getMapTileImage((int) x / tileW, (int) y / tileH, logicLayer);
-        boolean collision = tile != null;
-        if (collision) {
-            Color color = tile.getColor((int) x % tileW, (int) y % tileH);
-            collision = color.getAlpha() > 0;
-        }
-        return collision;
-    }
+//    private boolean isCollision(float x, float y) {
+//        int tileW = map.getMapTiledWidth();
+//        int tileH = map.getMapTiledHeight();
+//        int logicLayer = map.getMapLayerIndex();
+//        Image tile = this.map.getMapTileImage((int) x / tileW, (int) y / tileH, logicLayer);
+//        boolean collision = tile != null;
+//        if (collision) {
+//            Color color = tile.getColor((int) x % tileW, (int) y % tileH);
+//            if(color.getBlue() > 0 && color.getRed() > 0 && color.getGreen() > 0) {
+//            	collision = true;
+//            }
+//        }
+//        return collision;
+//    }
 }
