@@ -21,7 +21,7 @@
  </layer>
  <layer name="Plateau" width="200" height="13">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2W0Q6CMAxFl0jQGB/EqBE/zf//ELeHJbNxjHV3TOGe5L5BKe1uO2MIIYQQQrbNyWq0egJiHQAxfo1XIEK0OG/cWyehoLfqhK7KWPTSfzN3V+TuFO+NQZ9aUwahNYC4F7i++pmxRyS1IMh7UQmhN5y6tumoqOmPJfqEnnt+p4Z9vRncnl0bsbpKb+R6JNWvcH5peyPvT9/ea70/cuY02m+xeLIm6Bpp/qPGeZBC7cmYN1D1Q8ZPvYfI3eW7M3k19v2OzemW8znXH0erR8V8ap0HKVf/Uo/0iVxL/YGOX9sfsneuxpfE89IXNWZMCYj9cTafs3mqJlPUPA8xj2hznfuNqR22daV6zRquV3P6TlEURVFSb34E+62gKAAA
+   H4sIAAAAAAAAC+2W0QrCMAxFCxtTxAcVFfXT/BNf/HYXxrAGu67t7arbPXDf1hiT3qTGEEIIIYQsm22ra6sbINYaEOPXuFsiJBbxxrl0EhFI3rXSMTIWvfTfjN0VoTul98Y+PrUiPKpOkretOYB4F9izY4VIakKQ76IUbG+I6rLpRJHTH1P0CT33GtP10e7ryeD27Nxw1VV7I9Qjvn59e/uE9qbvtT73rN7flN4fIXMa7TdXPF0TdI1i/keO+6CF2pMub6Dqh4zvOtd7BJG75CvhQmrc99s1p0vO51B/bFpdMuaT6z5oSf1TPdJ4ck31Bzq+71xq7rp3UuOD53vtixwzJgXE/tiZz9k8VJMhct4Hl0dicx37G0M7bOny9Zo1nK/G9J2iKIqitF6VC5ytoCgAAA==
   </data>
  </layer>
  <layer name="solid" width="200" height="13">
