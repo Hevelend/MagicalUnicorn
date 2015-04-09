@@ -22,7 +22,7 @@ public class Game extends StateBasedGame {
 		} 
 		 
 		jeu = new WindowGame(); //le jeu en lui-même !
-		container.setShowFPS(true); //on ne veut pas voir le FPS ?? mettre alors "false" !
+		container.setShowFPS(false); //on ne veut pas voir le FPS ?? mettre alors "false" !
 		addState(jeu); //on ajoute le GameState au conteneur ! 
 	} 
 	 

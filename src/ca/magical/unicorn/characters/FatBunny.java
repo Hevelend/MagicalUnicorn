@@ -8,25 +8,14 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-public class FatBunny {
-	private float x, y; // Position de spawn du personnage
-	private int direction = 2, oldDirection = 2; // Orientation du personnage
-	private boolean moving = false; // True = Personnage en mouvement
-	private boolean jumping = false; // True = Personnage saute
-	private boolean moveAfterJump = false; // True = la licorne courrais avant le saut
-	private int jumpingTimer = 0, decrementTimer = 40; // Temporisation du saut
-	private Animation[] animations = new Animation[8]; // Taille de l'animation
-	private int Health = 2; // Vie du joueur
-	
-	
-	public FatBunny(float _x, float _y) {
-		super();
-		this.x = _x;
-		this.y = _y;
+public class FatBunny extends Character {
 		
+	public FatBunny(float _x, float _y) {
+		super(_x, _y);
 	}
 	
-    public void initFatBunny() throws SlickException {
+	@Override
+    public void initCharacter() throws SlickException {
     	SpriteSheet mySpriteSheet = new SpriteSheet("res/character/FatBunny_SpriteSheet.png", 64, 64);
     	this.animations[0] = loadAnimation(mySpriteSheet, 0, 1, 0);
         this.animations[1] = loadAnimation(mySpriteSheet, 0, 1, 1);
@@ -38,35 +27,7 @@ public class FatBunny {
         this.animations[7] = loadAnimation(mySpriteSheet, 1, 6, 3);
     }
     
-    public Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {
-        Animation animation = new Animation();
-        
-        for (int x = startX; x < endX; x++) {
-            animation.addFrame(spriteSheet.getSprite(x, y), 100);
-        }
-        
-        return animation;
-    }
-
-    public float getFuturX(int delta) {
-        float futurX = this.x;
-        switch (this.direction) {
-	        case 0: 
-	        	futurX = this.x - .2f * delta;
-	        	break;
-	        case 1: 
-	        	futurX = this.x - .08f * delta;
-	        	break;
-	        case 2: 
-	        	futurX = this.x + .2f * delta;
-	        	break;
-	        case 3: 
-	        	futurX = this.x + .08f * delta;
-	        	break;
-        }
-        return futurX;
-    }
-    
+	@Override
     public float getFuturY(int delta) {
         float futurY = this.y;
         if(jumping){
@@ -92,7 +53,8 @@ public class FatBunny {
         return futurY;
     }
     
-    private void letMoving(int delta) {
+	@Override
+    protected void letMoving(int delta) {
 		if(moving && moveAfterJump){
 	    	Robot robot;
 			try {
@@ -110,66 +72,6 @@ public class FatBunny {
 			moveAfterJump = false;
 		}
 		moving = false;
-    }
-    
-	public float getX() {
-		return x;
-	}
-
-	public void setX(float x) {
-		this.x = x;
-	}
-
-	public float getY() {
-		return y;
-	}
-
-	public void setY(float y) {
-		this.y = y;
-	}
-
-	public int getDirection() {
-		return direction;
-	}
-	
-	public void setDirection(int direction){
-		this.direction = direction;
-	}
-
-	public boolean isMoving() {
-		return moving;
-	}
-	
-	public void setMoving(boolean moving){
-		this.moving = moving;
-	}
-
-	public boolean isJumping() {
-		return jumping;
-	}
-	
-	public void setJumping(boolean jumping){
-		this.jumping = jumping;
-	}
-	
-	public void setMoveAfterJump(boolean moveAfterJump){
-		this.moveAfterJump = moveAfterJump;
-	}
-
-	public Animation[] getAnimations() {
-		return animations;
-	}
-    
-    public void setOldDirection (int oldDirection){
-    	this.oldDirection= oldDirection;
-    }
-    
-    public int getHealth(){
-    	return this.Health;
-    }
-    
-    public void setHealth(int _Health){
-    	Health = _Health;
     }
 
 }

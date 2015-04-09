@@ -12,15 +12,17 @@ import org.newdawn.slick.state.StateBasedGame;
 import ca.magical.unicorn.camera.Camera;
 import ca.magical.unicorn.characters.FatBunny;
 import ca.magical.unicorn.characters.Unicorn;
+import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
 
 public class WindowGame extends BasicGameState {
 	public static final int ID = 1;
 	private GameContainer container;
-	CandyWorld map;
-	// Unicorn character;
-	FatBunny character;
-	Camera cam;
+	private CandyWorld map;
+	//private Unicorn character;
+	private FatBunny character;
+	private Camera cam;
+	private Hud hud = new Hud();
 
 	@Override
 	public int getID() {
@@ -76,9 +78,8 @@ public class WindowGame extends BasicGameState {
     	this.character = new FatBunny(145,642); 
     	// this.character = new Unicorn(140,575); // debug position départ licorne
     	this.cam = new Camera(character.getX(), character.getY());
-    	
-    	character.initFatBunny();
-    	// character.initUnicorn();
+    	this.hud.init();
+    	character.initCharacter();
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
@@ -95,6 +96,7 @@ public class WindowGame extends BasicGameState {
     	}
     	map.candyWorldRender();
 		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
+		this.hud.render(g, character.getHealth(), character.getCookies());
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
