@@ -8,11 +8,10 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-public class Hedgehog {
+public class Hedgehog extends Thread{
 	private float x, y; // Position de spawn du personnage
 	private int direction = 2, oldDirection = 2; // Orientation du personnage
 	private boolean moving = false; // True = Personnage en mouvement
-	private boolean left, right = false;
 	private Animation[] animations = new Animation[8]; // Taille de l'animation
 	
 	
@@ -20,19 +19,14 @@ public class Hedgehog {
 		super();
 		this.x = _x;
 		this.y = _y;
-		
 	}
 	
     public void initHedgehog() throws SlickException {
-    	SpriteSheet mySpriteSheet = new SpriteSheet("res/enemies/Hedgehog_SpriteSheet.png", 64, 64);
+    	SpriteSheet mySpriteSheet = new SpriteSheet("res/enemies/Hedgehog_SpriteSheet.png", 50, 40);
     	this.animations[0] = loadAnimation(mySpriteSheet, 0, 1, 0);
         this.animations[1] = loadAnimation(mySpriteSheet, 0, 1, 1);
-        this.animations[2] = loadAnimation(mySpriteSheet, 0, 1, 2);
-        this.animations[3] = loadAnimation(mySpriteSheet, 0, 1, 3);
-        this.animations[4] = loadAnimation(mySpriteSheet, 1, 6, 0);
-        this.animations[5] = loadAnimation(mySpriteSheet, 1, 6, 1);
-        this.animations[6] = loadAnimation(mySpriteSheet, 1, 6, 2);
-        this.animations[7] = loadAnimation(mySpriteSheet, 1, 6, 3);
+        this.animations[2] = loadAnimation(mySpriteSheet, 1, 4, 0);
+        this.animations[3] = loadAnimation(mySpriteSheet, 1, 4, 1);
     }
     
     public Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {
@@ -43,6 +37,24 @@ public class Hedgehog {
         }
         
         return animation;
+    }
+    
+    public void run(int delta){
+    	while(true){
+    		int cpt=0;
+    		//rightMoving(delta);
+	    		/*if (cpt <= 20){
+	    		rightMoving(delta);
+	    		cpt++;
+	    		}
+	    		else if(cpt==40){
+	    			cpt=0;
+	    		}
+	    		else{
+	    		leftMoving(delta);
+	    		cpt++;
+	    		}*/
+    	}
     }
 
     public float getFuturX(int delta) {
@@ -65,28 +77,48 @@ public class Hedgehog {
     }
     
 
-    
-    private void letMoving(int delta) {
+    //fonction qui permet à l'IA de bouger à gauche
+    private void leftMoving(int delta) {
 		if(moving ){
 	    	Robot robot;
 			try {
 				robot = new Robot();
-				if(oldDirection == 2) {
-					right=true;
-					left=false;
-				} else {
-					right=false;
-					left=true;
-				}
+				
+					robot.keyRelease(KeyEvent.VK_LEFT);
+					robot.keyPress(KeyEvent.VK_LEFT);
+				
 			} catch (AWTException e) {
 				e.printStackTrace();
 			}
+			this.y += .2f * delta;
+		}
+		moving = false;
+    }
+    
+    //fonction qui permet à l'IA de bouger à droite
+    private void rightMoving(int delta) {
+		if(moving ){
+	    	Robot robot;
+			try {
+				robot = new Robot();
+				
+					robot.keyRelease(KeyEvent.VK_RIGHT);
+					robot.keyPress(KeyEvent.VK_RIGHT);
+				
+			} catch (AWTException e) {
+				e.printStackTrace();
+			}
+			this.y += .2f * delta;
 		}
 		moving = false;
     }
     
 	public float getX() {
 		return x;
+	}
+	
+	public float getY() {
+		return y;
 	}
 
 	public void setX(float x) {
