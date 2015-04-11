@@ -110,29 +110,45 @@ public class WindowGame extends BasicGameState {
 		float futurY = character.getFuturY(delta);
 		
     	if (character.isMoving()) {
-//			boolean collision = map.isCollision((int) futurX,(int) futurY);
 			boolean collision = isCollision(futurX,futurY);
 			if (collision) {
 				character.setMoving(false);;
 			} else {
 				character.setX(futurX);
 				character.setY(futurY);
+				character.getBox().setCoord(futurX, futurY);
 			}
 		}
+    	
+    	character.eatCookies(map, character);
     }
     
     private boolean isCollision(float x, float y) {
         int tileW = map.getMapTiledWidth();
         int tileH = map.getMapTiledHeight();
         int logicLayer = map.getMapLayerIndex();
-        Image tile = this.map.getMapTileImage((int) x / tileW, (int) y / tileH, logicLayer);
+        float temp_x = x;
+        float temp_y = y;
+        
+        Image tile = this.map.getMapTileImage((int) temp_x / tileW, (int) temp_y / tileH, logicLayer);
         boolean collision = tile != null;
         if (collision) {
-            Color color = tile.getColor((int) x % tileW, (int) y % tileH);
+            Color color = tile.getColor((int) temp_x % tileW, (int) temp_y % tileH);
             if(color.getBlue() > 0 && color.getRed() > 0 && color.getGreen() > 0) {
             	collision = true;
             }
+        } else {
+        	temp_x = temp_x + this.character.getWidth();
+        	tile = this.map.getMapTileImage((int) temp_x / tileW, (int) temp_y / tileH, logicLayer);
+            collision = tile != null;
+            if (collision) {
+                Color color = tile.getColor((int) temp_x % tileW, (int) temp_y % tileH);
+                if(color.getBlue() > 0 && color.getRed() > 0 && color.getGreen() > 0) {
+                	collision = true;
+                }
+            }
         }
+        
         return collision;
     }
 }

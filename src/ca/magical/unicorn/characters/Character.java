@@ -3,10 +3,15 @@ package ca.magical.unicorn.characters;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+
+import ca.magical.unicorn.collision.Box;
+import ca.magical.unicorn.maps.Map;
+import ca.magical.unicorn.objects.Cookie;
 
 public class Character {
 	protected float x, y; // Position de spawn du personnage
@@ -18,16 +23,19 @@ public class Character {
 	protected Animation[] animations = new Animation[8]; // Taille de l'animation
 	protected float Health = 3; // Vie du joueur
 	protected int NBCookies = 0; // Nombre de cookies du joueur
-	
+	protected Box collider; // Boite de collision
+	protected int width = 192, height = 142; // Dimensions de l'image
+	protected boolean deleteInProgress = false; // Supression d'un objet en cours
 	
 	public Character(float _x, float _y) {
 		super();
 		this.x = _x;
 		this.y = _y;
+		collider = new Box(_x, _y, _x + width, _y + height);
 	}
 	
     public void initCharacter() throws SlickException {
-    	SpriteSheet mySpriteSheet = new SpriteSheet("res/character/Unicorn_SpriteSheet.png", 192, 144);
+    	SpriteSheet mySpriteSheet = new SpriteSheet("res/character/Unicorn_SpriteSheet.png", width, height);
     	this.animations[0] = loadAnimation(mySpriteSheet, 0, 1, 0);
         this.animations[1] = loadAnimation(mySpriteSheet, 0, 1, 1);
         this.animations[2] = loadAnimation(mySpriteSheet, 0, 1, 2);
@@ -176,7 +184,53 @@ public class Character {
     	return this.NBCookies;
     }
     
-    public void setCookies(int _NBCookies){
-    	NBCookies = _NBCookies;
+    public void addCookies(){
+    	NBCookies ++;
+    }
+    
+    public Box getBox() {
+    	return collider;
+    }
+    
+    public void setBox(Box _collider) {
+    	collider = _collider;
+    }
+    
+    public int getWidth() {
+    	return width;
+    }
+    
+    public int getHeight() {
+    	return height;
+    }
+    
+    public void setWidth(int _width) {
+    	width = _width;
+    }
+    
+    public void setHeight(int _height) {
+    	height = _height;
+    }
+    
+    public void eatCookies(Map map, Character player) {
+    	if(!deleteInProgress){
+	    	ArrayList<Cookie> cookieList = map.getCookieList();
+	    	ArrayList<Integer> cookiesToDelete = new ArrayList<>();
+	    	deleteInProgress = true;
+	    	
+	    	for (int i = 0; i < cookieList.size(); i++) {
+	    		if(cookieList.get(i).getBox().collide(player.getBox())){
+	    			cookiesToDelete.add(i);
+	    		}
+			}
+	    	
+	    	for (int j = 0; j < cookiesToDelete.size(); j++) {
+	    		player.addCookies();
+	    		cookieList.remove(cookiesToDelete.get(j));
+			}
+	    	
+	    	cookiesToDelete.clear();
+	    	deleteInProgress = false;
+    	}
     }
 }

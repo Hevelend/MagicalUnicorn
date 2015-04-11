@@ -12,6 +12,8 @@ public class FatBunny extends Character {
 		
 	public FatBunny(float _x, float _y) {
 		super(_x, _y);
+		width = 64;
+		height = 64;
 	}
 	
 	@Override
