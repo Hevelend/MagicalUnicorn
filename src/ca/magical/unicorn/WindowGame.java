@@ -14,6 +14,7 @@ import ca.magical.unicorn.characters.FatBunny;
 import ca.magical.unicorn.characters.Unicorn;
 import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
+import ca.magical.unicorn.objects.Cookie;
 
 public class WindowGame extends BasicGameState {
 	public static final int ID = 1;
@@ -94,7 +95,7 @@ public class WindowGame extends BasicGameState {
     			g.translate(cam.getOldxCamera(), 0);
     		}
     	}
-    	map.candyWorldRender();
+    	map.candyWorldRender(g);
 		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
 		this.hud.render(g, character.getHealth(), character.getCookies());
     }

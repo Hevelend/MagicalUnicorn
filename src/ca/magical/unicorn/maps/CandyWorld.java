@@ -3,12 +3,16 @@ package ca.magical.unicorn.maps;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+import ca.magical.unicorn.objects.Cookie;
+
 public class CandyWorld {
 	private TiledMap map;
+	private Cookie cookie = new Cookie(200,550);
 //	ArrayList<ColliderCoord> coordList = new ArrayList<>();
 	
 	public CandyWorld(){
@@ -67,10 +71,11 @@ public class CandyWorld {
 		return this.map.getTileImage(x, y, layer);
 	}
 	
-	public void candyWorldRender(){
+	public void candyWorldRender(Graphics g) throws SlickException{
 		this.map.render(0, 0, 0);
 		this.map.render(0, 0, 1);
 		this.map.render(0, 0, 2);
+		// cookie.cookieRender(g);
 	}
 	
 //	public boolean isCollision(int x, int y){
