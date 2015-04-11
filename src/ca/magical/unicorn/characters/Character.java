@@ -25,7 +25,6 @@ public class Character {
 	protected int NBCookies = 0; // Nombre de cookies du joueur
 	protected Box collider; // Boite de collision
 	protected int width = 192, height = 142; // Dimensions de l'image
-	protected boolean deleteInProgress = false; // Supression d'un objet en cours
 	
 	public Character(float _x, float _y) {
 		super();
@@ -213,24 +212,12 @@ public class Character {
     }
     
     public void eatCookies(Map map, Character player) {
-    	if(!deleteInProgress){
-	    	ArrayList<Cookie> cookieList = map.getCookieList();
-	    	ArrayList<Integer> cookiesToDelete = new ArrayList<>();
-	    	deleteInProgress = true;
-	    	
-	    	for (int i = 0; i < cookieList.size(); i++) {
-	    		if(cookieList.get(i).getBox().collide(player.getBox())){
-	    			cookiesToDelete.add(i);
+	    	for (int i = 0; i < map.getCookieList().size(); i++) {
+	    		if(map.getCookieList().get(i).getBox().collide(player.getBox())){
+	    			map.getCookieList().remove(i);
+	    			player.addCookies();
+	    			i = map.getCookieList().size();
 	    		}
 			}
-	    	
-	    	for (int j = 0; j < cookiesToDelete.size(); j++) {
-	    		player.addCookies();
-	    		cookieList.remove(cookiesToDelete.get(j));
-			}
-	    	
-	    	cookiesToDelete.clear();
-	    	deleteInProgress = false;
-    	}
     }
 }

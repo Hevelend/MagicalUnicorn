@@ -71,4 +71,8 @@ public class Map {
 	public ArrayList<Cookie> getCookieList() {
 		return cookieList;
 	}
+	
+	public void setCookieList(ArrayList<Cookie> _cookieList) {
+		cookieList = _cookieList;
+	}
 }
