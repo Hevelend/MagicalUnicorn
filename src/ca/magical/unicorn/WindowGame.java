@@ -12,7 +12,8 @@ import org.newdawn.slick.state.StateBasedGame;
 import ca.magical.unicorn.camera.Camera;
 import ca.magical.unicorn.characters.FatBunny;
 import ca.magical.unicorn.characters.Unicorn;
-import ca.magical.unicorn.enemies.Hedgehog;
+import ca.magical.unicorn.enemies.FlyingDrop;
+import ca.magical.unicorn.enemies.Yeti;
 import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
 
@@ -22,7 +23,8 @@ public class WindowGame extends BasicGameState {
 	private CandyWorld map;
 	//private Unicorn character;
 	private FatBunny character;
-	private Hedgehog enemy;
+	private Yeti enemy;
+	private FlyingDrop enemy1;
 	private Camera cam;
 	private Hud hud = new Hud();
 
@@ -78,12 +80,14 @@ public class WindowGame extends BasicGameState {
     	this.container = container;
     	this.map = new CandyWorld(); // On charge la map candyworld
     	this.character = new FatBunny(145,642); 
-    	this.enemy = new Hedgehog(140,575);
+    	this.enemy = new Yeti(205,645);
+    	this.enemy1 = new FlyingDrop(450,245);
     	// this.character = new Unicorn(140,575); // debug position départ licorne
     	this.cam = new Camera(character.getX(), character.getY());
     	this.hud.init();
     	character.initCharacter();
     	enemy.start();
+    	enemy1.start();
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
@@ -101,12 +105,14 @@ public class WindowGame extends BasicGameState {
     	map.candyWorldRender(g);
 		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
 		g.drawAnimation(enemy.getAnimations()[enemy.getDirection() + (enemy.isMoving() ? 4 : 0)], enemy.getX(), enemy.getY());
+		g.drawAnimation(enemy1.getAnimations()[enemy1.getDirection() + (enemy1.isMoving() ? 4 : 0)], enemy1.getX(), enemy1.getY());
 		this.hud.render(g, character.getHealth(), character.getCookies());
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
     	updateCharacter(delta);
     	enemy.updateEnemy(delta);
+    	enemy1.updateEnemy(delta);
 		cam.updateCamera(container, character.getX(), character.getY());
     }
     
@@ -117,7 +123,7 @@ public class WindowGame extends BasicGameState {
     	if (character.isMoving()) {
 			boolean collision = isCollision(futurX,futurY);
 			if (collision) {
-				character.setMoving(false);;
+				character.setMoving(false);
 			} else {
 				character.setX(futurX);
 				character.setY(futurY);

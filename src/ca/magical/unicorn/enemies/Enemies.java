@@ -1,63 +1,38 @@
 package ca.magical.unicorn.enemies;
 
-import java.awt.AWTException;
-import java.awt.Robot;
-import java.awt.event.KeyEvent;
-
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
-public class Hedgehog extends Thread{
+public class Enemies extends Thread{
 	private float x, y; // Position de spawn du personnage
-	private int direction = 2, oldDirection = 2; // Orientation du personnage
+	private int direction = 2;// Orientation du personnage
 	private boolean moving = false; // True = Personnage en mouvement
-	private Animation[] animations = new Animation[8]; // Taille de l'animation
-	private boolean moveAfterJump=false;
+	protected Animation[] animations = new Animation[8]; // Taille de l'animation
 	
-	public  Hedgehog(float _x, float _y) {
+	public  Enemies(float _x, float _y) {
 		super();
 		this.x = _x;
 		this.y = _y;
 		try {
-			initCharacter();
+			initEnemy();
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 	}
-	
-	public void initFatBunny() throws SlickException {
-    	SpriteSheet mySpriteSheet = new SpriteSheet("res/character/FatBunny_SpriteSheet.png", 64, 64);
+
+    public void initEnemy() throws SlickException{
+    	SpriteSheet mySpriteSheet = new SpriteSheet("res/enemies/Yeti_SpriteSheet.png", 64,64);
     	this.animations[0] = loadAnimation(mySpriteSheet, 0, 1, 0);
         this.animations[1] = loadAnimation(mySpriteSheet, 0, 1, 1);
         this.animations[2] = loadAnimation(mySpriteSheet, 0, 1, 2);
         this.animations[3] = loadAnimation(mySpriteSheet, 0, 1, 3);
-        this.animations[4] = loadAnimation(mySpriteSheet, 1, 6, 0);
-        this.animations[5] = loadAnimation(mySpriteSheet, 1, 6, 1);
-        this.animations[6] = loadAnimation(mySpriteSheet, 1, 6, 2);
-        this.animations[7] = loadAnimation(mySpriteSheet, 1, 6, 3);
-    }
-	
-	public void initHedgehog() throws SlickException {
-    	SpriteSheet mySpriteSheet = new SpriteSheet("res/enemies/Hedgehog_SpriteSheet.png", 50, 40);
-    	this.animations[0] = loadAnimation(mySpriteSheet, 0, 1, 0);
-        this.animations[1] = loadAnimation(mySpriteSheet, 0, 1, 1);
-        this.animations[2] = loadAnimation(mySpriteSheet, 1, 4, 0);
-        this.animations[3] = loadAnimation(mySpriteSheet, 1, 4, 1);
-    }
-	
-    public void initCharacter() throws SlickException {
-    	SpriteSheet mySpriteSheet = new SpriteSheet("res/character/Unicorn_SpriteSheet.png", 192, 142);
-    	this.animations[0] = loadAnimation(mySpriteSheet, 0, 1, 0);
-        this.animations[1] = loadAnimation(mySpriteSheet, 0, 1, 1);
-        this.animations[2] = loadAnimation(mySpriteSheet, 0, 1, 2);
-        this.animations[3] = loadAnimation(mySpriteSheet, 0, 1, 3);
-        this.animations[4] = loadAnimation(mySpriteSheet, 1, 8, 0);
-        this.animations[5] = loadAnimation(mySpriteSheet, 1, 8, 1);
-        this.animations[6] = loadAnimation(mySpriteSheet, 1, 8, 2);
-        this.animations[7] = loadAnimation(mySpriteSheet, 1, 8, 3);
+        this.animations[4] = loadAnimation(mySpriteSheet, 1, 4, 0);
+        this.animations[5] = loadAnimation(mySpriteSheet, 1, 4, 1);
+        this.animations[6] = loadAnimation(mySpriteSheet, 1, 4, 2);
+        this.animations[7] = loadAnimation(mySpriteSheet, 1, 4, 3);
     }
     public Animation loadAnimation(SpriteSheet spriteSheet, int startX, int endX, int y) {
         Animation animation = new Animation();
@@ -88,7 +63,7 @@ public class Hedgehog extends Thread{
     	float futurX = getFuturX(delta);
 		setX(futurX);
     }
-    
+
     public float getFuturX(int delta) {
         float futurX = this.x;
         switch (this.direction) {
