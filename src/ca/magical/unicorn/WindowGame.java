@@ -12,6 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import ca.magical.unicorn.camera.Camera;
 import ca.magical.unicorn.characters.FatBunny;
 import ca.magical.unicorn.characters.Unicorn;
+import ca.magical.unicorn.enemies.Hedgehog;
 import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
 
@@ -21,6 +22,7 @@ public class WindowGame extends BasicGameState {
 	private CandyWorld map;
 	//private Unicorn character;
 	private FatBunny character;
+	private Hedgehog enemy;
 	private Camera cam;
 	private Hud hud = new Hud();
 
@@ -76,10 +78,12 @@ public class WindowGame extends BasicGameState {
     	this.container = container;
     	this.map = new CandyWorld(); // On charge la map candyworld
     	this.character = new FatBunny(145,642); 
+    	this.enemy = new Hedgehog(140,575);
     	// this.character = new Unicorn(140,575); // debug position départ licorne
     	this.cam = new Camera(character.getX(), character.getY());
     	this.hud.init();
     	character.initCharacter();
+    	enemy.start();
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
@@ -96,11 +100,13 @@ public class WindowGame extends BasicGameState {
     	}
     	map.candyWorldRender(g);
 		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
+		g.drawAnimation(enemy.getAnimations()[enemy.getDirection() + (enemy.isMoving() ? 4 : 0)], enemy.getX(), enemy.getY());
 		this.hud.render(g, character.getHealth(), character.getCookies());
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
     	updateCharacter(delta);
+    	enemy.updateEnemy(delta);
 		cam.updateCamera(container, character.getX(), character.getY());
     }
     
