@@ -18,13 +18,7 @@ public class Map {
 	protected ArrayList<Object> badObjectList = new ArrayList<>();
 	protected ArrayList<Object> goodObjectList = new ArrayList<>();
 	
-	public Map(){
-		try {
-			map = new TiledMap("res/map/CandyWorld.tmx");
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-		
+	public Map(){		
 		initObjects();
 	}
 
