@@ -7,11 +7,16 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+import ca.magical.unicorn.objects.CandyCane;
 import ca.magical.unicorn.objects.Cookie;
+import ca.magical.unicorn.objects.SharpWood;
+import ca.magical.unicorn.objects.Object;
 
 public class Map {
 	protected TiledMap map;
 	protected ArrayList<Cookie> cookieList = new ArrayList<>();
+	protected ArrayList<Object> badObjectList = new ArrayList<>();
+	protected ArrayList<Object> goodObjectList = new ArrayList<>();
 	
 	public Map(){
 		try {
@@ -57,7 +62,15 @@ public class Map {
 		this.map.render(0, 0, 2);
 		
 		for (int i = 0; i < cookieList.size(); i++) {
-			cookieList.get(i).cookieRender(g);
+			cookieList.get(i).objectRender(g);
+		}
+		
+		for (int j = 0; j < badObjectList.size(); j++) {
+			badObjectList.get(j).objectRender(g);
+		}
+		
+		for (int k = 0; k < goodObjectList.size(); k++) {
+			goodObjectList.get(k).objectRender(g);
 		}
 	}
 	
@@ -66,10 +79,28 @@ public class Map {
 		cookieList.add(cookie);
 		cookie = new Cookie(500,580);
 		cookieList.add(cookie);
+		
+		SharpWood sharpwood = new SharpWood(400,650);
+		badObjectList.add(sharpwood);
+		sharpwood = new SharpWood(432,650);
+		badObjectList.add(sharpwood);
+		
+		CandyCane candy = new CandyCane(700,580);
+		goodObjectList.add(candy);
+		candy = new CandyCane(780,600);
+		goodObjectList.add(candy);
 	}
 	
 	public ArrayList<Cookie> getCookieList() {
 		return cookieList;
+	}
+	
+	public ArrayList<Object> getBadObjectList() {
+		return badObjectList;
+	}
+	
+	public ArrayList<Object> getGoodObjectList() {
+		return goodObjectList;
 	}
 	
 	public void setCookieList(ArrayList<Cookie> _cookieList) {

@@ -44,15 +44,15 @@ public class Hud {
 		secondNumber = new Image("res/hud/SYMB_0.png");
 		
 		if(playerHealth == 2.5){
-			firstHeart = new Image("res/hud/UI_HEART_HALF.png");
+			thirdHeart = new Image("res/hud/UI_HEART_HALF.png");
 		} else if(playerHealth == 2) {
-			firstHeart = new Image("res/hud/UI_HEART_EMPTY.png");
+			thirdHeart = new Image("res/hud/UI_HEART_EMPTY.png");
 		} else if(playerHealth == 1.5) {
 			secondHeart = new Image("res/hud/UI_HEART_HALF.png");
 		} else if(playerHealth == 1) {
 			secondHeart = new Image("res/hud/UI_HEART_EMPTY.png");
 		} else if(playerHealth == 0.5) {
-			thirdHeart = new Image("res/hud/UI_HEART_HALF.png");
+			firstHeart = new Image("res/hud/UI_HEART_HALF.png");
 		} else if(playerHealth == 0) {
 			firstHeart = new Image("res/hud/UI_HEART_EMPTY.png");
 			secondHeart = new Image("res/hud/UI_HEART_EMPTY.png");

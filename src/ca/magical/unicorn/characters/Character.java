@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
@@ -25,12 +26,38 @@ public class Character {
 	protected int NBCookies = 0; // Nombre de cookies du joueur
 	protected Box collider; // Boite de collision
 	protected int width = 192, height = 142; // Dimensions de l'image
+	protected boolean passProcess = false; // Eviter certains traitement inutile
 	
 	public Character(float _x, float _y) {
 		super();
 		this.x = _x;
 		this.y = _y;
 		collider = new Box(_x, _y, _x + width, _y + height);
+	}
+	
+	public Character(float _x, float _y, int _width, int _height) {
+		super();
+		this.x = _x;
+		this.y = _y;
+		this.width = _width;
+		this.height = _height;
+		collider = new Box(_x, _y, _x + width, _y + height);
+	}
+	
+	public Character(float _x, float _y, int _width, int _height, Graphics g) {
+		super();
+		this.x = _x;
+		this.y = _y;
+		this.width = _width;
+		this.height = _height;
+		collider = new Box(_x, _y, _x + width, _y + height, g);
+	}
+	
+	public Character(float _x, float _y, Graphics g) {
+		super(); 
+		this.x = _x;
+		this.y = _y;
+		collider = new Box(_x, _y, _x + width, _y + height, g);
 	}
 	
     public void initCharacter() throws SlickException {
@@ -175,8 +202,12 @@ public class Character {
     	return this.Health;
     }
     
-    public void setHealth(float _Health){
-    	Health = _Health;
+    public void playerDamage(float damage){
+    	Health = Health - damage;
+    }
+    
+    public void playerCare(float care){
+    	Health = Health + care;
     }
     
     public int getCookies(){
@@ -211,13 +242,36 @@ public class Character {
     	height = _height;
     }
     
-    public void eatCookies(Map map, Character player) {
-	    	for (int i = 0; i < map.getCookieList().size(); i++) {
-	    		if(map.getCookieList().get(i).getBox().collide(player.getBox())){
-	    			map.getCookieList().remove(i);
-	    			player.addCookies();
-	    			i = map.getCookieList().size();
+    public void applyEffects(Map map, Character player) {
+    	for (int i = 0; i < map.getCookieList().size(); i++) {
+    		if(map.getCookieList().get(i).getBox().collide(player.getBox())){
+    			map.getCookieList().get(i).useEffect(player);
+    			map.getCookieList().remove(i);
+    			i = map.getCookieList().size();
+    			passProcess = true;
+    		}
+		}
+    	
+    	if(!passProcess){
+    		for (int j = 0; j < map.getBadObjectList().size(); j++) {
+	    		if(map.getBadObjectList().get(j).getBox().collide(player.getBox())){
+	    			map.getBadObjectList().get(j).useEffect(player);
+	    			j = map.getBadObjectList().size();
+	    			passProcess = true;
 	    		}
-			}
+    		}
+		}
+    	
+    	if(!passProcess) {
+    		for (int k = 0; k < map.getGoodObjectList().size(); k++) {
+	    		if(map.getGoodObjectList().get(k).getBox().collide(player.getBox())){
+	    			map.getGoodObjectList().get(k).useEffect(player);
+	    			map.getGoodObjectList().remove(k);
+	    			k = map.getGoodObjectList().size();
+	    		}
+    		}
+		}
+    	
+    	passProcess = false;
     }
 }

@@ -5,15 +5,18 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
 public class FatBunny extends Character {
 		
 	public FatBunny(float _x, float _y) {
-		super(_x, _y);
-		width = 64;
-		height = 64;
+		super(_x, _y, 64, 64);
+	}
+	
+	public FatBunny(float _x, float _y, Graphics g) {
+		super(_x, _y, 64, 64, g);
 	}
 	
 	@Override

@@ -14,7 +14,6 @@ import ca.magical.unicorn.characters.FatBunny;
 import ca.magical.unicorn.characters.Unicorn;
 import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
-import ca.magical.unicorn.objects.Cookie;
 
 public class WindowGame extends BasicGameState {
 	public static final int ID = 1;
@@ -120,7 +119,7 @@ public class WindowGame extends BasicGameState {
 			}
 		}
     	
-    	character.eatCookies(map, character);
+    	character.applyEffects(map, character);
     }
     
     private boolean isCollision(float x, float y) {

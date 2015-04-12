@@ -1,10 +1,12 @@
 package ca.magical.unicorn.collision;
 
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 
 public class Box {
 	private float x1, y1, x2, y2;
 	private float width, height;
+	private Graphics graph;
 	
 	public Box(float x1 , float y1 , Image img) {
 		this.x1 = x1;
@@ -22,6 +24,17 @@ public class Box {
 		this.y2 = y2;
 		width = x2 - x1;
 		height = y2 - y1;
+	}
+	
+	// Constructeur de debuggage
+	public Box(float x1 , float y1 , float x2, float y2, Graphics g) {
+		this.x1 = x1;
+		this.x2 = x2;
+		this.y1 = y1;
+		this.y2 = y2;
+		width = x2 - x1;
+		height = y2 - y1;
+		graph = g;
 	}
 	
 	public boolean collide(Box box) {
@@ -54,5 +67,29 @@ public class Box {
 		y1 = y;
 		x2 = x + width;
 		y2 = y + height;
+	}
+	
+	public void boxRender() {
+		graph.drawRect(x1, y1, width, height);
+	}
+	
+	public void setGraph(Graphics g) {
+		graph = g;
+	}
+
+	public float getWidth() {
+		return width;
+	}
+
+	public void setWidth(float width) {
+		this.width = width;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
 	}
 }
