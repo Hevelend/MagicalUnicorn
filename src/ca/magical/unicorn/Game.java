@@ -8,7 +8,9 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Game extends StateBasedGame { 
 	private WindowGame jeu; // le premier état du jeu (voir GameState.java) 
 	private WisePanda testWise;
+	private GameOver gameOver;
 	private AppGameContainer container; // le conteneur du jeu 
+	
  
 	public Game() {
 		super("Magical Unicorn");
@@ -22,10 +24,12 @@ public class Game extends StateBasedGame {
 		} 
 		testWise = new WisePanda(); 
 		jeu = new WindowGame(); //le jeu en lui-même !
+		gameOver = new GameOver();
 		container.setShowFPS(false); //on ne veut pas voir le FPS ?? mettre alors "false" !
 		
 		addState(jeu); //on ajoute le GameState au conteneur ! 
 		addState(testWise);
+		addState(gameOver);
 	} 
 	 
 	public static void main(String Arg[]){ 

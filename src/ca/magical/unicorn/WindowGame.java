@@ -16,6 +16,8 @@ import ca.magical.unicorn.enemies.FlyingDrop;
 import ca.magical.unicorn.enemies.Yeti;
 import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
+import ca.magical.unicorn.panda.PandaEnigma;
+import ca.magical.unicorn.panda.PandaLevel2;
 
 public class WindowGame extends BasicGameState {
 	public static final int ID = 2;
@@ -25,6 +27,7 @@ public class WindowGame extends BasicGameState {
 	//private Unicorn character;
 	private FatBunny character;
 	private Yeti enemy;
+	private PandaLevel2 panda;
 	private FlyingDrop enemy1;
 	private Camera cam;
 	private Hud hud = new Hud();
@@ -87,6 +90,8 @@ public class WindowGame extends BasicGameState {
     	this.character = new FatBunny(145,642); 
     	this.enemy = new Yeti(330,645);
     	this.enemy1 = new FlyingDrop(450,245);
+    	//this.panda = new PandaLevel1(1130,602); // debug position depart pandalevel1
+    	this.panda = new PandaLevel2(1100,622); //debug position depart panda level2
     	// this.character = new Unicorn(140,575); // debug position départ licorne
     	this.cam = new Camera(character.getX(), character.getY());
     	this.hud.init();
@@ -111,6 +116,7 @@ public class WindowGame extends BasicGameState {
 		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
 		g.drawAnimation(enemy.getAnimations()[enemy.getDirection() + (enemy.isMoving() ? 4 : 0)], enemy.getX(), enemy.getY());
 		g.drawAnimation(enemy1.getAnimations()[enemy1.getDirection() + (enemy1.isMoving() ? 4 : 0)], enemy1.getX(), enemy1.getY());
+		g.drawAnimation(panda.getAnimations()[panda.getDirection() + (panda.isMoving() ? 4 : 0)], panda.getX(), panda.getY());
 		this.hud.render(g, character.getHealth(), character.getCookies());
     }
 
