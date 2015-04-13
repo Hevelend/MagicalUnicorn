@@ -18,7 +18,8 @@ import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
 
 public class WindowGame extends BasicGameState {
-	public static final int ID = 1;
+	public static final int ID = 2;
+	private StateBasedGame game;
 	private GameContainer container;
 	private CandyWorld map;
 	//private Unicorn character;
@@ -51,6 +52,9 @@ public class WindowGame extends BasicGameState {
 			case Input.KEY_ESCAPE:
 				container.exit();
 				break;
+			case Input.KEY_A:
+				if(character.getCookies()==2)
+				game.enterState(WisePanda.ID);
 			default:
 				character.setMoving(false);
 				character.setMoveAfterJump(false);
@@ -78,9 +82,10 @@ public class WindowGame extends BasicGameState {
 	
     public void init(GameContainer container, StateBasedGame game) throws SlickException {
     	this.container = container;
+    	this.game = game;
     	this.map = new CandyWorld(); // On charge la map candyworld
     	this.character = new FatBunny(145,642); 
-    	this.enemy = new Yeti(205,645);
+    	this.enemy = new Yeti(330,645);
     	this.enemy1 = new FlyingDrop(450,245);
     	// this.character = new Unicorn(140,575); // debug position départ licorne
     	this.cam = new Camera(character.getX(), character.getY());

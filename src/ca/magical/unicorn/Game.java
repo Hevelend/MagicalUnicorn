@@ -3,11 +3,11 @@ package ca.magical.unicorn;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Game extends StateBasedGame { 
 	private WindowGame jeu; // le premier état du jeu (voir GameState.java) 
+	private WisePanda testWise;
 	private AppGameContainer container; // le conteneur du jeu 
  
 	public Game() {
@@ -20,10 +20,12 @@ public class Game extends StateBasedGame {
 		if (container instanceof AppGameContainer) { 
 		     this.container = (AppGameContainer) container; // on stocke le conteneur du jeu !
 		} 
-		 
+		testWise = new WisePanda(); 
 		jeu = new WindowGame(); //le jeu en lui-même !
 		container.setShowFPS(false); //on ne veut pas voir le FPS ?? mettre alors "false" !
+		
 		addState(jeu); //on ajoute le GameState au conteneur ! 
+		addState(testWise);
 	} 
 	 
 	public static void main(String Arg[]){ 
