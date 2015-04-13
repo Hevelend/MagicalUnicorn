@@ -56,7 +56,7 @@ public class WindowGame extends BasicGameState {
 				container.exit();
 				break;
 			case Input.KEY_A:
-				if(character.getCookies()==2)
+				//if(character.getCookies()==2)
 				game.enterState(WisePanda.ID);
 			default:
 				character.setMoving(false);

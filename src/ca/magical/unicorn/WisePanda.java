@@ -28,16 +28,32 @@ public class WisePanda extends BasicGameState {
 	    
 	    Enigme enigme1 = new Enigme("res/Enigmes/EnigmePanda1.png",3);
 	    Enigme enigme2 = new Enigme("res/Enigmes/EnigmePanda2.png",1);
-	    // Enigme enigme2 = new Enigme("",1);
+	    Enigme enigme3 = new Enigme("res/Enigmes/EnigmePanda3.png",1);
+	    Enigme enigme4 = new Enigme("res/Enigmes/EnigmePanda4.png",3);
+	    Enigme enigme5 = new Enigme("res/Enigmes/EnigmePanda5.png",3);
+	    Enigme enigme6 = new Enigme("res/Enigmes/EnigmePanda6.png",2);
+	    Enigme enigme7 = new Enigme("res/Enigmes/EnigmePanda7.png",2);
+	    Enigme enigme8 = new Enigme("res/Enigmes/EnigmePanda8.png",1);
+	    Enigme enigme9 = new Enigme("res/Enigmes/EnigmePanda9.png",1);
+	    Enigme enigme10 = new Enigme("res/Enigmes/EnigmePanda10.png",3);
 	    
-	    this.alEnigmes = new ArrayList<Enigme>();
-	    this.alEnigmes.add(enigme1);
+	    this.alEnigmes = new ArrayList<Enigme>(); // on fait un tableau d'énigmes
+	    this.alEnigmes.add(enigme1); // on ajoute les enigmes au tableau
 	    this.alEnigmes.add(enigme2);
+	    this.alEnigmes.add(enigme3);
+	    this.alEnigmes.add(enigme4);
+	    this.alEnigmes.add(enigme5);
+	    this.alEnigmes.add(enigme6);
+	    this.alEnigmes.add(enigme7);
+	    this.alEnigmes.add(enigme8);
+	    this.alEnigmes.add(enigme9);
+	    this.alEnigmes.add(enigme10);
 	    
 	    Random rand = new Random();
-	    this.enigmeAleatoire = rand.nextInt(this.alEnigmes.size());
+	    this.enigmeAleatoire = rand.nextInt(this.alEnigmes.size()); // on selection aléatoirement une enigme en fonction
+	    															// de la taille du tableau
 	    
-	    this.background = this.alEnigmes.get(enigmeAleatoire).getImage();
+	    this.background = this.alEnigmes.get(enigmeAleatoire).getImage(); // on affiche l'image de l'enigme choisi
 	    
 	  }
 
@@ -57,21 +73,18 @@ public class WisePanda extends BasicGameState {
 	  @Override
 	  public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 	  }
-
+	  
 	  @Override
 	  public void keyReleased(int key, char c) {
-		  
-		  
 		  
 	    switch(key){
 	    case Input.KEY_NUMPAD1:
 	    	if(this.alEnigmes.get(this.enigmeAleatoire).getNumCorrect() == 1){
-	    		this.alEnigmes.remove(this.enigmeAleatoire);
+	    		this.alEnigmes.remove(this.enigmeAleatoire); // on efface l'enigme du tableau si elle a déjà été utilisé
 	    		game.enterState(WindowGame.ID);
 	    	}
 	    	else{
 	    		game.enterState(GameOver.ID);
-				System.out.println("Mauvaise réponse");
 	    	}
 	    	break;
 	    case Input.KEY_NUMPAD2:
@@ -81,7 +94,6 @@ public class WisePanda extends BasicGameState {
 	    	}
 	    	else{
 	    		game.enterState(GameOver.ID);
-				System.out.println("Mauvaise réponse");
 	    	}
 	    	break;
 	    case Input.KEY_NUMPAD3:
@@ -91,8 +103,7 @@ public class WisePanda extends BasicGameState {
 	    	}
 	    	else{
 	    		game.enterState(GameOver.ID);
-				System.out.println("Mauvaise réponse");
-	    	}
+	    	}   
 	    	break;
 	    	default:
 	    	//game.enterState(WindowGame.ID);
