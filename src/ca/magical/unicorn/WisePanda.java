@@ -2,6 +2,7 @@ package ca.magical.unicorn;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 import org.newdawn.slick.GameContainer;
@@ -24,7 +25,7 @@ public class WisePanda extends BasicGameState {
 	  @Override
 	  public void init(GameContainer container, StateBasedGame game) throws SlickException {
 	    this.game = game;
-	    
+	    int i = 1;
 	    
 	    Enigme enigme1 = new Enigme("res/Enigmes/EnigmePanda1.png",3);
 	    Enigme enigme2 = new Enigme("res/Enigmes/EnigmePanda2.png",1);
@@ -38,6 +39,11 @@ public class WisePanda extends BasicGameState {
 	    Enigme enigme10 = new Enigme("res/Enigmes/EnigmePanda10.png",3);
 	    
 	    this.alEnigmes = new ArrayList<Enigme>(); // on fait un tableau d'énigmes
+	    /*
+	      for (i=1;i<11;i++){
+	      String str = "enigme" + i;
+	      this.alEnigmes.add(str);
+	      }*/
 	    this.alEnigmes.add(enigme1); // on ajoute les enigmes au tableau
 	    this.alEnigmes.add(enigme2);
 	    this.alEnigmes.add(enigme3);
@@ -74,36 +80,33 @@ public class WisePanda extends BasicGameState {
 	  public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
 	  }
 	  
+	  /**
+	   * Fonction qui va permettre de déterminer qu'elle action effectuer selon
+	   * la réponse donner à l'énigme
+	   * @param good
+	   */
+	  public void isGood(int good){
+		  if(this.alEnigmes.get(this.enigmeAleatoire).getNumCorrect() == good){
+	    		this.alEnigmes.remove(this.enigmeAleatoire);
+	    		game.enterState(WindowGame.ID);
+	    	}
+	    	else{
+	    		game.enterState(GameOver.ID);
+	    	}  
+	  }
+	  
 	  @Override
 	  public void keyReleased(int key, char c) {
 		  
 	    switch(key){
 	    case Input.KEY_NUMPAD1:
-	    	if(this.alEnigmes.get(this.enigmeAleatoire).getNumCorrect() == 1){
-	    		this.alEnigmes.remove(this.enigmeAleatoire); // on efface l'enigme du tableau si elle a déjà été utilisé
-	    		game.enterState(WindowGame.ID);
-	    	}
-	    	else{
-	    		game.enterState(GameOver.ID);
-	    	}
+	    	isGood(1);
 	    	break;
 	    case Input.KEY_NUMPAD2:
-	    	if(this.alEnigmes.get(this.enigmeAleatoire).getNumCorrect() == 2){
-	    		this.alEnigmes.remove(this.enigmeAleatoire);
-	    		game.enterState(WindowGame.ID);
-	    	}
-	    	else{
-	    		game.enterState(GameOver.ID);
-	    	}
+	    	isGood(2);
 	    	break;
 	    case Input.KEY_NUMPAD3:
-	    	if(this.alEnigmes.get(this.enigmeAleatoire).getNumCorrect() == 3){
-	    		this.alEnigmes.remove(this.enigmeAleatoire);
-	    		game.enterState(WindowGame.ID);
-	    	}
-	    	else{
-	    		game.enterState(GameOver.ID);
-	    	}   
+	    	isGood(3);
 	    	break;
 	    	default:
 	    	//game.enterState(WindowGame.ID);
