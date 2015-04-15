@@ -9,6 +9,7 @@ public class Enemies extends Thread{
 	private int direction = 2;// Orientation du personnage
 	private boolean moving = false; // True = Personnage en mouvement
 	protected Animation[] animations = new Animation[8]; // Taille de l'animation
+	protected int typeEnemy=0;
 	
 	public  Enemies(float _x, float _y) {
 		super();
@@ -45,19 +46,25 @@ public class Enemies extends Thread{
     }
     
     public void run(){
-    	while(true){    		
-    		try {
+    	while(true){   
     			setMoving(true);
     			setDirection(2);
-				Thread.sleep(4000);
+				restTime();
 				setDirection(0);
-				Thread.sleep(4000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				restTime();
     		
     	}
+    }
+    public void restTime(){
+    	try {
+    		if (getTypeEnemy() == 1) //si c'est FlyingDrop
+    			Thread.sleep(5000);
+    		else
+    			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
     public void updateEnemy(int delta) {
     	float futurX = getFuturX(delta);
@@ -109,9 +116,13 @@ public class Enemies extends Thread{
 	public void setMoving(boolean moving){
 		this.moving = moving;
 	}
-
-
 	public Animation[] getAnimations() {
 		return animations;
+	}
+	public void setTypeEnemy(int typeEnemy){
+		this.typeEnemy = typeEnemy;
+	}
+	public int getTypeEnemy(){
+		return typeEnemy;
 	}
 }

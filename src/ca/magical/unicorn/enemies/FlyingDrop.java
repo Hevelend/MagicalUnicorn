@@ -7,23 +7,10 @@ public class FlyingDrop extends Enemies{
 	
 	public FlyingDrop(float _x, float _y) {
 		super(_x, _y);
+		setTypeEnemy(1);
+		
 	}
-	
-	public void run(){
-    	while(true){    		
-    		try {
-    			setMoving(true);
-    			setDirection(2);
-				Thread.sleep(5000);
-				setDirection(0);
-				Thread.sleep(5000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    		
-    	}
-    }
+
 	public void initEnemy() throws SlickException{
     	SpriteSheet mySpriteSheet = new SpriteSheet("res/enemies/FlyingDrop_SpriteSheet.png", 98,108);
     	this.animations[0] = loadAnimation(mySpriteSheet, 0, 1, 0);
@@ -35,4 +22,6 @@ public class FlyingDrop extends Enemies{
         this.animations[6] = loadAnimation(mySpriteSheet, 1, 4, 2);
         this.animations[7] = loadAnimation(mySpriteSheet, 1, 4, 3);
     }
+	
+	
 }
