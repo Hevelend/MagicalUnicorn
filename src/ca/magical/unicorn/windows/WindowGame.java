@@ -36,6 +36,7 @@ public class WindowGame extends BasicGameState {
 	protected Camera cam;
 	protected Hud hud = new Hud();
 	protected boolean first_play = true;
+	private float background_volume = 0.2F;
 
 	@Override
 	public int getID() {
@@ -108,9 +109,10 @@ public class WindowGame extends BasicGameState {
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
     	if(first_play) {
-    		Music background = new Music("res/toune/space_unicorn.ogg");
+    		Music background = new Music("res/toune/fluffy_unicorn.ogg");
        	 	background.loop();
-       	 first_play = false;
+       	 	background.setVolume(background_volume);
+       	 	first_play = false;
     	}
     	
     	if(cam.getxCamera() > container.getWidth() / 3) {
