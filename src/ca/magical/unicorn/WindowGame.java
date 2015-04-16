@@ -56,9 +56,10 @@ public class WindowGame extends BasicGameState {
 			case Input.KEY_ESCAPE:
 				container.exit();
 				break;
-			case Input.KEY_A:
-				//if(character.getCookies()==2)
-				game.enterState(WisePanda.ID);
+			case Input.KEY_E:
+				if(character.getCookies() == 40) {
+					game.enterState(WisePanda.ID);
+				}
 			default:
 				character.setMoving(false);
 				character.setMoveAfterJump(false);
@@ -136,7 +137,10 @@ public class WindowGame extends BasicGameState {
 			boolean collision = isCollision(futurX,futurY);
 			if (collision) {
 				if(character.isJumping()) {
-					
+					character.setX(character.getX());
+					character.setY(character.getY());
+					character.setJumping(false);;
+					character.setMoving(false);
 				} else {
 					character.setMoving(false);
 				}
