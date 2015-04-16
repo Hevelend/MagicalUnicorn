@@ -57,6 +57,26 @@ public class FatBunny extends Character {
         }
         return futurY;
     }
+	
+	@Override
+	public float getFuturX(int delta) {
+        float futurX = this.x;
+        switch (this.direction) {
+	        case 0: 
+	        	futurX = this.x - .2f * delta;
+	        	break;
+	        case 1: 
+	        	futurX = this.x - .12f * delta;
+	        	break;
+	        case 2: 
+	        	futurX = this.x + .2f * delta;
+	        	break;
+	        case 3: 
+	        	futurX = this.x + .12f * delta;
+	        	break;
+        }
+        return futurX;
+    }
     
 	@Override
     protected void letMoving(int delta) {
