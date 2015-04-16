@@ -3,11 +3,11 @@
  <tileset firstgid="1" name="CandyWorld_Sheet" tilewidth="70" tileheight="70">
   <image source="tuiles/CandyWorld_Sheet.png" width="980" height="490"/>
  </tileset>
+ <tileset firstgid="124" name="tile" tilewidth="70" tileheight="70">
+  <image source="tuiles/tile.png" width="2204" height="717"/>
+ </tileset>
  <tileset firstgid="99" name="solid70" tilewidth="70" tileheight="70">
   <image source="tuiles/solid70.png" width="360" height="360"/>
- </tileset>
- <tileset firstgid="124" name="tile" tilewidth="70" tileheight="70">
-  <image source="D:/tile.png" width="2204" height="717"/>
  </tileset>
  <layer name="Background_image" width="1000" height="13">
   <data encoding="base64" compression="gzip">
