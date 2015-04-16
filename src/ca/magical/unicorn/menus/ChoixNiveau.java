@@ -1,5 +1,7 @@
 package ca.magical.unicorn.menus;
 
+import java.util.Set;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer; 
 import org.newdawn.slick.Graphics; 
@@ -23,11 +25,23 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	  private GameContainer container;
 	  private MouseOverArea niveau1;
 	  private MouseOverArea niveau2;
-
+	  private Toune toune_thread;
+	  
 	  @Override
 	  public void init(GameContainer container, StateBasedGame game) throws SlickException {
 	    this.game = game;
 	    this.background= new Image("res/choixniveau/niveau.png");
+	    
+	    // Récu[érer le Thread de la musique du menu pour l'éteindre une fois le level sélectionné
+	    Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+	    Thread[] threadArray = threadSet.toArray(new Thread[threadSet.size()]);
+	    String temp_var;
+	    for (Thread t : threadArray) {
+	    	temp_var = t.getClass().toString();
+	        if(temp_var.indexOf("Toune") > -1) {
+	        	toune_thread = (Toune) t;
+	        }
+	     }
 	    
 	    //initialisation des 3 boutons
 	    niveau1 = new MouseOverArea(container, new Image("res/choixniveau/niveau1.png"), 440, 700, this);
@@ -70,10 +84,12 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 		  if (source == niveau1)
 	        {
 	            game.enterState(CandyWorldLevel.ID);
+	            toune_thread.close();
 	        }
 	       if (source == niveau2)
 	        {
 	    	   game.enterState(EnchantedForestLevel.ID);
+	    	   toune_thread.close();
 	        }
 	         
 	    }	
