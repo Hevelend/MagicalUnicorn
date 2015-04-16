@@ -1,4 +1,4 @@
-package ca.magical.unicorn.windows;
+package ca.magical.unicorn.menus;
 
 import java.io.*;
 import javazoom.jl.player.*;

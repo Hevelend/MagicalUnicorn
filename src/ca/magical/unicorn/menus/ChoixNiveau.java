@@ -1,4 +1,4 @@
-package ca.magical.unicorn.windows;
+package ca.magical.unicorn.menus;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer; 
@@ -12,10 +12,11 @@ import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState; 
 import org.newdawn.slick.state.StateBasedGame;  
 
-import ca.magical.unicorn.WindowGame;
+import ca.magical.unicorn.windows.CandyWorldLevel;
+import ca.magical.unicorn.windows.EnchantedForestLevel;
+import ca.magical.unicorn.windows.WindowGame;
 
 public class ChoixNiveau extends BasicGameState implements ComponentListener {
-
 	  public static final int ID = 5;
 	  private Image background;
 	  private StateBasedGame game;
@@ -66,13 +67,13 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	   */
 	  @Override
 	    public void componentActivated(AbstractComponent source) {
-	        if (source == niveau1)
+		  if (source == niveau1)
 	        {
-	            game.enterState(WindowGame.ID);
+	            game.enterState(CandyWorldLevel.ID);
 	        }
 	       if (source == niveau2)
 	        {
-	        	game.enterState(GameOver.ID);
+	    	   game.enterState(EnchantedForestLevel.ID);
 	        }
 	         
 	    }	

@@ -5,10 +5,13 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-import ca.magical.unicorn.windows.ChoixNiveau;
-import ca.magical.unicorn.windows.GameOver;
-import ca.magical.unicorn.windows.MenuJeu;
-import ca.magical.unicorn.windows.WisePanda;
+import ca.magical.unicorn.menus.ChoixNiveau;
+import ca.magical.unicorn.menus.GameOver;
+import ca.magical.unicorn.menus.MenuJeu;
+import ca.magical.unicorn.menus.WisePanda;
+import ca.magical.unicorn.windows.CandyWorldLevel;
+import ca.magical.unicorn.windows.EnchantedForestLevel;
+import ca.magical.unicorn.windows.WindowGame;
 
 public class Game extends StateBasedGame { 
 	private WindowGame jeu; // le premier état du jeu (voir GameState.java) 
@@ -16,6 +19,8 @@ public class Game extends StateBasedGame {
 	private GameOver gameOver;
 	private MenuJeu menuJeu;
 	private ChoixNiveau choixniveau;
+	private CandyWorldLevel candylevel;
+	private EnchantedForestLevel forestlevel;
 	private AppGameContainer container; // le conteneur du jeu 
 	
  
@@ -34,6 +39,8 @@ public class Game extends StateBasedGame {
 		jeu = new WindowGame(); //le jeu en lui-même !
 		gameOver = new GameOver();
 		choixniveau = new ChoixNiveau();
+		candylevel = new CandyWorldLevel();
+		forestlevel = new EnchantedForestLevel();
 		container.setShowFPS(false); //on ne veut pas voir le FPS ?? mettre alors "false" !
 		
 		addState(menuJeu);
@@ -41,6 +48,8 @@ public class Game extends StateBasedGame {
 		addState(jeu); //on ajoute le GameState au conteneur ! 
 		addState(testWise);
 		addState(gameOver);
+		addState(candylevel);
+		addState(forestlevel);
 	} 
 	 
 	public static void main(String Arg[]){ 

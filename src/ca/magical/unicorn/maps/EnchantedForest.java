@@ -13,5 +13,10 @@ public class EnchantedForest extends Map {
 			e.printStackTrace();
 		}
 	}
+	
+	@Override
+	public void initObjects() {
+		
+	}
 
 }

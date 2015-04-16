@@ -1,4 +1,4 @@
-package ca.magical.unicorn.windows;
+package ca.magical.unicorn.menus;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

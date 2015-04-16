@@ -1,4 +1,4 @@
-package ca.magical.unicorn;
+package ca.magical.unicorn.windows;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer; 
@@ -16,22 +16,23 @@ import ca.magical.unicorn.enemies.FlyingDrop;
 import ca.magical.unicorn.enemies.Yeti;
 import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
+import ca.magical.unicorn.maps.Map;
+import ca.magical.unicorn.menus.WisePanda;
 import ca.magical.unicorn.panda.PandaEnigma;
 import ca.magical.unicorn.panda.PandaLevel2;
-import ca.magical.unicorn.windows.WisePanda;
 
 public class WindowGame extends BasicGameState {
 	public static final int ID = 2;
-	private StateBasedGame game;
-	private GameContainer container;
-	private CandyWorld map;
-	//private Unicorn character;
-	private FatBunny character;
-	private Yeti enemy;
-	private PandaLevel2 panda;
-	private FlyingDrop enemy1;
-	private Camera cam;
-	private Hud hud = new Hud();
+	protected StateBasedGame game;
+	protected GameContainer container;
+	protected Map map;
+	//protected Unicorn character;
+	protected FatBunny character;
+	protected Yeti enemy;
+	protected PandaLevel2 panda;
+	protected FlyingDrop enemy1;
+	protected Camera cam;
+	protected Hud hud = new Hud();
 
 	@Override
 	public int getID() {

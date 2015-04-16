@@ -1,4 +1,4 @@
-package ca.magical.unicorn.windows;
+package ca.magical.unicorn.menus;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import ca.magical.unicorn.WindowGame;
 import ca.magical.unicorn.panda.Enigme;
+import ca.magical.unicorn.windows.WindowGame;
 
 public class WisePanda extends BasicGameState {
 
