@@ -5,6 +5,11 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import ca.magical.unicorn.windows.ChoixNiveau;
+import ca.magical.unicorn.windows.GameOver;
+import ca.magical.unicorn.windows.MenuJeu;
+import ca.magical.unicorn.windows.WisePanda;
+
 public class Game extends StateBasedGame { 
 	private WindowGame jeu; // le premier état du jeu (voir GameState.java) 
 	private WisePanda testWise;

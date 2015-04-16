@@ -1,4 +1,4 @@
-package ca.magical.unicorn;
+package ca.magical.unicorn.windows;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer; 
@@ -11,6 +11,8 @@ import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState; 
 import org.newdawn.slick.state.StateBasedGame;  
+
+import ca.magical.unicorn.WindowGame;
 
 public class ChoixNiveau extends BasicGameState implements ComponentListener {
 

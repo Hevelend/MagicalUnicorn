@@ -18,6 +18,7 @@ import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
 import ca.magical.unicorn.panda.PandaEnigma;
 import ca.magical.unicorn.panda.PandaLevel2;
+import ca.magical.unicorn.windows.WisePanda;
 
 public class WindowGame extends BasicGameState {
 	public static final int ID = 2;
