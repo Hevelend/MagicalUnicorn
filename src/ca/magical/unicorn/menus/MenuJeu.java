@@ -35,7 +35,7 @@ public class MenuJeu extends BasicGameState implements ComponentListener {
 	    
 	    // Démarrer la musique d'acceuil
 	    this.welcome_song = new Toune("res/toune/unicorn_song.mp3", true);
-	    welcome_song.start();
+	    this.welcome_song.start();
 	    
 	    //initialisation des 3 boutons
 	    solo = new MouseOverArea(container, new Image("res/menu/solo.png"), 440, 700, this);

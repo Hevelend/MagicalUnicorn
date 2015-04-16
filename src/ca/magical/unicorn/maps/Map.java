@@ -7,6 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+import ca.magical.unicorn.menus.Toune;
 import ca.magical.unicorn.objects.CandyCane;
 import ca.magical.unicorn.objects.Cookie;
 import ca.magical.unicorn.objects.SharpWood;
@@ -68,7 +69,7 @@ public class Map {
 		}
 	}
 	
-	public void initObjects() {
+	public void initObjects() {		
 		Cookie cookie = new Cookie(783,409);
 		cookieList.add(cookie);
 		cookie = new Cookie(864,376);

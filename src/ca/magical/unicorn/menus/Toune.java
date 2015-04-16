@@ -9,9 +9,13 @@ public class Toune extends Thread {
     private boolean loop;
     private Player music_player;
 
-    public Toune(String fileLocation, boolean loop) {
-        this.fileLocation = fileLocation;
+    public Toune(String _fileLocation, boolean loop) {
+        this.fileLocation = _fileLocation;
         this.loop = loop;
+    }
+    
+    public void setFileLocation(String _fileLocation) {
+    	fileLocation = _fileLocation;
     }
 
     // On démarre la musique

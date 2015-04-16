@@ -5,6 +5,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -17,6 +18,7 @@ import ca.magical.unicorn.enemies.Yeti;
 import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
 import ca.magical.unicorn.maps.Map;
+import ca.magical.unicorn.menus.Toune;
 import ca.magical.unicorn.menus.WisePanda;
 import ca.magical.unicorn.panda.PandaEnigma;
 import ca.magical.unicorn.panda.PandaLevel2;
@@ -33,6 +35,7 @@ public class WindowGame extends BasicGameState {
 	protected FlyingDrop enemy1;
 	protected Camera cam;
 	protected Hud hud = new Hud();
+	protected boolean first_play = true;
 
 	@Override
 	public int getID() {
@@ -104,6 +107,12 @@ public class WindowGame extends BasicGameState {
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
+    	if(first_play) {
+    		Music background = new Music("res/toune/space_unicorn.ogg");
+       	 	background.loop();
+       	 first_play = false;
+    	}
+    	
     	if(cam.getxCamera() > container.getWidth() / 3) {
     		if(cam.getxCamera() < ((map.getMapWidth() - 13) * this.map.getMapTiledWidth())){
     			cam.setOldxCamera(0);
