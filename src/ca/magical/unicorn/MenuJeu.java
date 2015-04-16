@@ -1,16 +1,16 @@
 package ca.magical.unicorn;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer; 
-import org.newdawn.slick.Graphics; 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException; 
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState; 
 import org.newdawn.slick.state.StateBasedGame;  
+
+import ca.magical.unicorn.windows.Toune;
 
 public class MenuJeu extends BasicGameState implements ComponentListener {
 
@@ -22,12 +22,20 @@ public class MenuJeu extends BasicGameState implements ComponentListener {
 	  private MouseOverArea solo;
 	  private MouseOverArea multi;
 	  private MouseOverArea quit;
+	  private int counter = 1; // compteur pour l'animation de fond
+	  private int counter_timer = 0; // timer pour la vitesse de l'animation
+	  private int max_timer = 2; // Réglage de la vitesse de l'animation
+	  private Toune welcome_song;
 
 	  @Override
 	  public void init(GameContainer container, StateBasedGame game) throws SlickException {
 	    this.game = game;
-	    this.background= new Image("res/menu/unicorn.gif");
+	    this.background= new Image("res/menu/menu_animation/1.png");
 	    this.titleGame = new Image("res/menu/logo.png");
+	    
+	    // Démarrer la musique d'acceuil
+	    this.welcome_song = new Toune("res/toune/unicorn_song.mp3", true);
+	    welcome_song.start();
 	    
 	    //initialisation des 3 boutons
 	    solo = new MouseOverArea(container, new Image("res/menu/solo.png"), 440, 700, this);
@@ -45,10 +53,11 @@ public class MenuJeu extends BasicGameState implements ComponentListener {
 	  @Override
 	  public void render(GameContainer container, StateBasedGame game, org.newdawn.slick.Graphics g) throws SlickException {
 	    background.draw(0, 0, container.getWidth(), container.getHeight());
-	    titleGame.draw(500,50);
+		titleGame.draw(500,50);
 	    quit.render(container, g);
 	    multi.render(container, g);
         solo.render(container, g);
+        
 	  } 
 
 	  /**
@@ -56,6 +65,18 @@ public class MenuJeu extends BasicGameState implements ComponentListener {
 	  */
 	  @Override
 	  public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+		  String image_char = "res/menu/menu_animation/" + counter + ".png";
+		  this.background = new Image(image_char);
+		  counter_timer ++;
+		  if(counter_timer >= max_timer) {
+			  if(counter >= 157) {
+				  counter = 1;
+			  } else {
+				  counter ++;
+			  }
+			  
+			  counter_timer = 0;
+		  }
 	  }
 	  /**
 	   * L'identifiant permet d'identifier les différentes boucles.
@@ -83,6 +104,6 @@ public class MenuJeu extends BasicGameState implements ComponentListener {
 	    	   game.enterState(WindowGame.ID);
 	       }
 	         
-	    }	
+	    }
 	  
 	}
