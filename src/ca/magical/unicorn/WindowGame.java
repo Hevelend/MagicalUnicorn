@@ -135,7 +135,11 @@ public class WindowGame extends BasicGameState {
     	if (character.isMoving()) {
 			boolean collision = isCollision(futurX,futurY);
 			if (collision) {
-				character.setMoving(false);
+				if(character.isJumping()) {
+					
+				} else {
+					character.setMoving(false);
+				}
 			} else {
 				character.setX(futurX);
 				character.setY(futurY);
