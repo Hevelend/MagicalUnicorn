@@ -9,6 +9,8 @@ public class Game extends StateBasedGame {
 	private WindowGame jeu; // le premier état du jeu (voir GameState.java) 
 	private WisePanda testWise;
 	private GameOver gameOver;
+	private MenuJeu menuJeu;
+	private ChoixNiveau choixniveau;
 	private AppGameContainer container; // le conteneur du jeu 
 	
  
@@ -22,11 +24,15 @@ public class Game extends StateBasedGame {
 		if (container instanceof AppGameContainer) { 
 		     this.container = (AppGameContainer) container; // on stocke le conteneur du jeu !
 		} 
-		testWise = new WisePanda(); 
+		testWise = new WisePanda();
+		menuJeu = new MenuJeu();
 		jeu = new WindowGame(); //le jeu en lui-même !
 		gameOver = new GameOver();
+		choixniveau = new ChoixNiveau();
 		container.setShowFPS(false); //on ne veut pas voir le FPS ?? mettre alors "false" !
 		
+		addState(menuJeu);
+		addState(choixniveau);
 		addState(jeu); //on ajoute le GameState au conteneur ! 
 		addState(testWise);
 		addState(gameOver);

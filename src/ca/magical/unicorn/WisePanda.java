@@ -16,7 +16,7 @@ import ca.magical.unicorn.panda.Enigme;
 
 public class WisePanda extends BasicGameState {
 
-	  public static final int ID = 1;
+	  public static final int ID = 4;
 	  private Image background;
 	  private StateBasedGame game;
 	  private ArrayList<Enigme> alEnigmes;

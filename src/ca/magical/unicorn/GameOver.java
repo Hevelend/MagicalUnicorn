@@ -1,24 +1,30 @@
 package ca.magical.unicorn;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.gui.AbstractComponent;
+import org.newdawn.slick.gui.ComponentListener;
+import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class GameOver extends BasicGameState {
+public class GameOver extends BasicGameState{
 
 	  public static final int ID = 3;
 	  private Image background;
 	  private StateBasedGame game;
-		private GameContainer container;
+	  private GameContainer container;
+	  private MouseOverArea quit;
 
 	  @Override
 	  public void init(GameContainer container, StateBasedGame game) throws SlickException {
 	    this.game = game;
 	    this.background= new Image("res/map/gameOver.jpg");
-	    
+	    quit = new MouseOverArea(container, new Image("res/menu/quit.png"), 760, 700);
+        quit.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 	  }
 
 	  /**
@@ -54,7 +60,5 @@ public class GameOver extends BasicGameState {
 	  @Override
 	  public int getID() {
 	    return ID;
-	  }
-
-	
+	  }	
 	}
