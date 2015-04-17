@@ -27,7 +27,7 @@ public class GameOver extends BasicGameState{
 	    this.background= new Image("res/menu/gameover.png");
 	    quit = new MouseOverArea(container, new Image("res/menu/quit.png"), 760, 700);
         quit.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
-        background_toune = new Music("res/toune/gameover_sound.ogg");
+        background_toune = new Music("res/sound/gameover_sound.ogg");
 	  }
 
 	  /**
@@ -57,7 +57,7 @@ public class GameOver extends BasicGameState{
 	  public void keyReleased(int key, char c) {
 	    switch(key){
 	    case Input.KEY_ESCAPE:
-			container.exit();
+	    	System.exit(0); // Quitter le jeu
 			break;
 	    }
 	  }
