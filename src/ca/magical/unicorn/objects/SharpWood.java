@@ -22,11 +22,9 @@ public class SharpWood extends Object {
 	
 	@Override
 	public void useEffect(Character player) {
-		if(timerEffect >= 2000) {
+		if(player.getTimerEffect() >= 180) {
 			player.playerDamage((float) 0.5);
-			timerEffect = 0;
-		} else {
-			timerEffect ++;
+			player.setTimerEffect();
 		}
 	}
 }

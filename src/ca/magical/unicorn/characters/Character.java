@@ -27,6 +27,7 @@ public class Character {
 	protected Box collider; // Boite de collision
 	protected int width = 192, height = 142; // Dimensions de l'image
 	protected boolean passProcess = false; // Eviter certains traitement inutile
+	protected float timerEffect = 180;
 	
 	public Character(float _x, float _y) {
 		super();
@@ -273,5 +274,18 @@ public class Character {
 		}
     	
     	passProcess = false;
+    	this.addTimeEffect();
+    }
+    
+    public float getTimerEffect() {
+    	return this.timerEffect;
+    }
+    
+    public void setTimerEffect() {
+    	this.timerEffect = 0;
+    }
+    
+    public void addTimeEffect() {
+    	this.timerEffect ++;
     }
 }

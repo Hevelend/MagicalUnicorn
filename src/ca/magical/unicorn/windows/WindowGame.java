@@ -18,6 +18,7 @@ import ca.magical.unicorn.enemies.Yeti;
 import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
 import ca.magical.unicorn.maps.Map;
+import ca.magical.unicorn.menus.GameOver;
 import ca.magical.unicorn.menus.Toune;
 import ca.magical.unicorn.menus.WisePanda;
 import ca.magical.unicorn.panda.PandaEnigma;
@@ -37,6 +38,7 @@ public class WindowGame extends BasicGameState {
 	protected Hud hud = new Hud();
 	protected boolean first_play = true;
 	private float background_volume = 0.2F;
+	private Music background;
 
 	@Override
 	public int getID() {
@@ -105,11 +107,11 @@ public class WindowGame extends BasicGameState {
     	character.initCharacter();
     	enemy.start();
     	enemy1.start();
+    	background = new Music("res/toune/fluffy_unicorn.ogg");
     }
 
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
     	if(first_play) {
-    		Music background = new Music("res/toune/fluffy_unicorn.ogg");
        	 	background.loop();
        	 	background.setVolume(background_volume);
        	 	first_play = false;
@@ -139,6 +141,10 @@ public class WindowGame extends BasicGameState {
     	enemy.updateEnemy(delta);
     	enemy1.updateEnemy(delta);
 		cam.updateCamera(container, character.getX(), character.getY());
+		if(character.getHealth() <= 0F){
+			background.stop();
+			game.enterState(GameOver.ID);
+		}
     }
     
     private void updateCharacter(int delta) {

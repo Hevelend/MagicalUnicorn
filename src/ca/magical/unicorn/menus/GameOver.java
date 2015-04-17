@@ -4,9 +4,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -18,13 +17,17 @@ public class GameOver extends BasicGameState{
 	  private StateBasedGame game;
 	  private GameContainer container;
 	  private MouseOverArea quit;
+	  protected boolean first_play = true;
+	  private float background_volume = 1F;
+	  private Music background_toune;
 
 	  @Override
 	  public void init(GameContainer container, StateBasedGame game) throws SlickException {
 	    this.game = game;
-	    this.background= new Image("res/map/gameOver.jpg");
+	    this.background= new Image("res/menu/gameover.png");
 	    quit = new MouseOverArea(container, new Image("res/menu/quit.png"), 760, 700);
         quit.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
+        background_toune = new Music("res/toune/gameover_sound.ogg");
 	  }
 
 	  /**
@@ -33,8 +36,14 @@ public class GameOver extends BasicGameState{
 	   */
 	  @Override
 	  public void render(GameContainer container, StateBasedGame game, org.newdawn.slick.Graphics g) throws SlickException {
-	    background.draw(0, 0, container.getWidth(), container.getHeight());
-	    g.drawString("Désolé, vous avez perdu \n Retour à la case départ BITCH.", 700, 700);
+		  if(first_play) {
+			  background_toune.play();
+			  background_toune.setVolume(background_volume);
+			  first_play = false;
+		  }
+		  
+		  background.draw(0, 0, container.getWidth(), container.getHeight());
+	    //g.drawString("Désolé, vous avez perdu \n Retour à la case départ BITCH.", 700, 700);
 	  } 
 
 	  /**

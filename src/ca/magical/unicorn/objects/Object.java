@@ -12,7 +12,7 @@ public class Object {
 	protected Image objectFace; // Image du cookie
 	protected Box collider; // Boite de collision du cookie
 	protected Graphics graph;
-	protected float timerEffect = 2000; // timer pour les dégâts
+	protected float timerEffect; // timer pour les dégâts
 	
 	public Object(float _x, float _y) {
 		x = _x;
