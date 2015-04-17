@@ -10,10 +10,10 @@ import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState; 
 import org.newdawn.slick.state.StateBasedGame;  
 
+import ca.magical.unicorn.Game;
 import ca.magical.unicorn.windows.WindowGame;
 
 public class MenuJeu extends BasicGameState implements ComponentListener {
-
 	  public static final int ID = 1;
 	  private Image background;
 	  private Image titleGame;
@@ -33,10 +33,6 @@ public class MenuJeu extends BasicGameState implements ComponentListener {
 	    this.background= new Image("res/menu/menu_animation/1.png");
 	    this.titleGame = new Image("res/menu/logo.png");
 	    
-	    // Démarrer la musique d'acceuil
-	    this.welcome_song = new Toune("res/toune/unicorn_song.mp3", true);
-	    this.welcome_song.start();
-	    
 	    //initialisation des 3 boutons
 	    solo = new MouseOverArea(container, new Image("res/menu/solo.png"), 440, 700, this);
 	    solo.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
@@ -44,6 +40,13 @@ public class MenuJeu extends BasicGameState implements ComponentListener {
 	    multi.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 	    quit = new MouseOverArea(container, new Image("res/menu/quit.png"), 760, 700,this);
         quit.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
+        
+        if(Game.playMenuSong) {
+        	// Démarrer la musique d'acceuil
+    	    this.welcome_song = new Toune("res/toune/unicorn_song.mp3", true);
+    	    this.welcome_song.start();
+    	    Game.playMenuSong = false;
+    	}
 	  }
 
 	  /**
@@ -57,7 +60,6 @@ public class MenuJeu extends BasicGameState implements ComponentListener {
 	    quit.render(container, g);
 	    multi.render(container, g);
         solo.render(container, g);
-        
 	  } 
 
 	  /**
@@ -92,18 +94,13 @@ public class MenuJeu extends BasicGameState implements ComponentListener {
 	   */
 	  @Override
 	    public void componentActivated(AbstractComponent source) {
-	        if (source == quit)
-	        {
-	            this.container.exit();
-	        }
-	       if (source == solo)
-	        {
-	        	game.enterState(ChoixNiveau.ID);
-	        }
-	       if (source== multi){
-	    	   game.enterState(WindowGame.ID);
-	       }
-	         
+		    if (source == quit) {
+		    	this.container.exit();
+		    } else if (source == solo) {
+		    	game.enterState(ChoixNiveau.ID);
+		    }else if (source== multi) {
+		    	game.enterState(MultiplayerChoice.ID);
+		    }
 	    }
 	  
 	}

@@ -1,7 +1,6 @@
 package ca.magical.unicorn.objects;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 

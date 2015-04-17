@@ -3,10 +3,8 @@ package ca.magical.unicorn.menus;
 import java.util.Set;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer; 
-import org.newdawn.slick.Graphics; 
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException; 
 import org.newdawn.slick.gui.AbstractComponent;
 import org.newdawn.slick.gui.ComponentListener;
@@ -14,9 +12,9 @@ import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState; 
 import org.newdawn.slick.state.StateBasedGame;  
 
+import ca.magical.unicorn.Game;
 import ca.magical.unicorn.windows.CandyWorldLevel;
 import ca.magical.unicorn.windows.EnchantedForestLevel;
-import ca.magical.unicorn.windows.WindowGame;
 
 public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	  public static final int ID = 5;
@@ -25,6 +23,7 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	  private GameContainer container;
 	  private MouseOverArea niveau1;
 	  private MouseOverArea niveau2;
+	  private MouseOverArea return_button;
 	  private Toune toune_thread;
 	  
 	  @Override
@@ -48,6 +47,8 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	    niveau1.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 	    niveau2 = new MouseOverArea(container, new Image("res/choixniveau/niveau2.png"), 595, 700,this);
 	    niveau2.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
+	    return_button = new MouseOverArea(container, new Image("res/menu/return.png"), 750, 700,this);
+	    return_button.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 	  }
 
 	  /**
@@ -59,6 +60,7 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	    background.draw(0, 0, container.getWidth(), container.getHeight());
 	    niveau2.render(container, g);
         niveau1.render(container, g);
+        return_button.render(container, g);
 	  } 
 
 	  /**
@@ -66,6 +68,7 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	  */
 	  @Override
 	  public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+		  
 	  }
 	  /**
 	   * L'identifiant permet d'identifier les différentes boucles.
@@ -80,18 +83,18 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	   * interface
 	   */
 	  @Override
-	    public void componentActivated(AbstractComponent source) {
-		  if (source == niveau1)
-	        {
-	            game.enterState(CandyWorldLevel.ID);
-	            toune_thread.close();
-	        }
-	       if (source == niveau2)
-	        {
-	    	   game.enterState(EnchantedForestLevel.ID);
-	    	   toune_thread.close();
-	        }
-	         
-	    }	
+	  public void componentActivated(AbstractComponent source) {
+			if (source == niveau1) {
+				Game.previous_level = CandyWorldLevel.ID;
+			    game.enterState(Game.previous_level);
+			    toune_thread.close();
+		    } else if(source == niveau2) {
+		    	Game.previous_level = EnchantedForestLevel.ID;
+			    game.enterState(Game.previous_level);
+			    toune_thread.close();
+		    } else if(source == return_button) {
+		    	game.enterState(MenuJeu.ID);
+		    }
+	  }	
 	  
-	}
+}

@@ -8,6 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import ca.magical.unicorn.menus.ChoixNiveau;
 import ca.magical.unicorn.menus.GameOver;
 import ca.magical.unicorn.menus.MenuJeu;
+import ca.magical.unicorn.menus.MultiplayerChoice;
 import ca.magical.unicorn.menus.WisePanda;
 import ca.magical.unicorn.windows.CandyWorldLevel;
 import ca.magical.unicorn.windows.EnchantedForestLevel;
@@ -19,10 +20,13 @@ public class Game extends StateBasedGame {
 	private GameOver gameOver;
 	private MenuJeu menuJeu;
 	private ChoixNiveau choixniveau;
+	private MultiplayerChoice multi;
 	private CandyWorldLevel candylevel;
 	private EnchantedForestLevel forestlevel;
-	private AppGameContainer container; // le conteneur du jeu 
-	
+	private AppGameContainer container; // le conteneur du jeu
+	public static int previous_level = 0;
+	public static boolean isMulti = false;
+	public static boolean playMenuSong = true;
  
 	public Game() {
 		super("Magical Unicorn");
@@ -41,6 +45,7 @@ public class Game extends StateBasedGame {
 		choixniveau = new ChoixNiveau();
 		candylevel = new CandyWorldLevel();
 		forestlevel = new EnchantedForestLevel();
+		multi = new MultiplayerChoice();
 		container.setShowFPS(false); //on ne veut pas voir le FPS ?? mettre alors "false" !
 		
 		addState(menuJeu);
@@ -50,9 +55,10 @@ public class Game extends StateBasedGame {
 		addState(gameOver);
 		addState(candylevel);
 		addState(forestlevel);
-	} 
+		addState(multi);
+	}
 	 
-	public static void main(String Arg[]){ 
+	public static void main(String Arg[]) {
 		try
 		{ 
 			AppGameContainer myContainer = new AppGameContainer(new Game()); 
@@ -62,5 +68,5 @@ public class Game extends StateBasedGame {
 		} catch (SlickException e) {
 			e.printStackTrace();
 		} // l'exception de base de slick !! 
-	} 
+	}
 } // fin de classe
