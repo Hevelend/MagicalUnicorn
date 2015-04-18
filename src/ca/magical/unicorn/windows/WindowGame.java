@@ -71,6 +71,10 @@ public class WindowGame extends BasicGameState {
 					if(Keyboard.getEventKey() == Keyboard.KEY_E) {
 						game.enterState(WisePanda.ID);
 					}
+					
+					if(Keyboard.getEventKey() == Keyboard.KEY_A || Keyboard.getEventKey() == Keyboard.KEY_D) {
+						character.setMoving(false);
+					}
 				}
 			}
 		} else {
@@ -96,6 +100,10 @@ public class WindowGame extends BasicGameState {
 							game.enterState(WisePanda.ID);
 						}
 					}
+					
+					if(Keyboard.getEventKey() == Keyboard.KEY_A || Keyboard.getEventKey() == Keyboard.KEY_D) {
+						character.setMoving(false);
+					}
 				}
 				
 				//Mouvement Joueur 2
@@ -116,6 +124,10 @@ public class WindowGame extends BasicGameState {
 						if(character.getCookies() >= 40) {
 							game.enterState(WisePanda.ID);
 						}
+					}
+					
+					if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT || Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
+						character2.setMoving(false);
 					}
 				}
 			}

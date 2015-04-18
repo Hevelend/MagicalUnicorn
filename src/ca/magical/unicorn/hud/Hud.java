@@ -87,17 +87,17 @@ public class Hud {
 		
 		if(Game.isMulti) {
 			if(player2Health == 2.5){
-				thirdHeart_P2 = new Image("res/hud/UI_HEART_HALF.png");
+				thirdHeart_P2 = new Image("res/hud/UI_HEART_HALF_R.png");
 			} else if(player2Health == 2) {
 				thirdHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
 			} else if(player2Health == 1.5) {
-				secondHeart_P2 = new Image("res/hud/UI_HEART_HALF.png");
+				secondHeart_P2 = new Image("res/hud/UI_HEART_HALF_R.png");
 				thirdHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
 			} else if(player2Health == 1) {
 				secondHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
-				thirdHeart = new Image("res/hud/UI_HEART_EMPTY.png");
+				thirdHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
 			} else if(player2Health == 0.5) {
-				firstHeart_P2 = new Image("res/hud/UI_HEART_HALF.png");
+				firstHeart_P2 = new Image("res/hud/UI_HEART_HALF_R.png");
 				secondHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
 				thirdHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
 			} else if(player2Health == 0) {
