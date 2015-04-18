@@ -5,11 +5,9 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer; 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
-import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import ca.magical.unicorn.Game;
@@ -22,9 +20,7 @@ import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
 import ca.magical.unicorn.maps.Map;
 import ca.magical.unicorn.menus.GameOver;
-import ca.magical.unicorn.menus.Toune;
 import ca.magical.unicorn.menus.WisePanda;
-import ca.magical.unicorn.panda.PandaEnigma;
 import ca.magical.unicorn.panda.PandaLevel2;
 
 public class WindowGame extends BasicGameState {
@@ -346,5 +342,13 @@ public class WindowGame extends BasicGameState {
         }
         
         return collision;
+    }
+    
+    public Unicorn getFirstPlayer() {
+    	return character;
+    }
+    
+    public FatBunny getSecondPlayer() {
+    	return character2;
     }
 }
