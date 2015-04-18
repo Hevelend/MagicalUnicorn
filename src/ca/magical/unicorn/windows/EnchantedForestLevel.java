@@ -4,8 +4,10 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+import ca.magical.unicorn.Game;
 import ca.magical.unicorn.camera.Camera;
 import ca.magical.unicorn.characters.FatBunny;
+import ca.magical.unicorn.characters.Unicorn;
 import ca.magical.unicorn.enemies.FlyingDrop;
 import ca.magical.unicorn.enemies.Yeti;
 import ca.magical.unicorn.maps.CandyWorld;
@@ -25,7 +27,12 @@ public class EnchantedForestLevel extends WindowGame {
     	this.container = container;
     	this.game = game;
     	this.map = new EnchantedForest(); // On charge la map candyworld
-    	this.character = new FatBunny(145,642); 
+    	
+    	this.character = new Unicorn(140,575); // debug position départ licorne
+    	if(Game.isMulti) {
+    		this.character2 = new FatBunny(145,642); 
+    	}
+    	
     	this.enemy = new Yeti(330,645);
     	this.enemy1 = new FlyingDrop(450,245);
     	//this.panda = new PandaLevel1(1130,602); // debug position depart pandalevel1

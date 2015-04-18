@@ -4,10 +4,15 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+import ca.magical.unicorn.Game;
+
 public class Hud {
 	private Image firstHeart;
 	private Image secondHeart;
 	private Image thirdHeart;
+	private Image firstHeart_P2;
+	private Image secondHeart_P2;
+	private Image thirdHeart_P2;
 	private Image cookieSymbol;
 	private Image crossSymbol;
 	private Image firstNumber;
@@ -16,6 +21,10 @@ public class Hud {
 	private static final int P_HEART_Y = 10; // position Y de l'image
 	private static final int P_SECONDH_X = 62;
 	private static final int P_THIRDH_X = 114;
+	private static final int P2_FIRSTH_X = 1228;
+	private static final int P2_HEART_Y = 10;
+	private static final int P2_SECONDH_X = 1176;
+	private static final int P2_THIRDH_X = 1124;
 	private static final int P_COOKIE_X = 10;
 	private static final int P_COOKIE_Y = 62;
 	private static final int P_CROSS_X = 50;
@@ -28,39 +37,74 @@ public class Hud {
 		this.firstHeart = new Image("res/hud/UI_HEART_FULL.png");
 		this.secondHeart = new Image("res/hud/UI_HEART_FULL.png");
 		this.thirdHeart = new Image("res/hud/UI_HEART_FULL.png");
+		
+		if(Game.isMulti) {
+			this.firstHeart_P2 = new Image("res/hud/UI_HEART_FULL.png");
+			this.secondHeart_P2 = new Image("res/hud/UI_HEART_FULL.png");
+			this.thirdHeart_P2 = new Image("res/hud/UI_HEART_FULL.png");
+		}
+		
 		this.cookieSymbol = new Image("res/hud/cookie.png");
 		this.crossSymbol = new Image("res/hud/SYMB_X.png");
 		this.firstNumber = new Image("res/hud/SYMB_0.png");
 		this.secondNumber = new Image("res/hud/SYMB_0.png");
 	}
 	
-	public void render(Graphics g, float playerHealth, int NBCookies) throws SlickException {
+	public void render(Graphics g, float player1Health, float player2Health, int NBCookies) throws SlickException {
 		g.resetTransform();
 		
 		firstHeart = new Image("res/hud/UI_HEART_FULL.png");
 		secondHeart = new Image("res/hud/UI_HEART_FULL.png");
 		thirdHeart = new Image("res/hud/UI_HEART_FULL.png");
+		if(Game.isMulti) {
+			firstHeart_P2 = new Image("res/hud/UI_HEART_FULL.png");
+			secondHeart_P2 = new Image("res/hud/UI_HEART_FULL.png");
+			thirdHeart_P2 = new Image("res/hud/UI_HEART_FULL.png");
+		}
+		
 		firstNumber = new Image("res/hud/SYMB_0.png");
 		secondNumber = new Image("res/hud/SYMB_0.png");
 		
-		if(playerHealth == 2.5){
+		if(player1Health == 2.5){
 			thirdHeart = new Image("res/hud/UI_HEART_HALF.png");
-		} else if(playerHealth == 2) {
+		} else if(player1Health == 2) {
 			thirdHeart = new Image("res/hud/UI_HEART_EMPTY.png");
-		} else if(playerHealth == 1.5) {
+		} else if(player1Health == 1.5) {
 			secondHeart = new Image("res/hud/UI_HEART_HALF.png");
 			thirdHeart = new Image("res/hud/UI_HEART_EMPTY.png");
-		} else if(playerHealth == 1) {
+		} else if(player1Health == 1) {
 			secondHeart = new Image("res/hud/UI_HEART_EMPTY.png");
 			thirdHeart = new Image("res/hud/UI_HEART_EMPTY.png");
-		} else if(playerHealth == 0.5) {
+		} else if(player1Health == 0.5) {
 			firstHeart = new Image("res/hud/UI_HEART_HALF.png");
 			secondHeart = new Image("res/hud/UI_HEART_EMPTY.png");
 			thirdHeart = new Image("res/hud/UI_HEART_EMPTY.png");
-		} else if(playerHealth == 0) {
+		} else if(player1Health == 0) {
 			firstHeart = new Image("res/hud/UI_HEART_EMPTY.png");
 			secondHeart = new Image("res/hud/UI_HEART_EMPTY.png");
 			thirdHeart = new Image("res/hud/UI_HEART_EMPTY.png");
+		}
+		
+		if(Game.isMulti) {
+			if(player2Health == 2.5){
+				thirdHeart_P2 = new Image("res/hud/UI_HEART_HALF.png");
+			} else if(player2Health == 2) {
+				thirdHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
+			} else if(player2Health == 1.5) {
+				secondHeart_P2 = new Image("res/hud/UI_HEART_HALF.png");
+				thirdHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
+			} else if(player2Health == 1) {
+				secondHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
+				thirdHeart = new Image("res/hud/UI_HEART_EMPTY.png");
+			} else if(player2Health == 0.5) {
+				firstHeart_P2 = new Image("res/hud/UI_HEART_HALF.png");
+				secondHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
+				thirdHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
+			} else if(player2Health == 0) {
+				firstHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
+				secondHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
+				thirdHeart_P2 = new Image("res/hud/UI_HEART_EMPTY.png");
+			}
 		}
 		
 		String tempString = "00";
@@ -140,6 +184,12 @@ public class Hud {
 		g.drawImage(firstHeart, P_FIRSTH_X, P_HEART_Y);
 		g.drawImage(secondHeart, P_SECONDH_X, P_HEART_Y);
 		g.drawImage(thirdHeart, P_THIRDH_X, P_HEART_Y);
+		if(Game.isMulti) {
+			g.drawImage(firstHeart_P2, P2_FIRSTH_X, P2_HEART_Y);
+			g.drawImage(secondHeart_P2, P2_SECONDH_X, P2_HEART_Y);
+			g.drawImage(thirdHeart_P2, P2_THIRDH_X, P2_HEART_Y);
+		}
+		
 		g.drawImage(cookieSymbol, P_COOKIE_X, P_COOKIE_Y);
 		g.drawImage(crossSymbol, P_CROSS_X, P_CROSS_Y);
 		g.drawImage(firstNumber, P_FIRSTN_X, P_NUMBER_Y);

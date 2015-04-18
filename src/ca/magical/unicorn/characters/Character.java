@@ -90,13 +90,13 @@ public class Character {
 	        	futurX = this.x - .2f * delta;
 	        	break;
 	        case 1: 
-	        	futurX = this.x - .08f * delta;
+	        	futurX = this.x - .18f * delta;
 	        	break;
 	        case 2: 
 	        	futurX = this.x + .2f * delta;
 	        	break;
 	        case 3: 
-	        	futurX = this.x + .08f * delta;
+	        	futurX = this.x + .18f * delta;
 	        	break;
         }
         return futurX;
@@ -217,6 +217,10 @@ public class Character {
     
     public void addCookies(){
     	NBCookies ++;
+    }
+    
+    public void setCookies(int _nbCookies){
+    	NBCookies = _nbCookies;
     }
     
     public Box getBox() {

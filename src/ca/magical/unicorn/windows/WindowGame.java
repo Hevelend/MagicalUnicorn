@@ -1,5 +1,6 @@
 package ca.magical.unicorn.windows;
 
+import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer; 
 import org.newdawn.slick.Graphics;
@@ -11,6 +12,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.GameState;
 import org.newdawn.slick.state.StateBasedGame;
 
+import ca.magical.unicorn.Game;
 import ca.magical.unicorn.camera.Camera;
 import ca.magical.unicorn.characters.FatBunny;
 import ca.magical.unicorn.characters.Unicorn;
@@ -30,8 +32,8 @@ public class WindowGame extends BasicGameState {
 	protected StateBasedGame game;
 	protected GameContainer container;
 	protected Map map;
-	//protected Unicorn character;
-	protected FatBunny character;
+	protected Unicorn character = null;
+	protected FatBunny character2;
 	protected Yeti enemy;
 	protected PandaLevel2 panda;
 	protected FlyingDrop enemy1;
@@ -40,6 +42,7 @@ public class WindowGame extends BasicGameState {
 	protected boolean first_play = true;
 	private float background_volume = 0.2F;
 	private Music background;
+	private boolean check_character2 = false;
 
 	@Override
 	public int getID() {
@@ -48,48 +51,121 @@ public class WindowGame extends BasicGameState {
 	
 	@Override
     public void keyReleased(int key, char c) {
-		if(!character.isJumping()){
-		switch (key) {
-			case Input.KEY_SPACE: 
-	        	if(character.getDirection() == 0) {
-	        		character.setOldDirection(0);
-					character.setDirection(1);
-				} else if(character.getDirection() == 2){
-					character.setOldDirection(2);
-					character.setDirection(3);
+		if(!Game.isMulti) {
+			if (!Keyboard.getEventKeyState()) {
+				if(!character.isJumping()) {
+					if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
+						if(character.getDirection() == 0) {
+			        		character.setOldDirection(0);
+							character.setDirection(1);
+						} else if(character.getDirection() == 2){
+							character.setOldDirection(2);
+							character.setDirection(3);
+						}
+						character.setJumping(true);
+						character.setMoving(true);
+					} else if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
+						container.exit();
+					}
+					
+					if(Keyboard.getEventKey() == Keyboard.KEY_E) {
+						game.enterState(WisePanda.ID);
+					}
 				}
-				character.setJumping(true);
-				character.setMoving(true);
-				break;
-			case Input.KEY_ESCAPE:
-				container.exit();
-				break;
-			case Input.KEY_E:
-				if(character.getCookies() == 40) {
-					game.enterState(WisePanda.ID);
+			}
+		} else {
+			if (!Keyboard.getEventKeyState()) {
+				// Mouvement joueur 1
+				if(!character.isJumping()) {
+					if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
+						if(character.getDirection() == 0) {
+			        		character.setOldDirection(0);
+							character.setDirection(1);
+						} else if(character.getDirection() == 2){
+							character.setOldDirection(2);
+							character.setDirection(3);
+						}
+						character.setJumping(true);
+						character.setMoving(true);
+					} else if (Keyboard.getEventKey() == Keyboard.KEY_ESCAPE) {
+						container.exit();
+					}
+					
+					if(Keyboard.getEventKey() == Keyboard.KEY_E) {
+						if(character.getCookies() >= 40) {
+							game.enterState(WisePanda.ID);
+						}
+					}
 				}
-			default:
-				character.setMoving(false);
-				character.setMoveAfterJump(false);
-				break;
-		}}
+				
+				//Mouvement Joueur 2
+				if(!character2.isJumping()) {
+					if (Keyboard.getEventKey() == Keyboard.KEY_UP) {
+						if(character2.getDirection() == 0) {
+							character2.setOldDirection(0);
+							character2.setDirection(1);
+						} else if(character2.getDirection() == 2){
+							character2.setOldDirection(2);
+							character2.setDirection(3);
+						}
+						character2.setJumping(true);
+						character2.setMoving(true);
+					}
+					
+					if(Keyboard.getEventKey() == Keyboard.KEY_RCONTROL) {
+						if(character.getCookies() >= 40) {
+							game.enterState(WisePanda.ID);
+						}
+					}
+				}
+			}
+		}
     }
 	
 	@Override
 	public void keyPressed(int key, char c) {
-		if(!character.isJumping()){
-			switch (key) {
-		        case Input.KEY_LEFT: 
-		        	character.setDirection(0);
-		        	character.setMoving(true);
-		        	character.setMoveAfterJump(true);
-		        	break;
-		        case Input.KEY_RIGHT: 
-		        	character.setDirection(2);
-		        	character.setMoving(true);
-		        	character.setMoveAfterJump(true);
-			        break;
-		    }
+		if(!Game.isMulti) {
+			if (Keyboard.getEventKeyState()) {
+				if(!character.isJumping()) {
+					if (Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
+						character.setDirection(0);
+			        	character.setMoving(true);
+			        	character.setMoveAfterJump(false);
+					} else if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
+						character.setDirection(2);
+			        	character.setMoving(true);
+			        	character.setMoveAfterJump(false);
+					}
+				}
+			}
+		} else {
+			if (Keyboard.getEventKeyState()) {
+				// Mouvement Joueur 1
+				if(!character.isJumping()) {
+					if (Keyboard.getEventKey() == Keyboard.KEY_A) {
+						character.setDirection(0);
+			        	character.setMoving(true);
+			        	character.setMoveAfterJump(false);
+					} else if(Keyboard.getEventKey() == Keyboard.KEY_D) {
+						character.setDirection(2);
+			        	character.setMoving(true);
+			        	character.setMoveAfterJump(false);
+					}
+				}
+				
+				// Mouvement Joueur 2
+				if(!character2.isJumping()) {
+					if (Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
+						character2.setDirection(0);
+						character2.setMoving(true);
+						character2.setMoveAfterJump(false);
+					} else if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
+						character2.setDirection(2);
+						character2.setMoving(true);
+						character2.setMoveAfterJump(false);
+					}
+				}
+			}
 		}
 	}
 	
@@ -97,15 +173,25 @@ public class WindowGame extends BasicGameState {
     	this.container = container;
     	this.game = game;
     	this.map = new CandyWorld(); // On charge la map candyworld
-    	this.character = new FatBunny(145,642); 
+    	
+    	this.character = new Unicorn(140,575); // debug position départ licorne
+    	if(Game.isMulti) {
+    		this.character2 = new FatBunny(145,642); 
+    	}
+    	
     	this.enemy = new Yeti(330,645);
     	this.enemy1 = new FlyingDrop(450,245);
     	//this.panda = new PandaLevel1(1130,602); // debug position depart pandalevel1
     	this.panda = new PandaLevel2(1100,622); //debug position depart panda level2
-    	// this.character = new Unicorn(140,575); // debug position départ licorne
+    	
     	this.cam = new Camera(character.getX(), character.getY());
     	this.hud.init();
+    	
     	character.initCharacter();
+    	if(Game.isMulti) {
+    		character2.initCharacter();
+    	}
+    	
     	enemy.start();
     	enemy1.start();
     	background = new Music("res/toune/fluffy_unicorn.ogg");
@@ -131,10 +217,17 @@ public class WindowGame extends BasicGameState {
     	}
     	map.candyWorldRender(g);
 		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
+		if(Game.isMulti) {
+			g.drawAnimation(character2.getAnimations()[character2.getDirection() + (character2.isMoving() ? 4 : 0)], character2.getX(), character2.getY());
+    	}
 		g.drawAnimation(enemy.getAnimations()[enemy.getDirection() + (enemy.isMoving() ? 4 : 0)], enemy.getX(), enemy.getY());
 		g.drawAnimation(enemy1.getAnimations()[enemy1.getDirection() + (enemy1.isMoving() ? 4 : 0)], enemy1.getX(), enemy1.getY());
 		g.drawAnimation(panda.getAnimations()[panda.getDirection() + (panda.isMoving() ? 4 : 0)], panda.getX(), panda.getY());
-		this.hud.render(g, character.getHealth(), character.getCookies());
+		if(Game.isMulti) {
+			this.hud.render(g, character.getHealth(), character2.getHealth() ,character.getCookies());
+		} else {
+			this.hud.render(g, character.getHealth(), 0F, character.getCookies());
+		}
     }
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
@@ -142,9 +235,16 @@ public class WindowGame extends BasicGameState {
     	enemy.updateEnemy(delta);
     	enemy1.updateEnemy(delta);
 		cam.updateCamera(container, character.getX(), character.getY());
-		if(character.getHealth() <= 0F){
-			background.stop();
-			game.enterState(GameOver.ID);
+		if(Game.isMulti){
+			if(character.getHealth() <= 0F || character2.getHealth() <= 0F){
+				background.stop();
+				game.enterState(GameOver.ID);
+			}
+		} else {
+			if(character.getHealth() <= 0F){
+				background.stop();
+				game.enterState(GameOver.ID);
+			}
 		}
     }
     
@@ -153,7 +253,7 @@ public class WindowGame extends BasicGameState {
 		float futurY = character.getFuturY(delta);
 		
     	if (character.isMoving()) {
-			boolean collision = isCollision(futurX,futurY);
+			boolean collision = isCollision(futurX, futurY);
 			if (collision) {
 				if(character.isJumping()) {
 					character.setX(character.getX());
@@ -170,7 +270,37 @@ public class WindowGame extends BasicGameState {
 			}
 		}
     	
+    	if(Game.isMulti) {
+    		float futurX_P2 = character2.getFuturX(delta);
+			float futurY_P2 = character2.getFuturY(delta);
+			
+    		if (character2.isMoving()) {
+    			check_character2 = true;
+    			boolean collision = isCollision(futurX_P2,futurY_P2);
+    			if (collision) {
+    				if(character2.isJumping()) {
+    					character2.setX(character2.getX());
+    					character2.setY(character2.getY());
+    					character2.setJumping(false);;
+    					character2.setMoving(false);
+    				} else {
+    					character2.setMoving(false);
+    				}
+    			} else {
+    				character2.setX(futurX_P2);
+    				character2.setY(futurY_P2);
+    				character2.getBox().setCoord(futurX_P2, futurY_P2);
+    			}
+    			check_character2 = false;
+    		}
+    	}
+    	
     	character.applyEffects(map, character);
+    	if(Game.isMulti) {
+    		character2.applyEffects(map, character2);
+    		character.setCookies(character.getCookies() + character2.getCookies());
+    		character2.setCookies(0);
+    	}
     }
     
     private boolean isCollision(float x, float y) {
@@ -188,7 +318,11 @@ public class WindowGame extends BasicGameState {
             	collision = true;
             }
         } else {
-        	temp_x = temp_x + this.character.getWidth();
+        	if(check_character2) {
+        		temp_x = temp_x + this.character2.getWidth();
+        	} else {
+        		temp_x = temp_x + this.character.getWidth();
+        	}
         	tile = this.map.getMapTileImage((int) temp_x / tileW, (int) temp_y / tileH, logicLayer);
             collision = tile != null;
             if (collision) {

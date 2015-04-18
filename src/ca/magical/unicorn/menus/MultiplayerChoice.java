@@ -10,6 +10,8 @@ import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState; 
 import org.newdawn.slick.state.StateBasedGame;
 
+import ca.magical.unicorn.Game;
+
 public class MultiplayerChoice extends BasicGameState implements ComponentListener {
 	  public static final int ID = 6;
 	  private Image background;
@@ -17,10 +19,12 @@ public class MultiplayerChoice extends BasicGameState implements ComponentListen
 	  private MouseOverArea choice1;
 	  private MouseOverArea choice2;
 	  private MouseOverArea choice3;
+	  private GameContainer container;
 	  
 	  @Override
 	  public void init(GameContainer container, StateBasedGame game) throws SlickException {
 	    this.game = game;
+	    this.container = container;
 	    this.background= new Image("res/menu/multiplayer.png");
 	    	    
 	    //initialisation des 3 boutons
@@ -65,6 +69,13 @@ public class MultiplayerChoice extends BasicGameState implements ComponentListen
 	  @Override
 	    public void componentActivated(AbstractComponent source) {
 			if (source == choice1 || source == choice2) {
+				Game.isMulti = true;
+				try {
+					game.init(container);
+				} catch (SlickException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				game.enterState(ChoixNiveau.ID);
 		    }  else if (source == choice3) {
 		    	game.enterState(MenuJeu.ID);
