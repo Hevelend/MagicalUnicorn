@@ -46,6 +46,12 @@ public class Map {
 	public int getMapTiledWidth(){
 		return this.map.getTileWidth();
 	}
+	public int getTileID(int x, int y,int layerIndex){
+		return this.map.getTileId(x, y, layerIndex);
+	}
+	public String getTileProperty(int tileID, String str1, String str2){
+		return this.map.getTileProperty(tileID, str1, str2);
+	}
 	
 	public Image getMapTileImage(int x, int y, int layer){
 		return this.map.getTileImage(x, y, layer);

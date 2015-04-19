@@ -8,6 +8,91 @@
  </tileset>
  <tileset firstgid="889" name="solid" tilewidth="70" tileheight="70" spacing="1">
   <image source="tuiles/solid70.png" width="360" height="360"/>
+  <tile id="0">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="tileType" value="solid"/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="Background_Image" width="200" height="13">
   <data encoding="base64" compression="gzip">

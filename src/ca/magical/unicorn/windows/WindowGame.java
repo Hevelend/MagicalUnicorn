@@ -22,6 +22,9 @@ import ca.magical.unicorn.maps.Map;
 import ca.magical.unicorn.menus.GameOver;
 import ca.magical.unicorn.menus.WisePanda;
 import ca.magical.unicorn.panda.PandaLevel2;
+import ca.magical.unicorn.tile.AirTile;
+import ca.magical.unicorn.tile.SolidTile;
+import ca.magical.unicorn.tile.Tile;
 
 public class WindowGame extends BasicGameState {
 	public static final int ID = 2;
@@ -39,7 +42,8 @@ public class WindowGame extends BasicGameState {
 	private float background_volume = 0.2F;
 	private Music background;
 	private boolean check_character2 = false;
-
+	private Tile[][] tiles;
+	
 	@Override
 	public int getID() {
 		return ID;
@@ -203,8 +207,45 @@ public class WindowGame extends BasicGameState {
     	enemy.start();
     	enemy1.start();
     	background = new Music("res/toune/fluffy_unicorn.ogg");
+    	loadTileMap(); // on crée un tableau avec tout les types de tuiles
     }
 
+    private void loadTileMap() {
+		// on cree un tableau contenant toute les tuiles de la carte
+    	tiles = new Tile[map.getMapWidth()][map.getMapHeight()];
+    	
+    	int layerIndex = map.getMapLayerIndex(); // on recupere le calque solid de la map
+    	
+    	//on affiche une erreur si le calque n'existe pas
+    	 if(layerIndex == -1){
+             System.err.println("Map does not have the layer \"solid\"");
+             System.exit(0);
+         }
+  
+         //on parcourt toute la carte
+         for(int x = 0; x < map.getMapWidth(); x++){
+             for(int y = 0; y < map.getMapHeight(); y++){
+  
+                 //on récupère la tuile
+                 int tileID = map.getTileID(x, y, layerIndex);
+                 
+                 Tile tile = null;
+  
+                 //on regarde de quel type de tuile il s'agit
+                 switch(map.getTileProperty(tileID, "tileType", "solid")){
+                     case "solid":
+                         tile = new SolidTile(x,y);
+                         break;
+                     default:
+                         tile = new AirTile(x,y);
+                         break;
+                 }
+                 tiles[x][y] = tile;
+             }
+         }
+		
+	}
+    
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
     	if(first_play) {
        	 	background.loop();
