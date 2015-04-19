@@ -68,7 +68,7 @@ public class WindowGame extends BasicGameState {
 						game.enterState(WisePanda.ID);
 					}
 					
-					if(Keyboard.getEventKey() == Keyboard.KEY_A || Keyboard.getEventKey() == Keyboard.KEY_D) {
+					if(Keyboard.getEventKey() == Keyboard.KEY_LEFT || Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
 						character.setMoving(false);
 					}
 				}
