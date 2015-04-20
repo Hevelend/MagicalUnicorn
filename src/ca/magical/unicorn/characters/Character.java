@@ -21,6 +21,7 @@ public class Character {
 	protected boolean jumping = false; // True = Personnage saute
 	protected boolean moveAfterJump = false; // True = la licorne courrais avant le saut
 	protected int jumpingTimer = 0, decrementTimer = 40; // Temporisation du saut
+	protected int fallingTimer = 0, decrementFallingTimer = 40; // Temporisation falling
 	protected Animation[] animations = new Animation[8]; // Taille de l'animation
 	protected float Health = 3; // Vie du joueur
 	protected int NBCookies = 0; // Nombre de cookies du joueur
@@ -28,6 +29,7 @@ public class Character {
 	protected int width = 192, height = 142; // Dimensions de l'image
 	protected boolean passProcess = false; // Eviter certains traitement inutile
 	protected float timerEffect = 180;
+	private boolean falling = false; // True = Personnage tombe
 	
 	public Character(float _x, float _y) {
 		super();
@@ -87,16 +89,24 @@ public class Character {
         float futurX = this.x;
         switch (this.direction) {
 	        case 0: 
-	        	futurX = this.x - .2f * delta;
+	        	if(!this.falling){ 
+	        		futurX = this.x - .2f * delta;
+	        	}
 	        	break;
-	        case 1: 
-	        	futurX = this.x - .18f * delta;
+	        case 1:
+	        	if(this.jumping) {
+	        		futurX = this.x - .18f * delta;
+	        	}
 	        	break;
-	        case 2: 
-	        	futurX = this.x + .2f * delta;
+	        case 2:
+	        	if(!this.falling){ 
+	        		futurX = this.x + .2f * delta;
+	        	}
 	        	break;
 	        case 3: 
-	        	futurX = this.x + .18f * delta;
+	        	if(this.jumping) {
+	        		futurX = this.x + .18f * delta;
+	        	}
 	        	break;
         }
         return futurX;
@@ -121,6 +131,15 @@ public class Character {
 	        	decrementTimer = 40;
 	        	jumpingTimer = 0;
 	        	letMoving(delta);
+	        }
+        } else if (falling) {
+        	if(fallingTimer < 40) {
+	        	futurY = this.y + .2f * delta;
+	        	fallingTimer ++;
+	        }
+	        if(decrementFallingTimer == 0){
+	        	falling = false;
+	        	fallingTimer = 0;
 	        }
         }
         return futurY;
@@ -185,6 +204,14 @@ public class Character {
 	
 	public void setJumping(boolean jumping){
 		this.jumping = jumping;
+	}
+	
+	public boolean isFalling() {
+		return falling;
+	}
+	
+	public void setFalling(boolean falling){
+		this.falling = falling;
 	}
 	
 	public void setMoveAfterJump(boolean moveAfterJump){

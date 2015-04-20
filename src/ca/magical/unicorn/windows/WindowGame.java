@@ -55,7 +55,7 @@ public class WindowGame extends BasicGameState {
     public void keyReleased(int key, char c) {
 		if(!Game.isMulti) {
 			if (!Keyboard.getEventKeyState()) {
-				if(!character.isJumping()) {
+				if(!character.isJumping() && !character.isFalling()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
 						if(character.getDirection() == 0) {
 			        		character.setOldDirection(0);
@@ -82,7 +82,7 @@ public class WindowGame extends BasicGameState {
 		} else {
 			if (!Keyboard.getEventKeyState()) {
 				// Mouvement joueur 1
-				if(!character.isJumping()) {
+				if(!character.isJumping() && !character.isFalling()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
 						if(character.getDirection() == 0) {
 			        		character.setOldDirection(0);
@@ -109,7 +109,7 @@ public class WindowGame extends BasicGameState {
 				}
 				
 				//Mouvement Joueur 2
-				if(!character2.isJumping()) {
+				if(!character2.isJumping() && !character.isFalling()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_UP) {
 						if(character2.getDirection() == 0) {
 							character2.setOldDirection(0);
@@ -140,7 +140,7 @@ public class WindowGame extends BasicGameState {
 	public void keyPressed(int key, char c) {
 		if(!Game.isMulti) {
 			if (Keyboard.getEventKeyState()) {
-				if(!character.isJumping()) {
+				if(!character.isJumping() && !character.isFalling()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
 						character.setDirection(0);
 			        	character.setMoving(true);
@@ -155,7 +155,7 @@ public class WindowGame extends BasicGameState {
 		} else {
 			if (Keyboard.getEventKeyState()) {
 				// Mouvement Joueur 1
-				if(!character.isJumping()) {
+				if(!character.isJumping() && !character.isFalling()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_A) {
 						character.setDirection(0);
 			        	character.setMoving(true);
@@ -168,7 +168,7 @@ public class WindowGame extends BasicGameState {
 				}
 				
 				// Mouvement Joueur 2
-				if(!character2.isJumping()) {
+				if(!character2.isJumping() && !character.isFalling()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
 						character2.setDirection(0);
 						character2.setMoving(true);
@@ -188,7 +188,7 @@ public class WindowGame extends BasicGameState {
     	this.game = game;
     	this.map = new CandyWorld(); // On charge la map candyworld
     	
-    	this.character = new Unicorn(140,575); // debug position départ licorne
+    	this.character = new Unicorn(140,570); // debug position départ licorne
     	if(Game.isMulti) {
     		this.character2 = new FatBunny(145,642); 
     	}
@@ -267,9 +267,11 @@ public class WindowGame extends BasicGameState {
     	}
     	map.candyWorldRender(g);
 		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
+		character.getBox().setGraph(g);
+		character.getBox().boxRender();
 		if(Game.isMulti) {
 			g.drawAnimation(character2.getAnimations()[character2.getDirection() + (character2.isMoving() ? 4 : 0)], character2.getX(), character2.getY());
-    	}
+		}
 		g.drawAnimation(enemy.getAnimations()[enemy.getDirection() + (enemy.isMoving() ? 4 : 0)], enemy.getX(), enemy.getY());
 		g.drawAnimation(enemy1.getAnimations()[enemy1.getDirection() + (enemy1.isMoving() ? 4 : 0)], enemy1.getX(), enemy1.getY());
 		g.drawAnimation(panda.getAnimations()[panda.getDirection() + (panda.isMoving() ? 4 : 0)], panda.getX(), panda.getY());
@@ -308,7 +310,7 @@ public class WindowGame extends BasicGameState {
 				if(character.isJumping()) {
 					character.setX(character.getX());
 					character.setY(character.getY());
-					character.setJumping(false);;
+					character.setJumping(false);
 					character.setMoving(false);
 				} else {
 					character.setMoving(false);
@@ -319,6 +321,21 @@ public class WindowGame extends BasicGameState {
 				character.getBox().setCoord(futurX, futurY);
 			}
 		}
+    	
+    	if(!character.isJumping()) {
+    		gravityEffect();
+    		
+    		if(character.isFalling()) {
+        		futurY = character.getFuturY(delta);
+    		}
+    		
+    		if (character.isFalling()) {
+    			character.setX(futurX);
+    			character.setY(futurY);
+    			character.getBox().setCoord(futurX, futurY);
+    		}
+    	}
+    	
     	
     	if(Game.isMulti) {
     		float futurX_P2 = character2.getFuturX(delta);
@@ -331,7 +348,7 @@ public class WindowGame extends BasicGameState {
     				if(character2.isJumping()) {
     					character2.setX(character2.getX());
     					character2.setY(character2.getY());
-    					character2.setJumping(false);;
+    					character2.setJumping(false);
     					character2.setMoving(false);
     				} else {
     					character2.setMoving(false);
@@ -358,26 +375,76 @@ public class WindowGame extends BasicGameState {
         float temp_y = y;
         boolean collision = false;
         float tempX = ((int) temp_x) + character.getWidth();
+        float tempY = ((int) temp_y) + character.getHeight();
+        Box collider_temp;
         
         if(check_character2) {
         	tempX = ((int) temp_x) + character2.getWidth();
+        	tempY = ((int) temp_y) + character2.getHeight();
         }
         
+        // Coin haut gauche
         String tempstring = tiles[(int) temp_x / 70][(int) temp_y / 70].getClass().toString();
         tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
-        
         if(tempstring.equalsIgnoreCase("SolidTile")) {
-        	collision = true;
-        } else {
-        	tempstring = tiles[(int) tempX / 70][(int) temp_y / 70].getClass().toString();
-            tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
-            
-            if(tempstring.equalsIgnoreCase("SolidTile")) {
+        	collider_temp = new Box(temp_x, temp_y, temp_x + (character.getWidth() - 20), temp_y + (character.getHeight() - 15));
+        	if(tiles[(int) temp_x / 70][(int) temp_y / 70].getBox().collide(collider_temp)) {
+            	collision = true;
+            }
+        } 
+        
+        // Coin haut droite
+        tempstring = tiles[(int) tempX / 70][(int) temp_y / 70].getClass().toString();
+        tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
+        if(tempstring.equalsIgnoreCase("SolidTile")) {
+        	collider_temp = new Box(temp_x, temp_y, temp_x + (character.getWidth() - 20), temp_y + (character.getHeight() - 15));
+        	if(tiles[(int) tempX / 70][(int) temp_y / 70].getBox().collide(collider_temp)) {
             	collision = true;
             }
         }
-        	
+        
+        // Coin bas droite
+        tempstring = tiles[(int) tempX / 70][(int) tempY / 70].getClass().toString();
+        tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
+        if(tempstring.equalsIgnoreCase("SolidTile")) {
+        	collider_temp = new Box(temp_x, temp_y, temp_x + (character.getWidth() - 20), temp_y + (character.getHeight() - 15));
+        	if(tiles[(int) tempX / 70][(int) tempY / 70].getBox().collide(collider_temp)) {
+        		collision = true;
+            }
+        }
+        
+        // Coin bas gauche
+        tempstring = tiles[(int) temp_x / 70][(int) tempY / 70].getClass().toString();
+        tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
+        if(tempstring.equalsIgnoreCase("SolidTile")) {
+        	collider_temp = new Box(temp_x, temp_y, temp_x + (character.getWidth() - 20), temp_y + (character.getHeight() - 15));
+        	if(tiles[(int) temp_x / 70][(int) tempY / 70].getBox().collide(collider_temp)) {
+            	collision = true;
+            }
+        }
+        
         return collision;
+    }
+    
+    private void gravityEffect() {
+    	float bottomY = character.getY() + character.getHeight();
+    	float rightX = character.getX() + character.getWidth();
+    	
+    	String tempstring = tiles[(int) character.getX() / 70][((int) bottomY / 70) + 1].getClass().toString();
+        tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
+        
+    	if(!tempstring.equalsIgnoreCase("SolidTile")) {
+    		character.setMoving(true);
+    		character.setFalling(true);
+    	} else {
+    		tempstring = tiles[(int) rightX / 70][((int) bottomY / 70) +1].getClass().toString();
+            tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
+            
+            if(!tempstring.equalsIgnoreCase("SolidTile")) {
+        		character.setMoving(true);
+        		character.setFalling(true);
+            }
+    	}
     }
     
     public Unicorn getFirstPlayer() {
