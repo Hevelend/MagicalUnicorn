@@ -14,6 +14,7 @@ import ca.magical.unicorn.Game;
 import ca.magical.unicorn.camera.Camera;
 import ca.magical.unicorn.characters.FatBunny;
 import ca.magical.unicorn.characters.Unicorn;
+import ca.magical.unicorn.collision.Box;
 import ca.magical.unicorn.enemies.FlyingDrop;
 import ca.magical.unicorn.enemies.Yeti;
 import ca.magical.unicorn.hud.Hud;
@@ -235,15 +236,10 @@ public class WindowGame extends BasicGameState {
                  int tileID = map.getTileID(x, y, layerIndex);
                  
                  Tile tile = null;
-  
-                 //on regarde de quel type de tuile il s'agit
-                 switch(map.getTileProperty(tileID, "tileType", "solid")){
-                     case "solid":
-                         tile = new SolidTile(x,y);
-                         break;
-                     default:
-                         tile = new AirTile(x,y);
-                         break;
+                 if(tileID > 0) {
+                	 tile = new SolidTile(x,y);
+                 } else {
+                	 tile = new AirTile(x,y);
                  }
                  tiles[x][y] = tile;
              }
@@ -358,35 +354,29 @@ public class WindowGame extends BasicGameState {
     }
     
     private boolean isCollision(float x, float y) {
-        int tileW = map.getMapTiledWidth();
-        int tileH = map.getMapTiledHeight();
-        int logicLayer = map.getMapLayerIndex();
         float temp_x = x;
         float temp_y = y;
+        boolean collision = false;
+        float tempX = ((int) temp_x) + character.getWidth();
         
-        Image tile = this.map.getMapTileImage((int) temp_x / tileW, (int) temp_y / tileH, logicLayer);
-        boolean collision = tile != null;
-        if (collision) {
-            Color color = tile.getColor((int) temp_x % tileW, (int) temp_y % tileH);
-            if(color.getBlue() > 0 && color.getRed() > 0 && color.getGreen() > 0) {
-            	collision = true;
-            }
-        } else {
-        	if(check_character2) {
-        		temp_x = temp_x + this.character2.getWidth();
-        	} else {
-        		temp_x = temp_x + this.character.getWidth();
-        	}
-        	tile = this.map.getMapTileImage((int) temp_x / tileW, (int) temp_y / tileH, logicLayer);
-            collision = tile != null;
-            if (collision) {
-                Color color = tile.getColor((int) temp_x % tileW, (int) temp_y % tileH);
-                if(color.getBlue() > 0 && color.getRed() > 0 && color.getGreen() > 0) {
-                	collision = true;
-                }
-            }
+        if(check_character2) {
+        	tempX = ((int) temp_x) + character2.getWidth();
         }
         
+        String tempstring = tiles[(int) temp_x / 70][(int) temp_y / 70].getClass().toString();
+        tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
+        
+        if(tempstring.equalsIgnoreCase("SolidTile")) {
+        	collision = true;
+        } else {
+        	tempstring = tiles[(int) tempX / 70][(int) temp_y / 70].getClass().toString();
+            tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
+            
+            if(tempstring.equalsIgnoreCase("SolidTile")) {
+            	collision = true;
+            }
+        }
+        	
         return collision;
     }
     
