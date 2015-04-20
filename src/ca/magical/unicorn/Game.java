@@ -1,5 +1,10 @@
 package ca.magical.unicorn;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
@@ -27,6 +32,7 @@ public class Game extends StateBasedGame {
 	public static int previous_level = 0;
 	public static boolean isMulti = false;
 	public static boolean playMenuSong = true;
+	public static boolean onlineMulti = false;
  
 	public Game() {
 		super("Magical Unicorn");
@@ -38,6 +44,7 @@ public class Game extends StateBasedGame {
 		if (container instanceof AppGameContainer) { 
 		     this.container = (AppGameContainer) container; // on stocke le conteneur du jeu !
 		} 
+		
 		testWise = new WisePanda();
 		menuJeu = new MenuJeu();
 		jeu = new WindowGame(); //le jeu en lui-même !

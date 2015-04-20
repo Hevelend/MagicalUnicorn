@@ -70,6 +70,11 @@ public class MultiplayerChoice extends BasicGameState implements ComponentListen
 	    public void componentActivated(AbstractComponent source) {
 			if (source == choice1 || source == choice2) {
 				Game.isMulti = true;
+				
+				if(source == choice2){
+					Game.onlineMulti = true;
+				}
+				
 				try {
 					game.init(container);
 				} catch (SlickException e) {

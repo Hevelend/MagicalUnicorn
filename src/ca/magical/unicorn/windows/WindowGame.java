@@ -21,6 +21,7 @@ import ca.magical.unicorn.maps.CandyWorld;
 import ca.magical.unicorn.maps.Map;
 import ca.magical.unicorn.menus.GameOver;
 import ca.magical.unicorn.menus.WisePanda;
+import ca.magical.unicorn.online.OnlineMode;
 import ca.magical.unicorn.panda.PandaLevel2;
 import ca.magical.unicorn.tile.AirTile;
 import ca.magical.unicorn.tile.SolidTile;
@@ -189,6 +190,10 @@ public class WindowGame extends BasicGameState {
     	this.character = new Unicorn(140,575); // debug position départ licorne
     	if(Game.isMulti) {
     		this.character2 = new FatBunny(145,642); 
+    	}
+    	
+    	if(Game.onlineMulti) {
+    		OnlineMode onlineM = new OnlineMode(false,container,game,this);
     	}
     	
     	this.enemy = new Yeti(330,645);
