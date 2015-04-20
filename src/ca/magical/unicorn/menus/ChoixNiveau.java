@@ -24,6 +24,8 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	  private MouseOverArea niveau1;
 	  private MouseOverArea niveau2;
 	  private MouseOverArea niveau3;
+	  private MouseOverArea niveau4;
+	  private MouseOverArea niveau5;
 	  private MouseOverArea return_button;
 	  private Toune toune_thread;
 	  
@@ -45,11 +47,15 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	    
 	    //initialisation des 3 boutons
 	    niveau1 = new MouseOverArea(container, new Image("res/choixniveau/niveau0.png"), 260, 425, this);
-	    niveau1.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
+	    niveau1.setMouseOverColor(new Color(0.7f,0.7f,0.7f,1f));
 	    niveau2 = new MouseOverArea(container, new Image("res/choixniveau/niveau2bis.png"), 410,420,this);
-	    niveau2.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
+	    niveau2.setMouseOverColor(new Color(0.7f,0.7f,0.7f,1f));
 	    niveau3 = new MouseOverArea(container, new Image("res/choixniveau/niveau3.png"), 412,531,this);
-	    niveau3.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
+	    niveau3.setMouseOverColor(new Color(0.7f,0.7f,0.7f,1f));
+	    niveau4 = new MouseOverArea(container, new Image("res/choixniveau/niveau4.png"), 610,580,this);
+	    niveau4.setMouseOverColor(new Color(0.7f,0.7f,0.7f,1f));
+	    niveau5 = new MouseOverArea(container, new Image("res/choixniveau/niveau5.png"), 850,450,this);
+	    niveau5.setMouseOverColor(new Color(0.7f,0.7f,0.7f,1f));
 	    return_button = new MouseOverArea(container, new Image("res/menu/return.png"), 1150, 700,this);
 	    return_button.setMouseOverColor(new Color(0.9f,0.9f,0.9f,1f));
 	  }
@@ -61,6 +67,8 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	  @Override
 	  public void render(GameContainer container, StateBasedGame game, org.newdawn.slick.Graphics g) throws SlickException {
 	    background.draw(0, 0, container.getWidth(), container.getHeight());
+	    niveau5.render(container, g);
+	    niveau4.render(container, g);
 	    niveau3.render(container, g);
 	    niveau2.render(container, g);
         niveau1.render(container, g);
