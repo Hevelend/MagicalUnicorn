@@ -3,6 +3,8 @@ package ca.magical.unicorn.maps;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+import ca.magical.unicorn.panda.PandaLevel2;
+
 public class EnchantedForest extends Map {
 	
 	public EnchantedForest(){
@@ -11,7 +13,7 @@ public class EnchantedForest extends Map {
 			map = new TiledMap("res/map/EnchantedForest.tmx");
 		} catch (SlickException e) {
 			e.printStackTrace();
-		}
+		}		
 	}
 	
 	@Override
@@ -19,4 +21,8 @@ public class EnchantedForest extends Map {
 		
 	}
 
+	@Override
+	public void initEnemies() {	
+		this.panda = new PandaLevel2(1100,622);
+	}
 }

@@ -36,7 +36,7 @@ public class WindowGame extends BasicGameState {
 	protected Hud hud = new Hud();
 	protected boolean first_play = true;
 	private float background_volume = 0.2F;
-	private Music background;
+	protected Music background;
 	private boolean check_character2 = false;
 	private Tile[][] tiles;
 	
@@ -205,7 +205,7 @@ public class WindowGame extends BasicGameState {
     	loadTileMap(); // on crée un tableau avec tout les types de tuiles
     }
 
-    private void loadTileMap() {
+    protected void loadTileMap() {
 		// on cree un tableau contenant toute les tuiles de la carte
     	tiles = new Tile[map.getMapWidth()][map.getMapHeight()];
     	

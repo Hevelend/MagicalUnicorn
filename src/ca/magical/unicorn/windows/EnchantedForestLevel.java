@@ -1,6 +1,7 @@
 package ca.magical.unicorn.windows;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -12,6 +13,7 @@ import ca.magical.unicorn.enemies.FlyingDrop;
 import ca.magical.unicorn.enemies.Yeti;
 import ca.magical.unicorn.maps.CandyWorld;
 import ca.magical.unicorn.maps.EnchantedForest;
+import ca.magical.unicorn.online.OnlineMode;
 import ca.magical.unicorn.panda.PandaLevel2;
 
 public class EnchantedForestLevel extends WindowGame {
@@ -33,8 +35,21 @@ public class EnchantedForestLevel extends WindowGame {
     		this.character2 = new FatBunny(145,642); 
     	}
     	
+    	if(Game.onlineMulti) {
+    		OnlineMode onlineM = new OnlineMode(false,container,game,this);
+    	}
+    	
     	this.cam = new Camera(character.getX(), character.getY());
     	this.hud.init();
+    	
     	character.initCharacter();
+    	if(Game.isMulti) {
+    		character2.initCharacter();
+    	}
+    	
+    	map.startThread();
+    	
+    	background = new Music("res/toune/fluffy_unicorn.ogg");
+    	loadTileMap(); // on crée un tableau avec tout les types de tuiles
     }
 }
