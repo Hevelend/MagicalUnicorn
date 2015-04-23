@@ -294,6 +294,26 @@ public class Character {
     		}
 		}
     	
+    	if(!passProcess){
+    		for (int l = 0; l < map.getGhostList().size(); l++) {
+	    		if(map.getGhostList().get(l).getBox().collide(player.getBox())){
+	    			map.getGhostList().get(l).useEffect(player);
+	    			l = map.getGhostList().size();
+	    			passProcess = true;
+	    		}
+    		}
+		}
+    	
+    	if(!passProcess){
+    		for (int m = 0; m < map.getYetiList().size(); m++) {
+	    		if(map.getYetiList().get(m).getBox().collide(player.getBox())){
+	    			map.getYetiList().get(m).useEffect(player);
+	    			m = map.getYetiList().size();
+	    			passProcess = true;
+	    		}
+    		}
+		}
+    	
     	if(!passProcess) {
     		for (int k = 0; k < map.getGoodObjectList().size(); k++) {
 	    		if(map.getGoodObjectList().get(k).getBox().collide(player.getBox())){

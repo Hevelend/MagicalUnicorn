@@ -2,7 +2,11 @@ package ca.magical.unicorn.enemies;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
+
+import ca.magical.unicorn.characters.Character;
+import ca.magical.unicorn.collision.Box;
 
 public class Enemies extends Thread{
 	private float x, y; // Position de spawn du personnage
@@ -10,6 +14,9 @@ public class Enemies extends Thread{
 	private boolean moving = false; // True = Personnage en mouvement
 	protected Animation[] animations = new Animation[8]; // Taille de l'animation
 	protected int typeEnemy=0;
+	private Sound hurt_sound;
+	protected Box collider; // Boite de collision du cookie
+	protected int width = 64, height = 64;
 	
 	public  Enemies(float _x, float _y) {
 		super();
@@ -21,7 +28,15 @@ public class Enemies extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		
+		try {
+			hurt_sound = new Sound("res/sound/hurt_sound.ogg");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		collider = new Box(_x, _y, _x + width, _y + height);
 	}
 
     public void initEnemy() throws SlickException{
@@ -69,6 +84,7 @@ public class Enemies extends Thread{
     public void updateEnemy(int delta) {
     	float futurX = getFuturX(delta);
 		setX(futurX);
+		this.collider.setCoord(futurX, this.y);
     }
 
     public float getFuturX(int delta) {
@@ -131,5 +147,29 @@ public class Enemies extends Thread{
 	
 	public Animation renderAnim() {
 		return this.getAnimations()[this.getDirection() + (this.isMoving() ? 4 : 0)];
+	}
+	
+	public void useEffect(Character player) {
+		if(player.getTimerEffect() >= 180) {
+			player.playerDamage((float) 0.5);
+			player.setTimerEffect();
+			hurt_sound.play();
+		}
+	}
+	
+	public Box getBox() {
+		return collider;
+	}
+	
+	public void setWidth(int _width) {
+		this.width = _width;
+	}
+	
+	public void setHeight(int _height) {
+		this.height = _height;
+	}
+	
+	public void setBox(Box _box) {
+		this.collider = _box;
 	}
 }

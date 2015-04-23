@@ -3,12 +3,18 @@ package ca.magical.unicorn.enemies;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import ca.magical.unicorn.collision.Box;
+
 public class FlyingDrop extends Enemies{
 	
 	public FlyingDrop(float _x, float _y) {
 		super(_x, _y);
 		setTypeEnemy(1);
 		
+		setWidth(98);
+		setHeight(108);
+		Box boxcollide = new Box(_x, _y, _x + width, _y + height);
+		this.setBox(boxcollide);
 	}
 
 	public void initEnemy() throws SlickException{
