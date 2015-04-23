@@ -15,15 +15,12 @@ import ca.magical.unicorn.camera.Camera;
 import ca.magical.unicorn.characters.FatBunny;
 import ca.magical.unicorn.characters.Unicorn;
 import ca.magical.unicorn.collision.Box;
-import ca.magical.unicorn.enemies.FlyingDrop;
-import ca.magical.unicorn.enemies.Yeti;
 import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
 import ca.magical.unicorn.maps.Map;
 import ca.magical.unicorn.menus.GameOver;
 import ca.magical.unicorn.menus.WisePanda;
 import ca.magical.unicorn.online.OnlineMode;
-import ca.magical.unicorn.panda.PandaLevel2;
 import ca.magical.unicorn.tile.AirTile;
 import ca.magical.unicorn.tile.SolidTile;
 import ca.magical.unicorn.tile.Tile;
@@ -35,9 +32,6 @@ public class WindowGame extends BasicGameState {
 	protected Map map;
 	protected Unicorn character = null;
 	protected FatBunny character2;
-	protected Yeti enemy;
-	protected PandaLevel2 panda;
-	protected FlyingDrop enemy1;
 	protected Camera cam;
 	protected Hud hud = new Hud();
 	protected boolean first_play = true;
@@ -197,11 +191,6 @@ public class WindowGame extends BasicGameState {
     		OnlineMode onlineM = new OnlineMode(false,container,game,this);
     	}
     	
-    	this.enemy = new Yeti(330,645);
-    	this.enemy1 = new FlyingDrop(450,245);
-    	//this.panda = new PandaLevel1(1130,602); // debug position depart pandalevel1
-    	this.panda = new PandaLevel2(1100,622); //debug position depart panda level2
-    	
     	this.cam = new Camera(character.getX(), character.getY());
     	this.hud.init();
     	
@@ -210,8 +199,8 @@ public class WindowGame extends BasicGameState {
     		character2.initCharacter();
     	}
     	
-    	enemy.start();
-    	enemy1.start();
+    	map.startThread();
+    	
     	background = new Music("res/toune/fluffy_unicorn.ogg");
     	loadTileMap(); // on crée un tableau avec tout les types de tuiles
     }
@@ -272,9 +261,7 @@ public class WindowGame extends BasicGameState {
 		if(Game.isMulti) {
 			g.drawAnimation(character2.getAnimations()[character2.getDirection() + (character2.isMoving() ? 4 : 0)], character2.getX(), character2.getY());
 		}
-		g.drawAnimation(enemy.getAnimations()[enemy.getDirection() + (enemy.isMoving() ? 4 : 0)], enemy.getX(), enemy.getY());
-		g.drawAnimation(enemy1.getAnimations()[enemy1.getDirection() + (enemy1.isMoving() ? 4 : 0)], enemy1.getX(), enemy1.getY());
-		g.drawAnimation(panda.getAnimations()[panda.getDirection() + (panda.isMoving() ? 4 : 0)], panda.getX(), panda.getY());
+		
 		if(Game.isMulti) {
 			this.hud.render(g, character.getHealth(), character2.getHealth() ,character.getCookies());
 		} else {
@@ -284,8 +271,9 @@ public class WindowGame extends BasicGameState {
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
     	updateCharacter(delta);
-    	enemy.updateEnemy(delta);
-    	enemy1.updateEnemy(delta);
+    	
+    	map.enemiesUpdate(delta);
+    	
 		cam.updateCamera(container, character.getX(), character.getY());
 		if(Game.isMulti){
 			if(character.getHealth() <= 0F || character2.getHealth() <= 0F){

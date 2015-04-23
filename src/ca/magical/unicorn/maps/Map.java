@@ -7,20 +7,28 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+import ca.magical.unicorn.enemies.Enemies;
+import ca.magical.unicorn.enemies.FlyingDrop;
+import ca.magical.unicorn.enemies.Yeti;
 import ca.magical.unicorn.menus.Toune;
 import ca.magical.unicorn.objects.CandyCane;
 import ca.magical.unicorn.objects.Cookie;
 import ca.magical.unicorn.objects.SharpWood;
 import ca.magical.unicorn.objects.Object;
+import ca.magical.unicorn.panda.PandaLevel2;
 
 public class Map {
 	protected TiledMap map;
 	protected ArrayList<Cookie> cookieList = new ArrayList<>();
 	protected ArrayList<Object> badObjectList = new ArrayList<>();
 	protected ArrayList<Object> goodObjectList = new ArrayList<>();
+	protected ArrayList<Yeti> yetiList = new ArrayList<>();
+	protected ArrayList<FlyingDrop> ghostList = new ArrayList<>();
+	protected PandaLevel2 panda;
 	
 	public Map(){		
 		initObjects();
+		initEnemies();
 	}
 
 	public TiledMap getMap() {
@@ -73,6 +81,26 @@ public class Map {
 		for (int k = 0; k < goodObjectList.size(); k++) {
 			goodObjectList.get(k).objectRender(g);
 		}
+		
+		for (int l = 0; l < yetiList.size(); l++) {
+			g.drawAnimation(yetiList.get(l).renderAnim(), yetiList.get(l).getX(), yetiList.get(l).getY());
+		}
+		
+		for (int m = 0; m < ghostList.size(); m++) {
+			g.drawAnimation(ghostList.get(m).renderAnim(), ghostList.get(m).getX(), ghostList.get(m).getY());
+		}
+		
+		g.drawAnimation(panda.getAnimations()[panda.getDirection() + (panda.isMoving() ? 4 : 0)], panda.getX(), panda.getY());
+	}
+	
+	public void initEnemies() {		
+		Yeti yetiti = new Yeti(330,645);
+		yetiList.add(yetiti);
+		
+		FlyingDrop ghost = new FlyingDrop(450,245);
+		ghostList.add(ghost);
+		
+		this.panda = new PandaLevel2(1100,622);
 	}
 	
 	public void initObjects() {		
@@ -194,6 +222,26 @@ public class Map {
 		goodObjectList.add(candy);
 	}
 	
+	public void startThread() {
+		for (int l = 0; l < yetiList.size(); l++) {
+			yetiList.get(l).start();
+		}
+		
+		for (int m = 0; m < ghostList.size(); m++) {
+			ghostList.get(m).start();
+		}
+	}
+	
+	public void enemiesUpdate(int delta) {
+		for (int l = 0; l < yetiList.size(); l++) {
+			yetiList.get(l).updateEnemy(delta);
+		}
+		
+		for (int m = 0; m < ghostList.size(); m++) {
+			ghostList.get(m).updateEnemy(delta);
+		}
+	}
+	
 	public ArrayList<Cookie> getCookieList() {
 		return cookieList;
 	}
@@ -208,5 +256,21 @@ public class Map {
 	
 	public void setCookieList(ArrayList<Cookie> _cookieList) {
 		cookieList = _cookieList;
+	}
+	
+	public ArrayList<Yeti> getYetiList() {
+		return yetiList;
+	}
+	
+	public ArrayList<FlyingDrop> getGhostList() {
+		return ghostList;
+	}
+	
+	public void setYetiList(ArrayList<Yeti> _yetiList) {
+		yetiList = _yetiList;
+	}
+	
+	public void setGhostList(ArrayList<FlyingDrop> _ghostList) {
+		ghostList = _ghostList;
 	}
 }

@@ -33,15 +33,8 @@ public class EnchantedForestLevel extends WindowGame {
     		this.character2 = new FatBunny(145,642); 
     	}
     	
-    	this.enemy = new Yeti(330,645);
-    	this.enemy1 = new FlyingDrop(450,245);
-    	//this.panda = new PandaLevel1(1130,602); // debug position depart pandalevel1
-    	this.panda = new PandaLevel2(1100,622); //debug position depart panda level2
-    	// this.character = new Unicorn(140,575); // debug position départ licorne
     	this.cam = new Camera(character.getX(), character.getY());
     	this.hud.init();
     	character.initCharacter();
-    	enemy.start();
-    	enemy1.start();
     }
 }

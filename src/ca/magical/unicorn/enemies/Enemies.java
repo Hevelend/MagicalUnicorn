@@ -116,13 +116,20 @@ public class Enemies extends Thread{
 	public void setMoving(boolean moving){
 		this.moving = moving;
 	}
+	
 	public Animation[] getAnimations() {
 		return animations;
 	}
+	
 	public void setTypeEnemy(int typeEnemy){
 		this.typeEnemy = typeEnemy;
 	}
+	
 	public int getTypeEnemy(){
 		return typeEnemy;
+	}
+	
+	public Animation renderAnim() {
+		return this.getAnimations()[this.getDirection() + (this.isMoving() ? 4 : 0)];
 	}
 }
