@@ -256,8 +256,8 @@ public class WindowGame extends BasicGameState {
     	}
     	map.candyWorldRender(g);
 		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
-		character.getBox().setGraph(g);
-		character.getBox().boxRender();
+//		character.getBox().setGraph(g);
+//		character.getBox().boxRender();
 		if(Game.isMulti) {
 			g.drawAnimation(character2.getAnimations()[character2.getDirection() + (character2.isMoving() ? 4 : 0)], character2.getX(), character2.getY());
 		}

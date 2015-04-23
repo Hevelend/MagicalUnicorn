@@ -3,15 +3,15 @@
  <tileset firstgid="1" name="CandyWorld_Sheet" tilewidth="70" tileheight="70">
   <image source="tuiles/CandyWorld_Sheet.png" width="980" height="490"/>
  </tileset>
- <tileset firstgid="124" name="tile" tilewidth="70" tileheight="70">
-  <image source="tuiles/tile.png" width="2204" height="717"/>
- </tileset>
  <tileset firstgid="99" name="solid70" tilewidth="70" tileheight="70">
   <image source="tuiles/solid70.png" width="360" height="360"/>
  </tileset>
+ <tileset firstgid="124" name="background_image" tilewidth="70" tileheight="70">
+  <image source="tuiles/tile.png" width="2204" height="717"/>
+ </tileset>
  <layer name="Background_image" width="1000" height="13">
   <data encoding="base64" compression="gzip">
-   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
+   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
   </data>
  </layer>
  <layer name="background" width="1000" height="13">
