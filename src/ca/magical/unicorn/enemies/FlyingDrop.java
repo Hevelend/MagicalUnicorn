@@ -29,5 +29,12 @@ public class FlyingDrop extends Enemies{
         this.animations[7] = loadAnimation(mySpriteSheet, 1, 4, 3);
     }
 	
-	
+	@Override
+	 public void updateEnemy(int delta) {
+    	float futurX = getFuturX(delta);
+    	float futurY = getFuturY(delta);
+		setX(futurX);
+		setY(futurY);
+		this.collider.setCoord(futurX, futurY);
+    }
 }

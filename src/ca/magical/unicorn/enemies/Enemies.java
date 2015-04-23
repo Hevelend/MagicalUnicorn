@@ -17,6 +17,7 @@ public class Enemies extends Thread{
 	private Sound hurt_sound;
 	protected Box collider; // Boite de collision du cookie
 	protected int width = 64, height = 64;
+	protected int timerTemp = 0;
 	
 	public  Enemies(float _x, float _y) {
 		super();
@@ -61,15 +62,15 @@ public class Enemies extends Thread{
     }
     
     public void run(){
-    	while(true){   
-    			setMoving(true);
-    			setDirection(2);
-				restTime();
-				setDirection(0);
-				restTime();
-    		
+    	while(true){
+			setMoving(true);
+			setDirection(2);
+			restTime();
+			setDirection(0);
+			restTime();
     	}
     }
+    
     public void restTime(){
     	try {
     		if (getTypeEnemy() == 1) //si c'est FlyingDrop
@@ -81,6 +82,7 @@ public class Enemies extends Thread{
 			e.printStackTrace();
 		}
     }
+    
     public void updateEnemy(int delta) {
     	float futurX = getFuturX(delta);
 		setX(futurX);
@@ -106,6 +108,34 @@ public class Enemies extends Thread{
         return futurX;
     }
     
+    public float getFuturY(int delta) {
+        float futurY = this.y;
+        switch (this.direction) {
+	        case 0: 
+	        	if(timerTemp > 50) {
+	        		futurY = this.y - .05f * delta;
+	        	} else {
+	        		futurY = this.y + .05f * delta;
+	        	}
+	        	break;
+	        case 2: 
+	        	if(timerTemp > 50) {
+	        		futurY = this.y + .05f * delta;
+	        	} else {
+	        		futurY = this.y - .05f * delta;
+	        	}
+	        	break;
+        }
+        
+        if(timerTemp >= 100) {
+        	timerTemp = 0;
+        } else {
+        	timerTemp ++;
+        }
+        
+        return futurY;
+    }
+    
 	public float getX() {
 		return x;
 	}
@@ -113,8 +143,13 @@ public class Enemies extends Thread{
 	public float getY() {
 		return y;
 	}
+	
 	public void setX(float x) {
 		this.x = x;
+	}
+	
+	public void setY(float _y) {
+		this.y = _y;
 	}
 
 	public int getDirection() {
