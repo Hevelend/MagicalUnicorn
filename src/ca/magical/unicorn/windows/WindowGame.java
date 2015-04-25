@@ -1,10 +1,11 @@
 package ca.magical.unicorn.windows;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.lwjgl.input.Keyboard;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer; 
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -14,7 +15,7 @@ import ca.magical.unicorn.Game;
 import ca.magical.unicorn.camera.Camera;
 import ca.magical.unicorn.characters.FatBunny;
 import ca.magical.unicorn.characters.Unicorn;
-import ca.magical.unicorn.collision.Box;
+import ca.magical.unicorn.enums.Gravity;
 import ca.magical.unicorn.hud.Hud;
 import ca.magical.unicorn.maps.CandyWorld;
 import ca.magical.unicorn.maps.Map;
@@ -26,19 +27,18 @@ import ca.magical.unicorn.tile.SolidTile;
 import ca.magical.unicorn.tile.Tile;
 
 public class WindowGame extends BasicGameState {
-	public static final int ID = 2;
-	protected StateBasedGame game;
-	protected GameContainer container;
-	protected Map map;
-	protected Unicorn character = null;
-	protected FatBunny character2;
-	protected Camera cam;
-	protected Hud hud = new Hud();
-	protected boolean first_play = true;
-	private float background_volume = 0.2F;
-	protected Music background;
-	private boolean check_character2 = false;
-	private Tile[][] tiles;
+	public static final int 	ID = 2;
+	protected StateBasedGame	game;
+	protected GameContainer 	container;
+	protected Map 				map;
+	protected Unicorn 			character = null;
+	protected FatBunny 			character2;
+	protected Camera 			cam;
+	protected Hud 				hud = new Hud();
+	protected boolean 			first_play = true;
+	private float 				background_volume = 0.2F;
+	protected Music 			background;
+	private Tile[][] 			tiles;
 	
 	@Override
 	public int getID() {
@@ -51,11 +51,20 @@ public class WindowGame extends BasicGameState {
 			if (!Keyboard.getEventKeyState()) {
 				if(!character.isJumping() && !character.isFalling()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
-						if(character.getDirection() == 0) {
+						if (character.getDirection() == -1){
+							character.setOldDirection(2);
+							character.setDirection(3);
+						} else if(character.getDirection() == 0) {
 			        		character.setOldDirection(0);
+							character.setDirection(1);
+						} else if(character.getDirection() == 1){
+							character.setOldDirection(1);
 							character.setDirection(1);
 						} else if(character.getDirection() == 2){
 							character.setOldDirection(2);
+							character.setDirection(3);
+						} else if(character.getDirection() == 3){
+							character.setOldDirection(3);
 							character.setDirection(3);
 						}
 						character.setJumping(true);
@@ -69,7 +78,9 @@ public class WindowGame extends BasicGameState {
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_LEFT || Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
+						character.setOldDirection(character.getDirection());
 						character.setMoving(false);
+						character.setDirection(-1);
 					}
 				}
 			}
@@ -78,11 +89,21 @@ public class WindowGame extends BasicGameState {
 				// Mouvement joueur 1
 				if(!character.isJumping() && !character.isFalling()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
-						if(character.getDirection() == 0) {
+						if (character.getDirection() == -1){
+							character.setOldDirection(2);
+							character.setDirection(3);
+						}
+						else if(character.getDirection() == 0) {
 			        		character.setOldDirection(0);
+							character.setDirection(1);
+						} else if(character.getDirection() == 1){
+							character.setOldDirection(1);
 							character.setDirection(1);
 						} else if(character.getDirection() == 2){
 							character.setOldDirection(2);
+							character.setDirection(3);
+						} else if(character.getDirection() == 3){
+							character.setOldDirection(3);
 							character.setDirection(3);
 						}
 						character.setJumping(true);
@@ -98,7 +119,9 @@ public class WindowGame extends BasicGameState {
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_A || Keyboard.getEventKey() == Keyboard.KEY_D) {
+						character.setOldDirection(character.getDirection());
 						character.setMoving(false);
+						character.setDirection(-1);
 					}
 				}
 				
@@ -124,6 +147,7 @@ public class WindowGame extends BasicGameState {
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT || Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
 						character2.setMoving(false);
+						character.setDirection(-1);
 					}
 				}
 			}
@@ -181,7 +205,6 @@ public class WindowGame extends BasicGameState {
     	this.container = container;
     	this.game = game;
     	this.map = new CandyWorld(); // On charge la map candyworld
-    	
     	this.character = new Unicorn(140,570); // debug position départ licorne
     	if(Game.isMulti) {
     		this.character2 = new FatBunny(145,642); 
@@ -198,9 +221,7 @@ public class WindowGame extends BasicGameState {
     	if(Game.isMulti) {
     		character2.initCharacter();
     	}
-    	
     	map.startThread();
-    	
     	background = new Music("res/toune/fluffy_unicorn.ogg");
     	loadTileMap(); // on crée un tableau avec tout les types de tuiles
     }
@@ -255,13 +276,37 @@ public class WindowGame extends BasicGameState {
     		}
     	}
     	map.candyWorldRender(g);
-		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
-//		character.getBox().setGraph(g);
-//		character.getBox().boxRender();
+    	
+    	try{
+    		if (character.getDirection() == 4){
+    			g.drawAnimation(character.getAnimations()[character.getOldDirection()], character.getX(), character.getY());
+    			System.out.println("Bug de merde, y en a assez fraté");
+    		}else{
+    		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
+    		}
+    	}catch( ArrayIndexOutOfBoundsException e){
+    		System.out.println("encore un fail");
+    		System.out.println("resultat get direction:"+character.getDirection());
+    	}
+    	
+    	/*
+    	if (character.getDirection() == -1 || character.getDirection() == 4) {
+    		System.out.println("ici bas baby"+character.getDirection());
+    		g.drawAnimation(character.getAnimations()[character.getOldDirection()], character.getX(), character.getY());
+    		System.out.println("test");
+    	} else if(character.getDirection()>-1 && character.getDirection()<4){
+    	
+    		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
+    	} else{
+    		g.drawAnimation(character.getAnimations()[character.getOldDirection()], character.getX(), character.getY());
+    		System.out.println("test");
+    		System.out.println("bug");
+    	}*/
+		character.getBox().setGraph(g);
+		character.getBox().boxRender();
 		if(Game.isMulti) {
 			g.drawAnimation(character2.getAnimations()[character2.getDirection() + (character2.isMoving() ? 4 : 0)], character2.getX(), character2.getY());
 		}
-		
 		if(Game.isMulti) {
 			this.hud.render(g, character.getHealth(), character2.getHealth() ,character.getCookies());
 		} else {
@@ -271,9 +316,7 @@ public class WindowGame extends BasicGameState {
 
     public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
     	updateCharacter(delta);
-    	
     	map.enemiesUpdate(delta);
-    	
 		cam.updateCamera(container, character.getX(), character.getY());
 		if(Game.isMulti){
 			if(character.getHealth() <= 0F || character2.getHealth() <= 0F){
@@ -288,130 +331,120 @@ public class WindowGame extends BasicGameState {
 		}
     }
     
-    private void updateCharacter(int delta) {
-    	float futurX = character.getFuturX(delta);
-		float futurY = character.getFuturY(delta);
+    private void updateCharacter(ca.magical.unicorn.characters.Character charac, int delta) {
+    	float futurX = charac.getFuturX(delta);
+		float futurY = charac.getFuturY(delta);
+		float acceptedX = charac.getX();
+		float acceptedY = charac.getY();
 		
-    	if (character.isMoving()) {
-			boolean collision = isCollision(futurX, futurY);
-			if (collision) {
-				if(character.isJumping()) {
-					character.setX(character.getX());
-					character.setY(character.getY());
-					character.setJumping(false);
-					character.setMoving(false);
-				} else {
-					character.setMoving(false);
+		List<Gravity> collisions = isCollision(charac, futurX, futurY);
+		
+		System.out.println("Direction récupérée: "+ charac.getDirection());
+		System.out.println("Ancienne direction: "+ charac.getOldDirection());
+		
+		charac.setFalling(!collisions.contains(Gravity.DOWN));
+				
+		switch (charac.getDirection()) {
+			case -1:
+				if(charac.getOldDirection() == 3){
+					if (!collisions.contains(Gravity.RIGHT))
+						acceptedX = futurX;
+				} else if(charac.getOldDirection() == 1){
+					if (!collisions.contains(Gravity.LEFT))
+						acceptedX = futurX;
+					if ((futurY <= acceptedY && !collisions.contains(Gravity.UP)) || (futurY > acceptedY && !collisions.contains(Gravity.DOWN)))
+						acceptedY = futurY;
+				} else if(charac.getOldDirection() == 0){
+					if (!collisions.contains(Gravity.LEFT))
+						acceptedX = futurX;
+				} else if(charac.getOldDirection() == 2){
+					if (!collisions.contains(Gravity.RIGHT))
+						acceptedX = futurX;
 				}
-			} else {
-				character.setX(futurX);
-				character.setY(futurY);
-				character.getBox().setCoord(futurX, futurY);
-			}
+			break;
+			case 0: // Gauche
+				if (!collisions.contains(Gravity.LEFT))
+					acceptedX = futurX;
+				break;
+			case 1: // Saut Gauche
+				if (!collisions.contains(Gravity.LEFT))
+					acceptedX = futurX;
+				if ((futurY <= acceptedY && !collisions.contains(Gravity.UP)) || (futurY > acceptedY && !collisions.contains(Gravity.DOWN)))
+					acceptedY = futurY;
+				break;
+			case 2: // Droite
+				if (!collisions.contains(Gravity.RIGHT))
+					acceptedX = futurX;
+				break;
+			case 3: // Saut Droite
+				if (!collisions.contains(Gravity.RIGHT))
+					acceptedX = futurX;
+				if ((futurY <= acceptedY && !collisions.contains(Gravity.UP)) || (futurY > acceptedY && !collisions.contains(Gravity.DOWN)))
+					acceptedY = futurY;
+				break;
+					
 		}
-    	
-    	if(!character.isJumping()) {
-    		gravityEffect();
-    		
-    		if(character.isFalling()) {
-        		futurY = character.getFuturY(delta);
-    		}
-    		
-    		if (character.isFalling()) {
-    			character.setX(futurX);
-    			character.setY(futurY);
-    			character.getBox().setCoord(futurX, futurY);
-    		}
-    	}
-    	
+		
+		charac.setX(acceptedX);
+		charac.setY(acceptedY);
+		
+		if (futurX == acceptedX || futurY == acceptedY) {
+			charac.setMoving(true);
+			charac.getBox().setCoord(futurX, futurY);
+		} else {
+			charac.setMoving(false);
+		}
+		
+		charac.applyEffects(map, charac);
+    }
+    
+    private void updateCharacter(int delta) {
+    	updateCharacter(character, delta);
     	
     	if(Game.isMulti) {
-    		float futurX_P2 = character2.getFuturX(delta);
-			float futurY_P2 = character2.getFuturY(delta);
-			
-    		if (character2.isMoving()) {
-    			check_character2 = true;
-    			boolean collision = isCollision(futurX_P2,futurY_P2);
-    			if (collision) {
-    				if(character2.isJumping()) {
-    					character2.setX(character2.getX());
-    					character2.setY(character2.getY());
-    					character2.setJumping(false);
-    					character2.setMoving(false);
-    				} else {
-    					character2.setMoving(false);
-    				}
-    			} else {
-    				character2.setX(futurX_P2);
-    				character2.setY(futurY_P2);
-    				character2.getBox().setCoord(futurX_P2, futurY_P2);
-    			}
-    			check_character2 = false;
-    		}
-    	}
-    	
-    	character.applyEffects(map, character);
-    	if(Game.isMulti) {
-    		character2.applyEffects(map, character2);
+    		updateCharacter(character2, delta);
     		character.setCookies(character.getCookies() + character2.getCookies());
     		character2.setCookies(0);
     	}
     }
     
-    private boolean isCollision(float x, float y) {
-        float temp_x = x;
-        float temp_y = y;
-        boolean collision = false;
-        float tempX = ((int) temp_x) + character.getWidth();
-        float tempY = ((int) temp_y) + character.getHeight();
-        Box collider_temp;
-        
-        if(check_character2) {
-        	tempX = ((int) temp_x) + character2.getWidth();
-        	tempY = ((int) temp_y) + character2.getHeight();
-        }
-        
-        // Coin haut gauche
-        String tempstring = tiles[(int) temp_x / 70][(int) temp_y / 70].getClass().toString();
+    private List<Gravity> isCollision(ca.magical.unicorn.characters.Character charac, float x, float y) {    	
+    	int minX = (int)(x / 70);
+    	int minY = (int)(y / 70);
+    	int maxX = (int)((x + charac.getWidth()) / 70);
+    	int maxY = (int)((y + charac.getHeight()) / 70);
+    	
+    	List<Gravity> collisions = new ArrayList<>(4);
+    	
+    	if (collide(minX, minY, maxX, minY)) {
+    		collisions.add(Gravity.UP);
+    	}
+    	if (collide(minX, minY, minX, maxY-1)) {
+    		collisions.add(Gravity.LEFT);
+    	}
+    	if (collide(maxX, minY, maxX, maxY-1)) {
+    		collisions.add(Gravity.RIGHT);
+    	}
+    	if (collide(minX, maxY, maxX, maxY)) {
+    		collisions.add(Gravity.DOWN);
+    	}
+    	
+    	return collisions;
+    }
+    
+    private boolean collide(int minX, int minY, int maxX, int maxY) {
+    	for (int x = minX; x <= maxX; x++) {
+    		for (int y = minY; y <= maxY; y++) {
+    			if (tileCollide(x,y)) return true;
+    		}
+    	}
+    	return false;
+    }
+    
+    private boolean tileCollide(int x, int y) {
+    	String tempstring = tiles[x][y].getClass().toString();
         tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
-        if(tempstring.equalsIgnoreCase("SolidTile")) {
-        	collider_temp = new Box(temp_x, temp_y, temp_x + (character.getWidth() - 20), temp_y + (character.getHeight() - 15));
-        	if(tiles[(int) temp_x / 70][(int) temp_y / 70].getBox().collide(collider_temp)) {
-            	collision = true;
-            }
-        } 
-        
-        // Coin haut droite
-        tempstring = tiles[(int) tempX / 70][(int) temp_y / 70].getClass().toString();
-        tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
-        if(tempstring.equalsIgnoreCase("SolidTile")) {
-        	collider_temp = new Box(temp_x, temp_y, temp_x + (character.getWidth() - 20), temp_y + (character.getHeight() - 15));
-        	if(tiles[(int) tempX / 70][(int) temp_y / 70].getBox().collide(collider_temp)) {
-            	collision = true;
-            }
-        }
-        
-        // Coin bas droite
-        tempstring = tiles[(int) tempX / 70][(int) tempY / 70].getClass().toString();
-        tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
-        if(tempstring.equalsIgnoreCase("SolidTile")) {
-        	collider_temp = new Box(temp_x, temp_y, temp_x + (character.getWidth() - 20), temp_y + (character.getHeight() - 15));
-        	if(tiles[(int) tempX / 70][(int) tempY / 70].getBox().collide(collider_temp)) {
-        		collision = true;
-            }
-        }
-        
-        // Coin bas gauche
-        tempstring = tiles[(int) temp_x / 70][(int) tempY / 70].getClass().toString();
-        tempstring = tempstring.substring(tempstring.length() - 9, tempstring.length());
-        if(tempstring.equalsIgnoreCase("SolidTile")) {
-        	collider_temp = new Box(temp_x, temp_y, temp_x + (character.getWidth() - 20), temp_y + (character.getHeight() - 15));
-        	if(tiles[(int) temp_x / 70][(int) tempY / 70].getBox().collide(collider_temp)) {
-            	collision = true;
-            }
-        }
-        
-        return collision;
+        return tempstring.equalsIgnoreCase("SolidTile");
     }
     
     private void gravityEffect() {

@@ -12,24 +12,23 @@ import org.newdawn.slick.SpriteSheet;
 
 import ca.magical.unicorn.collision.Box;
 import ca.magical.unicorn.maps.Map;
-import ca.magical.unicorn.objects.Cookie;
 
 public class Character {
-	protected float x, y; // Position de spawn du personnage
-	protected int direction = 2, oldDirection = 2; // Orientation du personnage
-	protected boolean moving = false; // True = Personnage en mouvement
-	protected boolean jumping = false; // True = Personnage saute
-	protected boolean moveAfterJump = false; // True = la licorne courrais avant le saut
-	protected int jumpingTimer = 0, decrementTimer = 40; // Temporisation du saut
-	protected int fallingTimer = 0, decrementFallingTimer = 40; // Temporisation falling
-	protected Animation[] animations = new Animation[8]; // Taille de l'animation
-	protected float Health = 3; // Vie du joueur
-	protected int NBCookies = 0; // Nombre de cookies du joueur
-	protected Box collider; // Boite de collision
-	protected int width = 192, height = 142; // Dimensions de l'image
-	protected boolean passProcess = false; // Eviter certains traitement inutile
-	protected float timerEffect = 180;
-	private boolean falling = false; // True = Personnage tombe
+	protected float				 x, y; // Position de spawn du personnage
+	protected int				direction = -1, oldDirection = 2; // Orientation du personnage
+	protected boolean 			moving = false; // True = Personnage en mouvement
+	protected boolean 			jumping = false; // True = Personnage saute
+	protected boolean 			moveAfterJump = false; // True = la licorne courrais avant le saut
+	protected int 				jumpingTimer = 0, decrementTimer = 40; // Temporisation du saut
+	protected int				fallingTimer = 0, decrementFallingTimer = 40; // Temporisation falling
+	protected Animation[] 		animations = new Animation[8]; // Taille de l'animation
+	protected float 			Health = 3; // Vie du joueur
+	protected int 				NBCookies = 0; // Nombre de cookies du joueur
+	protected Box 				collider; // Boite de collision
+	protected int 				width = 192, height = 142; // Dimensions de l'image
+	protected boolean 			passProcess = false; // Eviter certains traitement inutile
+	protected float 			timerEffect = 180;
+	private boolean 			falling = false; // True = Personnage tombe
 	
 	public Character(float _x, float _y) {
 		super();
@@ -127,10 +126,11 @@ public class Character {
 		        }
 	        }
 	        if(decrementTimer == 0 && jumpingTimer == 40){
+	        	oldDirection = direction;
+	        	direction = -1;
 	        	jumping = false;
 	        	decrementTimer = 40;
 	        	jumpingTimer = 0;
-	        	letMoving(delta);
 	        }
         } else if (falling) {
         	if(fallingTimer < 40) {
@@ -221,6 +221,10 @@ public class Character {
 	public Animation[] getAnimations() {
 		return animations;
 	}
+	
+	public int getOldDirection() {
+		return this.oldDirection;
+	}
     
     public void setOldDirection (int oldDirection){
     	this.oldDirection= oldDirection;
@@ -289,26 +293,6 @@ public class Character {
 	    		if(map.getBadObjectList().get(j).getBox().collide(player.getBox())){
 	    			map.getBadObjectList().get(j).useEffect(player);
 	    			j = map.getBadObjectList().size();
-	    			passProcess = true;
-	    		}
-    		}
-		}
-    	
-    	if(!passProcess){
-    		for (int l = 0; l < map.getGhostList().size(); l++) {
-	    		if(map.getGhostList().get(l).getBox().collide(player.getBox())){
-	    			map.getGhostList().get(l).useEffect(player);
-	    			l = map.getGhostList().size();
-	    			passProcess = true;
-	    		}
-    		}
-		}
-    	
-    	if(!passProcess){
-    		for (int m = 0; m < map.getYetiList().size(); m++) {
-	    		if(map.getYetiList().get(m).getBox().collide(player.getBox())){
-	    			map.getYetiList().get(m).useEffect(player);
-	    			m = map.getYetiList().size();
 	    			passProcess = true;
 	    		}
     		}
