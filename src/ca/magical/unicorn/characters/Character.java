@@ -137,7 +137,7 @@ public class Character {
 	        	futurY = this.y + .2f * delta;
 	        	fallingTimer ++;
 	        }
-	        if(decrementFallingTimer == 0){
+	        if(fallingTimer == 0){
 	        	falling = false;
 	        	fallingTimer = 0;
 	        }

@@ -42,7 +42,7 @@ public class WindowGame extends BasicGameState {
 	
 	@Override
 	public int getID() {
-		return ID;
+		return ID;		
 	}
 	
 	@Override
@@ -52,8 +52,13 @@ public class WindowGame extends BasicGameState {
 				if(!character.isJumping() && !character.isFalling()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
 						if (character.getDirection() == -1){
-							character.setOldDirection(2);
-							character.setDirection(3);
+							if(character.getOldDirection() == 2 || character.getOldDirection() == 3) {
+								character.setOldDirection(2);
+								character.setDirection(3);
+							} else {
+								character.setOldDirection(0);
+								character.setDirection(1);
+							}
 						} else if(character.getDirection() == 0) {
 			        		character.setOldDirection(0);
 							character.setDirection(1);
@@ -78,7 +83,9 @@ public class WindowGame extends BasicGameState {
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_LEFT || Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
-						character.setOldDirection(character.getDirection());
+						if(character.getDirection() != -1) {
+							character.setOldDirection(character.getDirection());
+						}
 						character.setMoving(false);
 						character.setDirection(-1);
 					}
@@ -277,7 +284,7 @@ public class WindowGame extends BasicGameState {
     	}
     	map.candyWorldRender(g);
     	
-    	try{
+    	/*try{
     		if (character.getDirection() == 4){
     			g.drawAnimation(character.getAnimations()[character.getOldDirection()], character.getX(), character.getY());
     			System.out.println("Bug de merde, y en a assez fraté");
@@ -287,8 +294,12 @@ public class WindowGame extends BasicGameState {
     	}catch( ArrayIndexOutOfBoundsException e){
     		System.out.println("encore un fail");
     		System.out.println("resultat get direction:"+character.getDirection());
+    	}*/
+    	if(character.getDirection() == -1) {
+    		g.drawAnimation(character.getAnimations()[character.getOldDirection()], character.getX(), character.getY());
+    	} else {
+    		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
     	}
-    	
     	/*
     	if (character.getDirection() == -1 || character.getDirection() == 4) {
     		System.out.println("ici bas baby"+character.getDirection());
