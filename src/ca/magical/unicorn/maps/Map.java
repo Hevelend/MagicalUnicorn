@@ -97,24 +97,30 @@ public class Map {
 		Yeti yetiti = new Yeti(330,645);
 		yetiList.add(yetiti);
 		
+		Yeti yetititi = new Yeti(7030,645);
+		yetiList.add(yetititi);
+		
 		FlyingDrop ghost = new FlyingDrop(450,245);
 		ghostList.add(ghost);
 		
-		this.panda = new PandaLevel2(13700,400);
+		FlyingDrop drop = new FlyingDrop(3886,245);
+		ghostList.add(drop);
+		
+		this.panda = new PandaLevel2(13700,402);
 	}
 	
 	public void initObjects() {		
-		Cookie cookie = new Cookie(783,409);
+		Cookie cookie = new Cookie(850,409);
 		cookieList.add(cookie);
-		cookie = new Cookie(864,376);
+		cookie = new Cookie(931,376);
 		cookieList.add(cookie);
-		cookie = new Cookie(943,409);
+		cookie = new Cookie(1010,409);
 		cookieList.add(cookie);
 		cookie = new Cookie(1611,315);
 		cookieList.add(cookie);
 		cookie = new Cookie(1825,419);
 		cookieList.add(cookie);
-		cookie = new Cookie(2640,437);
+		cookie = new Cookie(2558,437);
 		cookieList.add(cookie);
 		cookie = new Cookie(2652,437);
 		cookieList.add(cookie);
@@ -218,8 +224,13 @@ public class Map {
 		
 		CandyCane candy = new CandyCane(700,580);
 		goodObjectList.add(candy);
-		candy = new CandyCane(780,600);
+		candy = new CandyCane(2165,611);
 		goodObjectList.add(candy);
+		candy = new CandyCane(3715,98);
+		goodObjectList.add(candy);
+		candy = new CandyCane(9734,617);
+		goodObjectList.add(candy);
+		
 	}
 	
 	public void startThread() {
