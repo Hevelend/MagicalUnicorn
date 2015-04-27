@@ -20,7 +20,7 @@ public class Character {
 	protected boolean 			jumping = false; // True = Personnage saute
 	protected boolean 			moveAfterJump = false; // True = la licorne courrais avant le saut
 	protected int 				jumpingTimer = 0, decrementTimer = 40; // Temporisation du saut
-	protected int				fallingTimer = 0, decrementFallingTimer = 40; // Temporisation falling
+	protected int				fallingTimer = 20, decrementFallingTimer = 20; // Temporisation falling
 	protected Animation[] 		animations = new Animation[8]; // Taille de l'animation
 	protected float 			Health = 3; // Vie du joueur
 	protected int 				NBCookies = 0; // Nombre de cookies du joueur
@@ -133,12 +133,11 @@ public class Character {
 	        	jumpingTimer = 0;
 	        }
         } else if (falling) {
-        	if(fallingTimer < 40) {
+        	if(fallingTimer < 20) {
 	        	futurY = this.y + .2f * delta;
 	        	fallingTimer ++;
 	        }
-	        if(fallingTimer == 0){
-	        	falling = false;
+	        if(fallingTimer == 20){
 	        	fallingTimer = 0;
 	        }
         }
@@ -146,24 +145,24 @@ public class Character {
     }
     
     protected void letMoving(int delta) {
-		if(moving && moveAfterJump){
-	    	Robot robot;
-			try {
-				robot = new Robot();
-				if(oldDirection == 2) {
-					robot.keyRelease(KeyEvent.VK_RIGHT);
-					robot.keyPress(KeyEvent.VK_RIGHT);
-				} else {
-					robot.keyRelease(KeyEvent.VK_LEFT);
-					robot.keyPress(KeyEvent.VK_LEFT);
-				}
-			} catch (AWTException e) {
-				e.printStackTrace();
-			}
-			moveAfterJump = false;
-			this.y += .2f * delta;
-		}
-		moving = false;
+//		if(moving && moveAfterJump){
+//	    	Robot robot;
+//			try {
+//				robot = new Robot();
+//				if(oldDirection == 2) {
+//					robot.keyRelease(KeyEvent.VK_RIGHT);
+//					robot.keyPress(KeyEvent.VK_RIGHT);
+//				} else {
+//					robot.keyRelease(KeyEvent.VK_LEFT);
+//					robot.keyPress(KeyEvent.VK_LEFT);
+//				}
+//			} catch (AWTException e) {
+//				e.printStackTrace();
+//			}
+//			moveAfterJump = false;
+//			this.y += .2f * delta;
+//		}
+//		moving = false;
     }
     
 	public float getX() {

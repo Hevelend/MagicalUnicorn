@@ -350,11 +350,14 @@ public class WindowGame extends BasicGameState {
 		
 		List<Gravity> collisions = isCollision(charac, futurX, futurY);
 		
-		System.out.println("Direction récupérée: "+ charac.getDirection());
-		System.out.println("Ancienne direction: "+ charac.getOldDirection());
+		// System.out.println("Direction récupérée: "+ charac.getDirection());
+		// System.out.println("Ancienne direction: "+ charac.getOldDirection());
 		
-		charac.setFalling(!collisions.contains(Gravity.DOWN));
-				
+		if(!charac.isFalling()) {
+			charac.setFalling(!collisions.contains(Gravity.DOWN));
+		}
+		
+		if(!charac.isFalling()){
 		switch (charac.getDirection()) {
 			case -1:
 				if(charac.getOldDirection() == 3){
@@ -393,7 +396,18 @@ public class WindowGame extends BasicGameState {
 				if ((futurY <= acceptedY && !collisions.contains(Gravity.UP)) || (futurY > acceptedY && !collisions.contains(Gravity.DOWN)))
 					acceptedY = futurY;
 				break;
-					
+		}
+		} else {			
+			if(!collisions.contains(Gravity.DOWN)) {
+				acceptedX = futurX;
+				acceptedY = futurY;
+			} else {
+				if(collisions.contains(Gravity.DOWN) && charac.isFalling()) {
+					acceptedX = futurX;
+					acceptedY = futurY;
+					charac.setFalling(false);
+				}
+			}
 		}
 		
 		charac.setX(acceptedX);
