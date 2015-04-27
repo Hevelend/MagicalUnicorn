@@ -49,7 +49,7 @@ public class WindowGame extends BasicGameState {
     public void keyReleased(int key, char c) {
 		if(!Game.isMulti) {
 			if (!Keyboard.getEventKeyState()) {
-				if(!character.isJumping() && !character.isFalling()) {
+				if(!character.isJumping()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
 						if (character.getDirection() == -1){
 							if(character.getOldDirection() == 2 || character.getOldDirection() == 3) {
@@ -212,7 +212,7 @@ public class WindowGame extends BasicGameState {
     	this.container = container;
     	this.game = game;
     	this.map = new CandyWorld(); // On charge la map candyworld
-    	this.character = new Unicorn(140,570); // debug position départ licorne
+    	this.character = new Unicorn(140,568); // debug position départ licorne
     	if(Game.isMulti) {
     		this.character2 = new FatBunny(145,642); 
     	}
@@ -284,37 +284,15 @@ public class WindowGame extends BasicGameState {
     	}
     	map.candyWorldRender(g);
     	
-    	/*try{
-    		if (character.getDirection() == 4){
-    			g.drawAnimation(character.getAnimations()[character.getOldDirection()], character.getX(), character.getY());
-    			System.out.println("Bug de merde, y en a assez fraté");
-    		}else{
-    		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
-    		}
-    	}catch( ArrayIndexOutOfBoundsException e){
-    		System.out.println("encore un fail");
-    		System.out.println("resultat get direction:"+character.getDirection());
-    	}*/
     	if(character.getDirection() == -1) {
     		g.drawAnimation(character.getAnimations()[character.getOldDirection()], character.getX(), character.getY());
     	} else {
     		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
     	}
-    	/*
-    	if (character.getDirection() == -1 || character.getDirection() == 4) {
-    		System.out.println("ici bas baby"+character.getDirection());
-    		g.drawAnimation(character.getAnimations()[character.getOldDirection()], character.getX(), character.getY());
-    		System.out.println("test");
-    	} else if(character.getDirection()>-1 && character.getDirection()<4){
     	
-    		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
-    	} else{
-    		g.drawAnimation(character.getAnimations()[character.getOldDirection()], character.getX(), character.getY());
-    		System.out.println("test");
-    		System.out.println("bug");
-    	}*/
-		character.getBox().setGraph(g);
-		character.getBox().boxRender();
+//		character.getBox().setGraph(g);
+//		character.getBox().boxRender();
+    	
 		if(Game.isMulti) {
 			g.drawAnimation(character2.getAnimations()[character2.getDirection() + (character2.isMoving() ? 4 : 0)], character2.getX(), character2.getY());
 		}
@@ -350,54 +328,60 @@ public class WindowGame extends BasicGameState {
 		
 		List<Gravity> collisions = isCollision(charac, futurX, futurY);
 		
-		// System.out.println("Direction récupérée: "+ charac.getDirection());
-		// System.out.println("Ancienne direction: "+ charac.getOldDirection());
+		//System.out.println("Direction récupérée: "+ charac.getDirection());
+		//System.out.println("Ancienne direction: "+ charac.getOldDirection());
+		
+		if(collisions.contains(Gravity.LEFT) && collisions.contains(Gravity.DOWN) && charac.getDirection() == -1) {
+			collisions = isCollision(charac, futurX + 5, futurY);
+		} else if(collisions.contains(Gravity.RIGHT) && collisions.contains(Gravity.DOWN) && charac.getDirection() == -1) {
+			collisions = isCollision(charac, futurX - 5, futurY);
+		}
 		
 		if(!charac.isFalling()) {
 			charac.setFalling(!collisions.contains(Gravity.DOWN));
 		}
 		
 		if(!charac.isFalling()){
-		switch (charac.getDirection()) {
-			case -1:
-				if(charac.getOldDirection() == 3){
-					if (!collisions.contains(Gravity.RIGHT))
+			switch (charac.getDirection()) {
+				case -1:
+					if(charac.getOldDirection() == 3){
+						if (!collisions.contains(Gravity.RIGHT))
+							acceptedX = futurX;
+					} else if(charac.getOldDirection() == 1){
+						if (!collisions.contains(Gravity.LEFT))
+							acceptedX = futurX;
+						if ((futurY <= acceptedY && !collisions.contains(Gravity.UP)) || (futurY > acceptedY && !collisions.contains(Gravity.DOWN)))
+							acceptedY = futurY;
+					} else if(charac.getOldDirection() == 0){
+						if (!collisions.contains(Gravity.LEFT))
+							acceptedX = futurX;
+					} else if(charac.getOldDirection() == 2){
+						if (!collisions.contains(Gravity.RIGHT))
+							acceptedX = futurX;
+					}
+				break;
+				case 0: // Gauche
+					if (!collisions.contains(Gravity.LEFT))
 						acceptedX = futurX;
-				} else if(charac.getOldDirection() == 1){
+					break;
+				case 1: // Saut Gauche
 					if (!collisions.contains(Gravity.LEFT))
 						acceptedX = futurX;
 					if ((futurY <= acceptedY && !collisions.contains(Gravity.UP)) || (futurY > acceptedY && !collisions.contains(Gravity.DOWN)))
 						acceptedY = futurY;
-				} else if(charac.getOldDirection() == 0){
-					if (!collisions.contains(Gravity.LEFT))
-						acceptedX = futurX;
-				} else if(charac.getOldDirection() == 2){
+					break;
+				case 2: // Droite
 					if (!collisions.contains(Gravity.RIGHT))
 						acceptedX = futurX;
-				}
-			break;
-			case 0: // Gauche
-				if (!collisions.contains(Gravity.LEFT))
-					acceptedX = futurX;
-				break;
-			case 1: // Saut Gauche
-				if (!collisions.contains(Gravity.LEFT))
-					acceptedX = futurX;
-				if ((futurY <= acceptedY && !collisions.contains(Gravity.UP)) || (futurY > acceptedY && !collisions.contains(Gravity.DOWN)))
-					acceptedY = futurY;
-				break;
-			case 2: // Droite
-				if (!collisions.contains(Gravity.RIGHT))
-					acceptedX = futurX;
-				break;
-			case 3: // Saut Droite
-				if (!collisions.contains(Gravity.RIGHT))
-					acceptedX = futurX;
-				if ((futurY <= acceptedY && !collisions.contains(Gravity.UP)) || (futurY > acceptedY && !collisions.contains(Gravity.DOWN)))
-					acceptedY = futurY;
-				break;
-		}
-		} else {			
+					break;
+				case 3: // Saut Droite
+					if (!collisions.contains(Gravity.RIGHT))
+						acceptedX = futurX;
+					if ((futurY <= acceptedY && !collisions.contains(Gravity.UP)) || (futurY > acceptedY && !collisions.contains(Gravity.DOWN)))
+						acceptedY = futurY;
+					break;
+			}
+		} else {
 			if(!collisions.contains(Gravity.DOWN)) {
 				acceptedX = futurX;
 				acceptedY = futurY;
@@ -406,10 +390,10 @@ public class WindowGame extends BasicGameState {
 					acceptedX = futurX;
 					acceptedY = futurY;
 					charac.setFalling(false);
+					charac.setMoving(false);
 				}
 			}
 		}
-		
 		charac.setX(acceptedX);
 		charac.setY(acceptedY);
 		
@@ -438,6 +422,12 @@ public class WindowGame extends BasicGameState {
     	int minY = (int)(y / 70);
     	int maxX = (int)((x + charac.getWidth()) / 70);
     	int maxY = (int)((y + charac.getHeight()) / 70);
+    	String tempstring = charac.toString();
+    	tempstring = tempstring.substring(tempstring.length() - 16, tempstring.length() - 9);
+    	if(tempstring.equalsIgnoreCase("Unicorn")) {
+        	maxX = (int)((x + charac.getWidth() - 20) / 70);
+        	maxY = (int)((y + charac.getHeight() - 15) / 70);
+    	}
     	
     	List<Gravity> collisions = new ArrayList<>(4);
     	
