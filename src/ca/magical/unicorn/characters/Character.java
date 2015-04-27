@@ -28,7 +28,7 @@ public class Character {
 	protected int 				width = 192, height = 142; // Dimensions de l'image
 	protected boolean 			passProcess = false; // Eviter certains traitement inutile
 	protected float 			timerEffect = 180;
-	private boolean 			falling = false; // True = Personnage tombe
+	protected boolean 			falling = false; // True = Personnage tombe
 	
 	public Character(float _x, float _y) {
 		super();

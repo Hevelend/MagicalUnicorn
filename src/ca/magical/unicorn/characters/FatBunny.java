@@ -34,7 +34,7 @@ public class FatBunny extends Character {
     
 	@Override
     public float getFuturY(int delta) {
-        float futurY = this.y;
+		float futurY = this.y;
         if(jumping){
 	        if(jumpingTimer < 40 && decrementTimer == 40 ) {
 		        if(this.direction == 1 || this.direction == 3) {
@@ -48,31 +48,47 @@ public class FatBunny extends Character {
 		        }
 	        }
 	        if(decrementTimer == 0 && jumpingTimer == 40){
+	        	oldDirection = direction;
+	        	direction = -1;
 	        	jumping = false;
 	        	decrementTimer = 40;
 	        	jumpingTimer = 0;
-	        	letMoving(delta);
 	        }
-	        this.y += .2f * delta;
+        } else if (falling) {
+        	if(fallingTimer < 20) {
+	        	futurY = this.y + .2f * delta;
+	        	fallingTimer ++;
+	        }
+	        if(fallingTimer == 20){
+	        	fallingTimer = 0;
+	        }
         }
         return futurY;
     }
 	
 	@Override
 	public float getFuturX(int delta) {
-        float futurX = this.x;
+		float futurX = this.x;
         switch (this.direction) {
 	        case 0: 
-	        	futurX = this.x - .2f * delta;
+	        	if(!this.falling){ 
+	        		futurX = this.x - .2f * delta;
+	        	}
 	        	break;
-	        case 1: 
-	        	futurX = this.x - .12f * delta;
+	        case 1:
+	        	if(this.jumping) {
+	        		futurX = this.x - .18f * delta;
+	        	}
 	        	break;
-	        case 2: 
-	        	futurX = this.x + .2f * delta;
+	        case 2:
+	        	if(!this.falling){ 
+	        		futurX = this.x + .2f * delta;
+	        	}
 	        	break;
 	        case 3: 
-	        	futurX = this.x + .12f * delta;
+	        	if(this.jumping) {
+	        		futurX = this.x + .18f * delta;
+	        	}
 	        	break;
         }
         return futurX;

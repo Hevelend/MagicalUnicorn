@@ -79,7 +79,7 @@ public class WindowGame extends BasicGameState {
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_E) {
-						if(character.getCookies() == 40) {
+						if(character.getCookies() >= 40) {
 							game.enterState(WisePanda.ID);
 						}
 					}
@@ -96,13 +96,17 @@ public class WindowGame extends BasicGameState {
 		} else {
 			if (!Keyboard.getEventKeyState()) {
 				// Mouvement joueur 1
-				if(!character.isJumping() && !character.isFalling()) {
+				if(!character.isJumping()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_SPACE) {
 						if (character.getDirection() == -1){
-							character.setOldDirection(2);
-							character.setDirection(3);
-						}
-						else if(character.getDirection() == 0) {
+							if(character.getOldDirection() == 2 || character.getOldDirection() == 3) {
+								character.setOldDirection(2);
+								character.setDirection(3);
+							} else {
+								character.setOldDirection(0);
+								character.setDirection(1);
+							}
+						} else if(character.getDirection() == 0) {
 			        		character.setOldDirection(0);
 							character.setDirection(1);
 						} else if(character.getDirection() == 1){
@@ -128,20 +132,36 @@ public class WindowGame extends BasicGameState {
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_A || Keyboard.getEventKey() == Keyboard.KEY_D) {
-						character.setOldDirection(character.getDirection());
+						if(character.getDirection() != -1) {
+							character.setOldDirection(character.getDirection());
+						}
 						character.setMoving(false);
 						character.setDirection(-1);
 					}
 				}
 				
 				//Mouvement Joueur 2
-				if(!character2.isJumping() && !character.isFalling()) {
+				if(!character2.isJumping()) {
 					if (Keyboard.getEventKey() == Keyboard.KEY_UP) {
-						if(character2.getDirection() == 0) {
+						if (character2.getDirection() == -1){
+							if(character2.getOldDirection() == 2 || character2.getOldDirection() == 3) {
+								character2.setOldDirection(2);
+								character2.setDirection(3);
+							} else {
+								character2.setOldDirection(0);
+								character2.setDirection(1);
+							}
+						} else if(character2.getDirection() == 0) {
 							character2.setOldDirection(0);
+							character2.setDirection(1);
+						} else if(character2.getDirection() == 1){
+							character2.setOldDirection(1);
 							character2.setDirection(1);
 						} else if(character2.getDirection() == 2){
 							character2.setOldDirection(2);
+							character2.setDirection(3);
+						} else if(character2.getDirection() == 3){
+							character2.setOldDirection(3);
 							character2.setDirection(3);
 						}
 						character2.setJumping(true);
@@ -149,14 +169,17 @@ public class WindowGame extends BasicGameState {
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_RCONTROL) {
-						if(character.getCookies() >= 40) {
+						if(character.getCookies() == 40) {
 							game.enterState(WisePanda.ID);
 						}
 					}
 					
-					if(Keyboard.getEventKey() == Keyboard.KEY_RIGHT || Keyboard.getEventKey() == Keyboard.KEY_LEFT) {
+					if(Keyboard.getEventKey() == Keyboard.KEY_LEFT || Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
+						if(character2.getDirection() != -1) {
+							character2.setOldDirection(character2.getDirection());
+						}
 						character2.setMoving(false);
-						character.setDirection(-1);
+						character2.setDirection(-1);
 					}
 				}
 			}
@@ -296,7 +319,11 @@ public class WindowGame extends BasicGameState {
 //		character.getBox().boxRender();
     	
 		if(Game.isMulti) {
-			g.drawAnimation(character2.getAnimations()[character2.getDirection() + (character2.isMoving() ? 4 : 0)], character2.getX(), character2.getY());
+			if(character2.getDirection() == -1) {
+	    		g.drawAnimation(character2.getAnimations()[character2.getOldDirection()], character2.getX(), character2.getY());
+	    	} else {
+	    		g.drawAnimation(character2.getAnimations()[character2.getDirection() + (character2.isMoving() ? 4 : 0)], character2.getX(), character2.getY());
+	    	}
 		}
 		if(Game.isMulti) {
 			this.hud.render(g, character.getHealth(), character2.getHealth() ,character.getCookies());
@@ -401,7 +428,13 @@ public class WindowGame extends BasicGameState {
 		
 		if (futurX == acceptedX || futurY == acceptedY) {
 			charac.setMoving(true);
-			charac.getBox().setCoord(futurX, futurY);
+			String tempstring = charac.toString();
+	    	tempstring = tempstring.substring(tempstring.length() - 16, tempstring.length() - 9);
+	    	if(tempstring.equalsIgnoreCase("Unicorn")) {
+	    		charac.getBox().setCoord(futurX, futurY + 10);
+	    	} else {
+	    		charac.getBox().setCoord(futurX, futurY);
+	    	}
 		} else {
 			charac.setMoving(false);
 		}
@@ -428,7 +461,7 @@ public class WindowGame extends BasicGameState {
     	tempstring = tempstring.substring(tempstring.length() - 16, tempstring.length() - 9);
     	if(tempstring.equalsIgnoreCase("Unicorn")) {
         	maxX = (int)((x + charac.getWidth() - 20) / 70);
-        	maxY = (int)((y + charac.getHeight() - 15) / 70);
+        	maxY = (int)((y + charac.getHeight() - 25) / 70);
     	}
     	
     	List<Gravity> collisions = new ArrayList<>(4);
