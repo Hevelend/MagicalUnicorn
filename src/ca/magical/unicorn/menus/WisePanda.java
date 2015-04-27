@@ -89,7 +89,7 @@ public class WisePanda extends BasicGameState {
 	  public void isGood(int good){
 		  if(this.alEnigmes.get(this.enigmeAleatoire).getNumCorrect() == good){
 	    		this.alEnigmes.remove(this.enigmeAleatoire);
-	    		game.enterState(WindowGame.ID);
+	    		game.enterState(ChoixNiveau.ID);
 	    	}
 	    	else{
 	    		game.enterState(GameOver.ID);
