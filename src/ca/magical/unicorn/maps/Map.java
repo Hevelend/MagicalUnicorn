@@ -89,7 +89,7 @@ public class Map {
 		for (int m = 0; m < ghostList.size(); m++) {
 			g.drawAnimation(ghostList.get(m).renderAnim(), ghostList.get(m).getX(), ghostList.get(m).getY());
 		}
-		
+
 		g.drawAnimation(panda.getAnimations()[panda.getDirection() + (panda.isMoving() ? 4 : 0)], panda.getX(), panda.getY());
 	}
 	
@@ -100,7 +100,7 @@ public class Map {
 		FlyingDrop ghost = new FlyingDrop(450,245);
 		ghostList.add(ghost);
 		
-		this.panda = new PandaLevel2(1100,622);
+		this.panda = new PandaLevel2(13700,400);
 	}
 	
 	public void initObjects() {		

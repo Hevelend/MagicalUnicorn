@@ -79,7 +79,9 @@ public class WindowGame extends BasicGameState {
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_E) {
-						game.enterState(WisePanda.ID);
+						if(character.getCookies() == 40) {
+							game.enterState(WisePanda.ID);
+						}
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_LEFT || Keyboard.getEventKey() == Keyboard.KEY_RIGHT) {
