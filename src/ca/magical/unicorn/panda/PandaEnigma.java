@@ -4,11 +4,14 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 
+import ca.magical.unicorn.collision.Box;
+
 public class PandaEnigma {
 	private float x, y; // Position de spawn du personnage
 	protected Animation[] animations = new Animation[8]; // Taille de l'animation
 	private int direction = 0;// Orientation du personnage
 	private boolean moving = false; // True = Personnage en mouvement
+	protected Box collider;
 	
 	public  PandaEnigma(float _x, float _y) {
 		super();
@@ -20,7 +23,8 @@ public class PandaEnigma {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+		
+		collider = new Box(_x, _y, _x + 98, _y + 93);
 	}
 
     public void initPanda() throws SlickException{
@@ -70,8 +74,15 @@ public class PandaEnigma {
 		this.moving = moving;
 	}
 
-
 	public Animation[] getAnimations() {
 		return animations;
+	}
+	
+	public Box getBox() {
+		return collider;
+	}
+	
+	public void setBox(Box _box) {
+		this.collider = _box;
 	}
 }

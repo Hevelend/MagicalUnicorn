@@ -79,7 +79,7 @@ public class WindowGame extends BasicGameState {
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_E) {
-						if(character.getCookies() >= 40) {
+						if(character.getCookies() >= 40 && character.getBox().collide(map.getPanda().getBox())) {
 							game.enterState(WisePanda.ID);
 						}
 					}
@@ -126,7 +126,7 @@ public class WindowGame extends BasicGameState {
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_E) {
-						if(character.getCookies() >= 40) {
+						if(character.getCookies() >= 40 && character.getBox().collide(map.getPanda().getBox())) {
 							game.enterState(WisePanda.ID);
 						}
 					}
@@ -169,7 +169,7 @@ public class WindowGame extends BasicGameState {
 					}
 					
 					if(Keyboard.getEventKey() == Keyboard.KEY_RCONTROL) {
-						if(character.getCookies() == 40) {
+						if(character.getCookies() >= 40 && character.getBox().collide(map.getPanda().getBox())) {
 							game.enterState(WisePanda.ID);
 						}
 					}
@@ -428,13 +428,7 @@ public class WindowGame extends BasicGameState {
 		
 		if (futurX == acceptedX || futurY == acceptedY) {
 			charac.setMoving(true);
-			String tempstring = charac.toString();
-	    	tempstring = tempstring.substring(tempstring.length() - 16, tempstring.length() - 9);
-	    	if(tempstring.equalsIgnoreCase("Unicorn")) {
-	    		charac.getBox().setCoord(futurX, futurY + 10);
-	    	} else {
-	    		charac.getBox().setCoord(futurX, futurY);
-	    	}
+	    	charac.getBox().setCoord(futurX, futurY);
 		} else {
 			charac.setMoving(false);
 		}
@@ -461,7 +455,7 @@ public class WindowGame extends BasicGameState {
     	tempstring = tempstring.substring(tempstring.length() - 16, tempstring.length() - 9);
     	if(tempstring.equalsIgnoreCase("Unicorn")) {
         	maxX = (int)((x + charac.getWidth() - 20) / 70);
-        	maxY = (int)((y + charac.getHeight() - 25) / 70);
+        	maxY = (int)((y + charac.getHeight() - 15) / 70);
     	}
     	
     	List<Gravity> collisions = new ArrayList<>(4);
