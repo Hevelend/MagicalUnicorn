@@ -18,7 +18,7 @@ import ca.magical.unicorn.online.OnlineMode;
 import ca.magical.unicorn.panda.PandaLevel2;
 
 public class RubyWorldLevel extends WindowGame {
-	public static final int ID = 22;
+	public static final int ID = 23;
 	
 	@Override
 	public int getID() {
@@ -50,7 +50,7 @@ public class RubyWorldLevel extends WindowGame {
     	
     	map.startThread();
     	
-    	background = new Music("res/toune/fluffy_unicorn.ogg");
+    	//background = new Music("res/toune/fluffy_unicorn.ogg");
     	loadTileMap(); // on crée un tableau avec tout les types de tuiles
     }
 }
