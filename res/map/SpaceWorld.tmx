@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="1000" height="13" tilewidth="70" tileheight="70" nextobjectid="1">
+ <tileset firstgid="1" name="CandyWorld_Sheet" tilewidth="70" tileheight="70">
+  <image source="tuiles/CandyWorld_Sheet.png" width="980" height="490"/>
+ </tileset>
+ <tileset firstgid="99" name="solid70" tilewidth="70" tileheight="70">
+  <image source="tuiles/solid70.png" width="360" height="360"/>
+ </tileset>
+ <tileset firstgid="124" name="background_image" tilewidth="70" tileheight="70">
+  <image source="tuiles/tile.png" width="2204" height="717"/>
+ </tileset>
+ <tileset firstgid="434" name="Alien_Invasion_Space_Trip_Game_Background" tilewidth="70" tileheight="70">
+  <image source="Alien_Invasion_Space_Trip_Game_Background.png" width="1512" height="796"/>
+ </tileset>
+ <layer name="Background_image" width="1000" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3XVdNWZRxH4ed56QbpBumSrpdukVAJAenu7m4BQRrhcyjS0tJId3d3N2vPcMjxntkz6zdzHd7r8D9zJybEYomSJEnSVzjnnAtvwd39Ox6LrcY/WIO1WIf12ICN2IR/sRlbsBXbsB07sBP/YRf+itu0adOmTZs2bdqMetP/uXPOhbvg7u7h/u7FPuzHARzE/ziEwziCoziG4ziBkziF0ziDsziH3XGbNm3atGnTpk2bUW/6P3fOuXAX3N0L3N+LuITLuIKruIbruIGbuIXbuIO7uIf7eICHeITHOB+3adOmTZs2bdq0GfWm/3PnnAt3wd19yv19hud4gZd4hdd4g7d4h/f4gI/4hBhv40hAEiRFMjyJ27Rp06ZNmzZt2ox60/+5c86Fu+DupkBKpEJqpEFapEN6ZEBGZMI3yIwsyIpsyI4cyIlcSG7Tpk2bNm3atGkz8k3/5845F+6Cu5sHeZEP+VEABfEtCqEwiqAoiqE4SqAkSqE0yuA7lEVumzZt2rRp06ZNm5Fv+j93zrlwF9zd8qiAiqiEyqiCqqiG6l/ucw3URC3URh3URT3URwM0RDmbNm3atGnTpk2bkW/6P3fOuXAX3N3GaILv0RQ/oBmaowVa4kf8hJ/RCq3RBm3xC9qhPTqgkU2bNm3atGnTps3IN/2fO+dcuAvubkd0Qmd0QVd0Q3f0QE/0Qm/0QV/0Q38MwEAMwmAMwa82bdq0adOmTZs2I9/0f+6cc+EuuLvDMBwjMBKjMBpjMBbjMB4TMBGTMBlTMBXTMB0zMBNDbdq0adOmTZs2bUa+6f/cOefCXXB3Z+M3zMFczMPvmI8F+AMLsQiLsQRLsQzLsQJ/YiVWYZZNmzZt2rRp06bNyDf9nzvnXLhLTJAkSZK+zjnnXHj7DMRsU04gywAA
+  </data>
+ </layer>
+ <layer name="background" width="1000" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3BMQEAAADCoPVPbQ0PoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAeDJ9VAwoIMsAAA==
+  </data>
+ </layer>
+ <layer name="Plateau" width="1000" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3bUWqEMBAAUG9Su/+F3v90VeiClN1qYjST5D3Iz4I6GaNjzDpNAAAAAAAAAAAAAAAAAAAAAAAAAHCNx9K+awcB7PpY2ry0z8pxpGgxZtg6M4aNfwCgF1Gfa6LG1YpI+cuJJer7rFJ5jXR+WiR/6XJz1mqu7+pvC/m5OsYWcgBADP/VjJx6krLN0flF1LoWNa4UZ/twZvvH77ZrizjP7FWPz9arVuJMUaNPe8csHVPp/T3vKy3dU3ocu1HJNQDEEKkmv4sl9Xdeu2P99up3V39FXStP8ar/o4ztq/o5Sv7eSb0uRlkfLxlvyr5KvfuLUiNL14C9Y+W2knEAcM58oD3VqtdbV8wxSu+zt1pXoj81vnncrq1vW+tz1Dv0/o3qXfeynLlAC/lb1fovb+53HPPU7vXfypjoUa3cO+cA4/o60EYTaZ0xUizcx7MZKYwXAIA+mJ8DAAAAAAAAMLofkbukaCDLAAA=
+  </data>
+ </layer>
+ <layer name="solid" width="1000" height="13">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3cUW6DMAwA0N6197/D1L9tCm0TgmOT9yT/TAUcA06gWp+Px+MphBBCCCFEIwCIo+8CANBinQgQS98FAKDFOhEglr4LAECLdSJALH0XAIAW60SAWHfsu37PBGqo+PtDFXOG385cw67//TjXALH03ThZ1zVZ86oiU/1GcsmS+3+z6prp/FSkfv1Ga1a11lHjrVCfq3NcUYPM9Qa4o1l9992cceaZ4Zttej+Xba7JmlePs2OY9X1O5RpWc8e19UuVPHusWtO/O+bsnLLvL0LFnKvaqdY7jBEgE323T6Y5+SiX3r/TFvH97dXvro62raw1/l2u7avGuUv9jkTdg9XqPDPfkXfuZ9/9ZZkjZ88B3x5rNFr7BCBOb79eNV+3tptp9j6rrcM+mTGeGc+VZ9bDn9Yg/LXifEWK6mUjzwIV6vdydZ4zn6Oq3/+Vc69uVe2znPPVxwfYzej71LvLNO5MuRBn5/uPfq4X4Ap6CkAsz+cAALRYAwLE6v2/JCGEEEIIsU8AEOcH6TrOLiDLAAA=
+  </data>
+ </layer>
+</map>
