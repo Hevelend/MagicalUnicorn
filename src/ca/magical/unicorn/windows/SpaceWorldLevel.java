@@ -30,7 +30,7 @@ public class SpaceWorldLevel extends WindowGame {
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {
     	this.container = container;
     	this.game = game;
-    	this.map = new RubyWorld(); // On charge la map 
+    	this.map = new SpaceWorld(); // On charge la map 
     	
     	this.character = new Unicorn(140,575); // debug position départ licorne
     	if(Game.isMulti) {
