@@ -19,6 +19,7 @@ import ca.magical.unicorn.windows.CandyWorldLevel;
 import ca.magical.unicorn.windows.EasterIslandLevel;
 import ca.magical.unicorn.windows.EnchantedForestLevel;
 import ca.magical.unicorn.windows.RubyWorldLevel;
+import ca.magical.unicorn.windows.SpaceWorldLevel;
 import ca.magical.unicorn.windows.WindowGame;;
 
 public class Game extends StateBasedGame { 
@@ -32,6 +33,7 @@ public class Game extends StateBasedGame {
 	private EnchantedForestLevel forestlevel;
 	private RubyWorldLevel rubylevel;
 	private EasterIslandLevel easterIsland;
+	private SpaceWorldLevel spaceWorld;
 	private AppGameContainer container; // le conteneur du jeu
 	public static int previous_level = 0;
 	public static boolean isMulti = false;
@@ -58,6 +60,7 @@ public class Game extends StateBasedGame {
 		forestlevel = new EnchantedForestLevel();
 		rubylevel = new RubyWorldLevel();
 		easterIsland = new EasterIslandLevel();
+		spaceWorld = new SpaceWorldLevel();
 		multi = new MultiplayerChoice();
 		container.setShowFPS(false); //on ne veut pas voir le FPS ?? mettre alors "false" !
 		
@@ -70,6 +73,7 @@ public class Game extends StateBasedGame {
 		addState(forestlevel);
 		addState(rubylevel);
 		addState(easterIsland);
+		addState(spaceWorld);
 		addState(multi);
 	}
 	 
