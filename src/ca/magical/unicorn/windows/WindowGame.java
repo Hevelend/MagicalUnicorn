@@ -315,8 +315,8 @@ public class WindowGame extends BasicGameState {
     		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
     	}
     	
-//		character.getBox().setGraph(g);
-//		character.getBox().boxRender();
+		character.getBox().setGraph(g);
+		character.getBox().boxRender();
     	
 		if(Game.isMulti) {
 			if(character2.getDirection() == -1) {
@@ -357,8 +357,8 @@ public class WindowGame extends BasicGameState {
 		
 		List<Gravity> collisions = isCollision(charac, futurX, futurY);
 		
-		//System.out.println("Direction récupérée: "+ charac.getDirection());
-		//System.out.println("Ancienne direction: "+ charac.getOldDirection());
+//		System.out.println("Direction récupérée: "+ charac.getDirection());
+//		System.out.println("Ancienne direction: "+ charac.getOldDirection());
 		
 		if(collisions.contains(Gravity.LEFT) && collisions.contains(Gravity.DOWN) && charac.getDirection() == -1) {
 			collisions = isCollision(charac, futurX + 5, futurY);
@@ -428,7 +428,7 @@ public class WindowGame extends BasicGameState {
 		
 		if (futurX == acceptedX || futurY == acceptedY) {
 			charac.setMoving(true);
-	    	charac.getBox().setCoord(futurX, futurY);
+	    	charac.getBox().setCoord(futurX, futurY + 15);
 		} else {
 			charac.setMoving(false);
 		}
@@ -454,7 +454,7 @@ public class WindowGame extends BasicGameState {
     	String tempstring = charac.toString();
     	tempstring = tempstring.substring(tempstring.length() - 16, tempstring.length() - 9);
     	if(tempstring.equalsIgnoreCase("Unicorn")) {
-        	maxX = (int)((x + charac.getWidth() - 20) / 70);
+        	maxX = (int)((x + charac.getWidth() - 30) / 70);
         	maxY = (int)((y + charac.getHeight() - 15) / 70);
     	}
     	
