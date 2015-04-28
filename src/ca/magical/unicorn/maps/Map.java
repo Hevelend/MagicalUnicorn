@@ -106,8 +106,7 @@ public class Map {
 		FlyingDrop drop = new FlyingDrop(3886,245);
 		ghostList.add(drop);
 		
-		//this.panda = new PandaLevel2(13700,402);
-		this.panda = new PandaLevel2(1100,622);
+		this.panda = new PandaLevel2(13700,402);
 	}
 	
 	public void initObjects() {		
