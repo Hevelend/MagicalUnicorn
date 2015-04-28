@@ -21,7 +21,7 @@ public class SpaceWorld extends Map {
 		}
 	}
 	
-	@Override
+@Override
 	public void initObjects() {
 		Cookie cookie = new Cookie(534,358);
 		cookieList.add(cookie);
@@ -163,55 +163,7 @@ public class SpaceWorld extends Map {
 		cookieList.add(cookie);
 		
 		
-		SharpWood sharpwood = new SharpWood(400,650);
-		badObjectList.add(sharpwood);
-		sharpwood = new SharpWood(432,650);
-		badObjectList.add(sharpwood);
 		
-		SharpWood sharpwood1 = new SharpWood(2729,650);
-		badObjectList.add(sharpwood1);
-		sharpwood1 = new SharpWood(2761,650);
-		badObjectList.add(sharpwood1);
-		
-		SharpWood sharpwood2 = new SharpWood(5579,650);
-		badObjectList.add(sharpwood2);
-		sharpwood2 = new SharpWood(5611,650);
-		badObjectList.add(sharpwood2);
-		
-		SharpWood sharpwood3 = new SharpWood(7352,650);
-		badObjectList.add(sharpwood3);
-		sharpwood3 = new SharpWood(7384,650);
-		badObjectList.add(sharpwood3);
-		
-		SharpWood sharpwood4 = new SharpWood(12113,650);
-		badObjectList.add(sharpwood4);
-		sharpwood4 = new SharpWood(12145,650);
-		badObjectList.add(sharpwood4);
-		
-		SharpWood sharpwood5 = new SharpWood(16270,650);
-		badObjectList.add(sharpwood5);
-		sharpwood5 = new SharpWood(16302,650);
-		badObjectList.add(sharpwood5);
-		
-		SharpWood sharpwood6 = new SharpWood(18563,650);
-		badObjectList.add(sharpwood6);
-		sharpwood6 = new SharpWood(18595,650);
-		badObjectList.add(sharpwood6);
-		
-		SharpWood sharpwood7 = new SharpWood(25460,650);
-		badObjectList.add(sharpwood7);
-		sharpwood7 = new SharpWood(25492,650);
-		badObjectList.add(sharpwood7);
-		
-		SharpWood sharpwood8 = new SharpWood(28339,650);
-		badObjectList.add(sharpwood8);
-		sharpwood8 = new SharpWood(28371,650);
-		badObjectList.add(sharpwood8);
-		
-		SharpWood sharpwood9 = new SharpWood(31775,650);
-		badObjectList.add(sharpwood9);
-		sharpwood9 = new SharpWood(31807,650);
-		badObjectList.add(sharpwood9);
 		
 		CandyCane candy = new CandyCane(5449,580);
 		goodObjectList.add(candy);

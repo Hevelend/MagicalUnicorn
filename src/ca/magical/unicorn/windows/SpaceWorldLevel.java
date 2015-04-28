@@ -32,7 +32,7 @@ public class SpaceWorldLevel extends WindowGame {
     	this.game = game;
     	this.map = new SpaceWorld(); // On charge la map 
     	
-    	this.character = new Unicorn(140,575); // debug position départ licorne
+    	this.character = new Unicorn(140,455); // debug position départ licorne
     	if(Game.isMulti) {
     		this.character2 = new FatBunny(145,642); 
     	}
@@ -51,7 +51,7 @@ public class SpaceWorldLevel extends WindowGame {
     	
     	map.startThread();
     	
-    	//background = new Music("res/toune/fluffy_unicorn.ogg");
+    	background = new Music("res/toune/fluffy_unicorn.ogg");
     	loadTileMap(); // on crée un tableau avec tout les types de tuiles
     }
 }
