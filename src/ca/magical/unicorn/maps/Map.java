@@ -218,8 +218,30 @@ public class Map {
 		cookieList.add(cookie);
 		
 		SharpWood sharpwood = new SharpWood(400,650);
+		
+		sharpwood = new SharpWood(3533,650);
 		badObjectList.add(sharpwood);
-		sharpwood = new SharpWood(432,650);
+		sharpwood = new SharpWood(3565,650);
+		badObjectList.add(sharpwood);
+		
+		sharpwood = new SharpWood(4820,650);
+		badObjectList.add(sharpwood);
+		sharpwood = new SharpWood(4852,650);
+		badObjectList.add(sharpwood);
+		
+		sharpwood = new SharpWood(10022,650);
+		badObjectList.add(sharpwood);
+		sharpwood = new SharpWood(10054,650);
+		badObjectList.add(sharpwood);
+		
+		sharpwood = new SharpWood(12950,650);
+		badObjectList.add(sharpwood);
+		sharpwood = new SharpWood(12982,650);
+		badObjectList.add(sharpwood);
+		
+		sharpwood = new SharpWood(10240,650);
+		badObjectList.add(sharpwood);
+		sharpwood = new SharpWood(10272,650);
 		badObjectList.add(sharpwood);
 		
 		CandyCane candy = new CandyCane(700,580);
@@ -230,7 +252,6 @@ public class Map {
 		goodObjectList.add(candy);
 		candy = new CandyCane(9734,617);
 		goodObjectList.add(candy);
-		
 	}
 	
 	public void startThread() {
