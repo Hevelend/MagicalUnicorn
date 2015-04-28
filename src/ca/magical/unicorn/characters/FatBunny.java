@@ -115,4 +115,22 @@ public class FatBunny extends Character {
 		moving = false;
     }
 
+	@Override
+	public void neonMode() {
+    	SpriteSheet mySpriteSheet = null;
+		try {
+			mySpriteSheet = new SpriteSheet("res/character/FatBunny_SpriteSheet_neon.png", 64, 64);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		this.animations[0] = loadAnimation(mySpriteSheet, 0, 1, 0);
+        this.animations[1] = loadAnimation(mySpriteSheet, 0, 1, 1);
+        this.animations[2] = loadAnimation(mySpriteSheet, 0, 1, 2);
+        this.animations[3] = loadAnimation(mySpriteSheet, 0, 1, 3);
+        this.animations[4] = loadAnimation(mySpriteSheet, 1, 6, 0);
+        this.animations[5] = loadAnimation(mySpriteSheet, 1, 6, 1);
+        this.animations[6] = loadAnimation(mySpriteSheet, 1, 6, 2);
+        this.animations[7] = loadAnimation(mySpriteSheet, 1, 6, 3);
+    }
 }

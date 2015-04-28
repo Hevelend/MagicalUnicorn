@@ -24,4 +24,14 @@ public class CandyCane extends Object {
 	public void useEffect(Character player) {
 		player.playerCare((float) 0.5);
 	}
+	
+	@Override
+	public void neonMode() {
+		try {
+			this.objectFace = new Image("res/objects/candycane_neon.png");
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
