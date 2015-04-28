@@ -3,7 +3,6 @@ package ca.magical.unicorn.objects;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 
 import ca.magical.unicorn.collision.Box;
 import ca.magical.unicorn.characters.Character;
@@ -63,9 +62,5 @@ public class Object {
 	
 	public void setGraph(Graphics g) {
 		graph = g;
-	}
-	
-	public void neonMode() {
-		
 	}
 }

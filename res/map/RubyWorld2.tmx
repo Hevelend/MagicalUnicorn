@@ -12,6 +12,8 @@
  <tileset firstgid="412" name="solid70" tilewidth="70" tileheight="70">
   <image source="tuiles/solid70.png" width="360" height="360"/>
  </tileset>
+ <tileset firstgid="437" source="../../../tiles.tsx"/>
+ <tileset firstgid="609" source="../../../RubyGreen.tsx"/>
  <layer name="Background_image" width="1000" height="13">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+3Y2VPPURyH8d+c/5SILG1KEtKmLEUIWbKrUIlsoULRZqvIWlL2JX9Cz0U33XXxnck4zzPzun3ffuac9JBKpUuSJOmfYWZmcbbU90eSJEkLmZlZnC3jBixHGlZg5fxdWIXVyMAarMU6rEcmspCNHOQGd9xxxx133HHHHXeS2jEzszjbwA3IQz42ogCbUIjNKMIWbMU2FGM7SlCKMpQHd9xxxx133HHHHXeS2jEzszir4AbsQCWqsBO7sBt7UI0a7MU+1GI/DuAg6nAouOOOO+6444477riT1I6ZmcXZYW7AEdTjKI7hOE6gASdxCqdxBmdxDudxAY1oCu6444477rjjjjvuJLVjZmZx1swNuIhLuIwWtKINV9COq7iGDlzHDdzELdxGZ3DHHXfccccdd9xxJ6kdMzOLszvcgLu4hy50owf38QAP0Ys+PMJj9GMAgxjCcHDHHXfccccdd9xxJ6kdMzOLsyfcgKd4hud4gRGMYgwv8QrjeI03eIt3eI8PmAjuuOOOO+6444477iS1Y2ZmcTbJDfiIKXzCNGbwGV/wFd/wHT/wE7/wG38wi7/BHXfccccdd9xxx52kdszMzMzMzMzMzMzMFltWSKWykYNc/5jNzMzMzMzMlqQS3uSlKEO573MzMzMzMzP7D5oDuIG/LyDLAAA=

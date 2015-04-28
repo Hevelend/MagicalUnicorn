@@ -14,7 +14,6 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import ca.magical.unicorn.Game;
 import ca.magical.unicorn.windows.CandyWorldLevel;
-import ca.magical.unicorn.windows.EasterIslandLevel;
 import ca.magical.unicorn.windows.EnchantedForestLevel;
 import ca.magical.unicorn.windows.RubyWorldLevel;
 
@@ -108,10 +107,6 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 			    toune_thread.close();
 		    }else if(source == niveau3) {
 		    	Game.previous_level = RubyWorldLevel.ID;
-			    game.enterState(Game.previous_level);
-			    toune_thread.close();
-		    }else if(source == niveau4) {
-		    	Game.previous_level = EasterIslandLevel.ID;
 			    game.enterState(Game.previous_level);
 			    toune_thread.close();
 		    } else if(source == return_button) {
