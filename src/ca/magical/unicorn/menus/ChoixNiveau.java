@@ -16,6 +16,7 @@ import ca.magical.unicorn.Game;
 import ca.magical.unicorn.windows.CandyWorldLevel;
 import ca.magical.unicorn.windows.EnchantedForestLevel;
 import ca.magical.unicorn.windows.RubyWorldLevel;
+import ca.magical.unicorn.windows.SpaceWorldLevel;
 
 public class ChoixNiveau extends BasicGameState implements ComponentListener {
 	  public static final int ID = 5;
@@ -113,7 +114,11 @@ public class ChoixNiveau extends BasicGameState implements ComponentListener {
 		    	Game.previous_level = RubyWorldLevel.ID;
 			    game.enterState(Game.previous_level);
 			    toune_thread.close();
-		    } else if(source == return_button) {
+		    } else if(source == niveau5) {
+		    	Game.previous_level = SpaceWorldLevel.ID;
+			    game.enterState(Game.previous_level);
+			    toune_thread.close();
+		    }else if(source == return_button) {
 		    	game.enterState(MenuJeu.ID);
 		    }
 	  }	
