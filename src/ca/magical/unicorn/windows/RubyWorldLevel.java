@@ -18,7 +18,7 @@ import ca.magical.unicorn.online.OnlineMode;
 import ca.magical.unicorn.panda.PandaLevel2;
 
 public class RubyWorldLevel extends WindowGame {
-	public static final int ID = 22;
+	public static final int ID = 23;
 	
 	@Override
 	public int getID() {

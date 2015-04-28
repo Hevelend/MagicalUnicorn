@@ -78,7 +78,8 @@ public void initObjects() {
 	cookie = new Cookie(18007,557);
 	cookieList.add(cookie);
 	cookie = new Cookie(18127,557);
-	cookieList.add(cookie);cookie = new Cookie(8589,622);
+	cookieList.add(cookie);
+	cookie = new Cookie(8589,622);
 	cookieList.add(cookie);
 	cookie = new Cookie(9182,540);
 	cookieList.add(cookie);
