@@ -315,8 +315,8 @@ public class WindowGame extends BasicGameState {
     		g.drawAnimation(character.getAnimations()[character.getDirection() + (character.isMoving() ? 4 : 0)], character.getX(), character.getY());
     	}
     	
-		character.getBox().setGraph(g);
-		character.getBox().boxRender();
+//		character.getBox().setGraph(g);
+//		character.getBox().boxRender();
     	
 		if(Game.isMulti) {
 			if(character2.getDirection() == -1) {
