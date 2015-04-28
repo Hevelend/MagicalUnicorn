@@ -15,7 +15,7 @@ public class RubyWorld extends Map {
 	public RubyWorld(){
 		super();
 		try {
-			map = new TiledMap("res/map/RubyWorld2.tmx");
+			map = new TiledMap("res/map/RubyWorld.tmx");
 		} catch (SlickException e) {
 			e.printStackTrace();
 		}
